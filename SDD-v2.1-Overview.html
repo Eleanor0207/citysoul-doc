@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市靈魂 SDD v2.1 · 架構總覽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Sprint-map 配色系統:淺色紙感 */
+  --bg:#F8FAFC;         /* canvas */
+  --bg-2:#FFFFFF;       /* paper */
+  --bg-3:#F1F5F9;       /* subtle panel */
+  --ink:#0F172A;
+  --ink-2:#334155;
+  --ink-3:#64748B;
+  --line:#E2E8F0;
+  --line-2:#CBD5E1;
+
+  --brain:#7C3AED;      /* 紫 — 腦袋 */
+  --brain-2:#4C1D95;
+  --brain-bg:#F3EEFF;
+  --brain-line:#C4B5FD;
+  --body:#059669;       /* 綠 — 身體 */
+  --body-2:#064E3B;
+  --body-bg:#ECFDF5;
+  --body-line:#6EE7B7;
+  --face:#EA580C;       /* 橘 — 臉 */
+  --face-2:#7C2D12;
+  --face-bg:#FFF7ED;
+  --face-line:#FDBA74;
+  --lead:#0891B2;       /* 青 — Lead */
+  --lead-bg:#ECFEFF;
+  --lead-line:#67E8F9;
+
+  --danger:#DC2626;
+  --warn:#D97706;
+  --hold:#CA8A04;
+  --ok:#059669;
+
+  --sans:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --serif:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{min-height:100vh}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;letter-spacing:.02em;margin:0}
+h2{font-size:2rem;line-height:1.2}
+h3{font-size:1.25rem;line-height:1.3}
+h4{font-size:1rem}
+code,pre{font-family:var(--mono);font-size:.85em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* Nav */
+nav.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav.top .inner{display:flex;align-items:center;gap:24px;padding:14px 32px;max-width:1200px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+nav.top .inner::-webkit-scrollbar{display:none}
+nav.top .brand{font-family:var(--serif);font-weight:800;font-size:1.05rem;letter-spacing:.04em;white-space:nowrap;color:var(--ink)}
+nav.top .brand span{color:var(--ink-3);font-family:var(--sans);font-weight:400;font-size:.85rem;margin-left:8px}
+nav.top a.link{color:var(--ink-2);text-decoration:none;font-size:.9rem;white-space:nowrap;padding:6px 0;border-bottom:2px solid transparent;transition:.15s}
+nav.top a.link:hover{color:var(--ink);border-color:var(--line-2)}
+
+/* Hero */
+header.hero{padding:64px 0 48px;position:relative;background:var(--bg-2);border-bottom:1px solid var(--line)}
+header.hero .eyebrow{color:var(--ink-3);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:16px}
+header.hero h1{font-family:var(--serif);font-weight:800;font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.1;letter-spacing:-.01em;margin-bottom:20px;color:var(--ink)}
+header.hero h1 em{font-style:normal;color:var(--brain)}
+header.hero .sub{color:var(--ink-2);font-size:1.15rem;max-width:720px;line-height:1.6}
+header.hero .meta{display:flex;flex-wrap:wrap;gap:24px 40px;margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
+header.hero .meta .m-item{display:flex;flex-direction:column;gap:2px}
+header.hero .meta .m-label{color:var(--ink-3);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase}
+header.hero .meta .m-value{color:var(--ink);font-size:.95rem;font-weight:500}
+
+/* Section */
+section{padding:56px 0;border-top:1px solid var(--line)}
+section .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px}
+section .sec-num{font-family:var(--serif);font-weight:800;font-size:2.5rem;color:var(--ink-3);opacity:.35;font-variant-numeric:tabular-nums}
+section .sec-title h2{font-size:1.75rem;color:var(--ink)}
+section .sec-title .sec-desc{color:var(--ink-2);margin-top:8px;font-size:.95rem}
+
+/* Reusable */
+.grid{display:grid;gap:20px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:22px}
+.card.tinted-brain{background:var(--brain-bg);border-color:var(--brain-line)}
+.card.tinted-body{background:var(--body-bg);border-color:var(--body-line)}
+.card.tinted-face{background:var(--face-bg);border-color:var(--face-line)}
+.card.tinted-lead{background:var(--lead-bg);border-color:var(--lead-line)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+.pill.brain{background:var(--brain-bg);color:var(--brain-2);border:1px solid var(--brain-line)}
+.pill.body{background:var(--body-bg);color:var(--body-2);border:1px solid var(--body-line)}
+.pill.face{background:var(--face-bg);color:var(--face-2);border:1px solid var(--face-line)}
+.pill.lead{background:var(--lead-bg);color:#164E63;border:1px solid var(--lead-line)}
+.pill.danger{background:#FEF2F2;color:#991B1B;border:1px solid #FCA5A5}
+.pill.warn{background:#FFFBEB;color:#92400E;border:1px solid #FCD34D}
+.pill.hold{background:#FEFCE8;color:#854D0E;border:1px solid #FDE68A}
+.pill.ok{background:#ECFDF5;color:#065F46;border:1px solid #6EE7B7}
+.pill.ghost{background:transparent;color:var(--ink-3);border:1px solid var(--line-2)}
+
+/* Table */
+table.data{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--bg-2)}
+table.data th,table.data td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+table.data th{color:var(--ink-3);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--bg-3)}
+table.data td.mono{font-family:var(--mono);font-size:.82rem;color:var(--ink-2)}
+table.data tr:hover td{background:#FAFCFF}
+table.data td.stroke{text-decoration:line-through;color:var(--ink-3)}
+table.data td.emph{color:var(--face-2);font-weight:600}
+
+/* Flow diagram */
+.flow-row{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap}
+.flow-node{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;flex:1;min-width:160px;position:relative}
+.flow-node .n-tag{font-size:.68rem;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.flow-node .n-title{font-weight:700;color:var(--ink);font-size:.95rem;margin-bottom:4px}
+.flow-node .n-body{font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.flow-arrow{display:flex;align-items:center;color:var(--ink-3);font-size:1.4rem;padding:0 2px}
+
+/* Timeline */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--warn),var(--brain) 30%,var(--body) 60%,var(--face));border-radius:2px}
+.tl-item{position:relative;padding:12px 0 24px}
+.tl-item::before{content:"";position:absolute;left:-24px;top:20px;width:14px;height:14px;border-radius:50%;background:var(--bg-2);border:2px solid var(--body)}
+.tl-item.phase-0::before{border-color:var(--warn)}
+.tl-item.phase-1::before,.tl-item.phase-2::before{border-color:var(--brain)}
+.tl-item.phase-3::before,.tl-item.phase-4::before{border-color:var(--body)}
+.tl-item.phase-5::before,.tl-item.phase-6::before,.tl-item.phase-7::before{border-color:var(--face)}
+.tl-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.tl-head h3{font-size:1.1rem;color:var(--ink)}
+.tl-dur{color:var(--ink-3);font-size:.82rem;font-family:var(--mono)}
+.tl-body{color:var(--ink-2);font-size:.9rem;line-height:1.7}
+
+/* Callout */
+.callout{background:#FEF2F2;border-left:3px solid var(--danger);padding:14px 18px;border-radius:0 8px 8px 0;font-size:.9rem;color:var(--ink-2)}
+.callout.warn{background:#FFFBEB;border-left-color:var(--warn)}
+.callout.hold{background:#FEFCE8;border-left-color:var(--hold)}
+.callout.ok{background:#ECFDF5;border-left-color:var(--ok)}
+.callout strong{color:var(--ink)}
+
+/* Small utils */
+.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}.mt-32{margin-top:32px}.mt-40{margin-top:40px}
+.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}.mb-24{margin-bottom:24px}
+.text-2{color:var(--ink-2)}.text-3{color:var(--ink-3)}
+.k{color:var(--body-2);font-weight:600}
+.kn{color:var(--brain-2);font-weight:600}
+.kf{color:var(--face-2);font-weight:600}
+.kl{color:#164E63;font-weight:600}
+hr.soft{border:none;border-top:1px solid var(--line);margin:32px 0}
+
+footer{padding:48px 0 64px;text-align:center;color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);margin-top:32px;background:var(--bg-2)}
+footer .foot-title{font-family:var(--serif);color:var(--ink-2);font-size:1rem;margin-bottom:8px;font-weight:700}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="inner">
+    <div class="brand">城市靈魂 · SDD v2.1<span>Unity 3D · 2026-08-05</span></div>
+    <a class="link" href="#pivots">推翻對照</a>
+    <a class="link" href="#modules">三大模組</a>
+    <a class="link" href="#dataflow">資料流程</a>
+    <a class="link" href="#api">API 契約</a>
+    <a class="link" href="#internal">內部介面</a>
+    <a class="link" href="#schedule">Sprint 排程</a>
+    <a class="link" href="#3dof">3DoF 疊層</a>
+    <a class="link" href="#pipeline">資產產線</a>
+    <a class="link" href="#shader">靈魂 shader</a>
+    <a class="link" href="#risk">風險</a>
+    <a class="link" href="#ac">驗收</a>
+    <a class="link" href="#gaps">缺口</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">System Design Document · Version 2.1</div>
+    <h1>城市靈魂<br><em>Unity 6 × 3D 角色 × 3DoF 感測器疊層</em></h1>
+    <p class="sub">從 Flutter + 2.5D 立牌到 Unity + 3D 角色的完整改版。客戶端全面重寫,後端與業務規則不動。7 個垂直切片階段、約 27 個 3 天 Sprint、約 16 週抵達封測。</p>
+    <div class="meta">
+      <div class="m-item"><span class="m-label">Client</span><span class="m-value">Unity 6 (URP) · ARM64</span></div>
+      <div class="m-item"><span class="m-label">Rendering</span><span class="m-value">3D mesh + skeletal · 3DoF</span></div>
+      <div class="m-item"><span class="m-label">Lip Sync</span><span class="m-value">uLipSync 客戶端即時</span></div>
+      <div class="m-item"><span class="m-label">Backend</span><span class="m-value">FastAPI · GCP · unchanged</span></div>
+      <div class="m-item"><span class="m-label">Vertical Slice</span><span class="m-value">龍山寺 (單一靈魂)</span></div>
+      <div class="m-item"><span class="m-label">Cadence</span><span class="m-value">3 天 / Sprint · 7 Phase</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- §1 Pivots -->
+<section id="pivots">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div class="sec-title">
+        <h2>決策推翻對照表</h2>
+        <div class="sec-desc">專案歷史上換過三次技術棧 (Unity → Flutter 2.5D → Unity 3D),舊文件仍留在專案內,接手前請先讀這張表。</div>
+      </div>
+    </div>
+
+    <div class="grid grid-4 mb-24">
+      <div class="card tinted-brain">
+        <div class="pill brain">Engine</div>
+        <h3 class="mt-12">Unity 6</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">Flutter 全面退場,不採用 Godot — Android 手機 AR 僅有研究等級社群外掛,缺跨平台 AR 抽象。</div>
+      </div>
+      <div class="card tinted-body">
+        <div class="pill body">Overlay</div>
+        <h3 class="mt-12">3DoF 感測器定向</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">明確排除真 AR (SLAM / ARCore / ARKit / Geospatial),留 Roadmap;裝置支援 = 全 Android/iOS。</div>
+      </div>
+      <div class="card tinted-face">
+        <div class="pill face">Character</div>
+        <h3 class="mt-12">3D 半寫實靈魂感</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">主體實體感 + 輪廓發光 + 腳部淡出;CONTEXT.md 「完整 3D 角色」Avoid 條目解除。</div>
+      </div>
+      <div class="card tinted-lead">
+        <div class="pill lead">Cadence</div>
+        <h3 class="mt-12">3 天 Sprint · 7 階段垂直切片</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">共約 27 個 Sprint ≈ 81 個工作天 ≈ 16 週;首個地標 = 龍山寺 (取代天文館)。</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="data">
+        <thead><tr><th style="width:22%">項目</th><th style="width:24%">舊版</th><th style="width:26%">v2.1 修正後</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>客戶端引擎</td><td class="stroke">Flutter</td><td class="emph">Unity 6</td><td class="text-2">3D 角色 + 動畫狀態機 + 相機疊層,團隊現有能力</td></tr>
+          <tr><td>視覺呈現</td><td class="stroke">2.5D Billboard (Rive/Lottie)</td><td class="emph">3D mesh + skeletal animation</td><td class="text-2">體驗需要體積感與真透視</td></tr>
+          <tr><td>空間定位</td><td class="stroke">無 (純相機疊圖)</td><td class="emph">3DoF (陀螺儀+電子羅盤)</td><td class="text-2">角色留在固定方位,玩家轉手機尋找</td></tr>
+          <tr><td>對嘴方案</td><td class="stroke">B10 產 viseme 時間軸 → F5 播放</td><td class="emph">uLipSync 客戶端即時分析</td><td class="text-2">Google TTS <strong>不提供</strong> viseme/phoneme 時間軸,原設計不可實作</td></tr>
+          <tr><td>B10 職責</td><td class="stroke">TTS + viseme 時間軸</td><td class="emph">只做 TTS,回傳音檔 URL</td><td class="text-2">同上</td></tr>
+          <tr><td>F5 職責</td><td class="stroke">播放 viseme 時間軸</td><td class="emph">即時 MFCC 分析驅動 shape key</td><td class="text-2">同上</td></tr>
+          <tr><td>素材交付</td><td class="stroke">Cloud Storage + CDN</td><td class="emph">Unity Addressables remote bundle</td><td class="text-2">Unity runtime 無法載入 FBX</td></tr>
+          <tr><td>地圖底圖</td><td class="stroke">Google Maps SDK + Tile Overlay</td><td class="emph">Unity 自建 raster tile renderer</td><td class="text-2">Unity 無 Google Maps SDK 綁定;圖磚方案不變</td></tr>
+          <tr><td>狀態/路由/網路層</td><td class="stroke">Riverpod / GoRouter / dio</td><td class="emph">Unity 場景管理 + UnityWebRequest + 自建 TokenManager</td><td class="text-2">Flutter 專屬方案全數作廢</td></tr>
+          <tr><td>安全儲存</td><td class="stroke">flutter_secure_storage</td><td class="emph">Android Keystore (Unity Plugin)</td><td class="text-2"></td></tr>
+          <tr><td>Sprint 長度</td><td class="stroke">兩週 (隱含)</td><td class="emph">3 天</td><td class="text-2">本次定案</td></tr>
+          <tr><td>排程結構</td><td class="stroke">7 Sprint 橫向堆疊</td><td class="emph">7 階段垂直切片, ~27 個 3 天 Sprint</td><td class="text-2">Walking Skeleton 提前打通</td></tr>
+          <tr><td>垂直切片地標</td><td class="stroke">天文館</td><td class="emph">龍山寺</td><td class="text-2">本次定案,風險見宗教內容治理</td></tr>
+          <tr><td>人員代號</td><td class="stroke">A / B / C / D</td><td class="emph">Lead / 身體 / 腦袋 / 臉</td><td class="text-2">避免與工作包代號 B/S/F 衝突</td></tr>
+          <tr><td>封測平台優先序</td><td class="stroke">未定</td><td class="emph">Android 優先</td><td class="text-2">定案</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-24 callout ok"><strong>完全沿用 v1、不重寫:</strong> 全部業務規則 (150m 感應 / 50m 召喚、三種 Token、任務狀態機、共鳴值、配額、防作弊觀察期)、全部 API 契約 (僅兩處異動)、全部資料庫 schema (僅新增 2 欄)、腦袋 B1–B9/B11/B12/B13、隱私原則與 Schema 硬約束 (禁止 location_history / movement_trace 類表)、時區 Asia/Taipei。</div>
+  </div>
+</section>
+
+<!-- §2 Modules -->
+<section id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div class="sec-title">
+        <h2>三大模組 · 所屬列表與工程</h2>
+        <div class="sec-desc">三模組定義不變,唯一跨模組關聯欄位仍是 <code>player_id</code>。資料夾即分工邊界 — 臉持 <code>Characters/</code>,身體持 <code>Features/</code>+<code>Services/</code>。</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3 mb-24">
+      <div class="card tinted-brain">
+        <div class="pill brain">Backend Only</div>
+        <h3 class="mt-12">🧠 腦袋 Brain</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">全部在後端;負責對話、記憶、TTS、內容安全邊界。單人負擔最重 (13 個工作包)。</div>
+      </div>
+      <div class="card tinted-body">
+        <div class="pill body">Client + Backend</div>
+        <h3 class="mt-12">🦾 身體 Body</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">Unity <code>Features/</code>+<code>Services/</code> + 後端 S 工作包。橫跨兩端,為關鍵路徑瓶頸。</div>
+      </div>
+      <div class="card tinted-face">
+        <div class="pill face">Assets + Unity</div>
+        <h3 class="mt-12">🎭 臉 Face</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">Blender / Mixamo + Unity <code>Characters/</code>。F4–F8 需 Unity 能力,若不具備需補技術美術。</div>
+      </div>
+    </div>
+
+    <!-- Brain table -->
+    <div class="card tinted-brain mb-24" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line)"><span class="pill brain">🧠 Brain</span> <strong style="margin-left:8px">B1 – B13 工作包</strong></div>
+      <table class="data">
+        <thead><tr><th style="width:60px">代號</th><th>工作包</th><th style="width:30%">v2.1 異動</th></tr></thead>
+        <tbody>
+          <tr><td class="mono kn">B1</td><td>Vertex AI 串接 + 失敗回退</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B2</td><td>Prompt 組裝引擎</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B3</td><td>人格卡載入與版本管理</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B4</td><td>角色安全邊界檢查層</td><td class="emph">難度上升 · 宗教場所</td></tr>
+          <tr><td class="mono kn">B5</td><td>史實邊界規則注入</td><td class="emph">難度上升 · 同上</td></tr>
+          <tr><td class="mono kn">B6</td><td>長期記憶 (pgvector)</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B7</td><td>短期記憶 (Redis)</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B8</td><td>記憶摘要 nightly batch</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B9</td><td>當日情境內容生成</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B10</td><td>TTS 串接</td><td class="emph">縮減 · 移除 viseme 時間軸產出</td></tr>
+          <tr><td class="mono kn">B11</td><td>共鳴值解鎖敘事生成</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B12</td><td>快速問候比對層</td><td class="text-3">—</td></tr>
+          <tr><td class="mono kn">B13</td><td>地標視覺辨識 (Gemini,即用即丟)</td><td class="text-3">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Body table -->
+    <div class="card tinted-body mb-24" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line)"><span class="pill body">🦾 Body</span> <strong style="margin-left:8px">S1 – S14 工作包</strong></div>
+      <table class="data">
+        <thead><tr><th style="width:60px">代號</th><th>工作包</th><th style="width:20%">環境</th></tr></thead>
+        <tbody>
+          <tr><td class="mono k">S1</td><td>GPS 定位模組</td><td class="text-3">客戶端</td></tr>
+          <tr><td class="mono k">S2</td><td>在場驗證與召喚半徑判定</td><td class="text-3">後端</td></tr>
+          <tr><td class="mono k">S3</td><td>防作弊 (mock location、速度合理性)</td><td class="text-3">後端</td></tr>
+          <tr><td class="mono k">S4</td><td>任務進度表 + 狀態機</td><td class="text-3">後端</td></tr>
+          <tr><td class="mono k">S5</td><td>共鳴值表 + 判定邏輯</td><td class="text-3">後端</td></tr>
+          <tr><td class="mono k">S6</td><td>匿名玩家身分 / 帳號升級綁定</td><td class="text-3">後端+客戶端</td></tr>
+          <tr><td class="mono k">S7</td><td>UI:地圖 / 召喚點 (含自建 tile renderer)</td><td class="text-3">客戶端</td></tr>
+          <tr><td class="mono k">S8</td><td>UI:任務列表 / Profile</td><td class="text-3">客戶端</td></tr>
+          <tr><td class="mono k">S9</td><td>引導提問元件</td><td class="text-3">客戶端</td></tr>
+          <tr><td class="mono k">S10</td><td>當日情境排程 + 快取 + 對外 API</td><td class="text-3">後端</td></tr>
+          <tr><td class="mono k">S11</td><td>訊號推播</td><td class="text-3">後端+客戶端</td></tr>
+          <tr><td class="mono k">S12</td><td>紀念照片:本機保存/分享 + 呼叫 B13</td><td class="text-3">後端+客戶端</td></tr>
+          <tr><td class="mono k">S13</td><td>行銷 / 分享功能</td><td class="text-3">客戶端</td></tr>
+          <tr><td class="mono k" style="color:var(--face)">S14</td><td class="emph">3DoF 方位定向服務 ★新增</td><td class="text-3">客戶端</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Face table -->
+    <div class="card tinted-face mb-24" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line)"><span class="pill face">🎭 Face</span> <strong style="margin-left:8px">F1 – F8 工作包</strong> <span class="text-3" style="margin-left:8px;font-size:.85rem">v1 → v2.1 重構</span></div>
+      <table class="data">
+        <thead><tr><th style="width:60px">代號</th><th>v1 定義</th><th>v2.1 定義</th><th style="width:100px">需 Unity</th></tr></thead>
+        <tbody>
+          <tr><td class="mono kf">F1</td><td class="stroke">角色美術造型設計 (CC 產線)</td><td class="emph">概念設計 + 生成規範制定</td><td>❌</td></tr>
+          <tr><td class="mono kf">F2</td><td class="stroke">精靈圖 / 序列幀烘焙管線</td><td class="emph">Blender 清理 / 減面 / UV / 貼圖烘焙</td><td>❌</td></tr>
+          <tr><td class="mono kf">F3</td><td class="stroke">Rive/Lottie 動畫實作</td><td class="emph">Mixamo 綁骨 + 動作庫 + shape key</td><td>❌</td></tr>
+          <tr><td class="mono kf">F4</td><td class="stroke">相機疊圖渲染</td><td class="emph">角色 prefab + 靈魂感 shader</td><td>✅</td></tr>
+          <tr><td class="mono kf">F5</td><td class="stroke">口型同步 (吃 viseme)</td><td class="emph">uLipSync 整合</td><td>✅</td></tr>
+          <tr><td class="mono kf">F6</td><td class="stroke">素材版本管理</td><td class="emph">Addressables 打包 + remote catalog</td><td>✅</td></tr>
+          <tr><td class="mono kf">F7</td><td class="stroke">App 端素材下載與快取</td><td class="emph">下載進度 / 快取 / 版本比對</td><td>✅</td></tr>
+          <tr><td class="mono kf" style="color:var(--face)">F8</td><td class="text-3">—</td><td class="emph">Animator 狀態機 (idle ↔ talking ↔ 揮手 ↔ 轉身) ★新增</td><td>✅</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn"><strong>⚠️ 人力缺口【待確認】:</strong> F4–F8 需 Unity 能力 (Animator、Shader Graph、Prefab、Addressables),屬技術美術範疇。若臉不具備,F4/F5/F7/F8 須由身體代持 — 但身體已是關鍵路徑瓶頸。建議:① 臉在 Phase 0–1 補足 Unity 技能;② 或補一名技術美術。本文件排程假設臉持有全部 F 模組。</div>
+  </div>
+</section>
+
+<!-- §3 Data Flow -->
+<section id="dataflow">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div class="sec-title">
+        <h2>前後端資料流程圖</h2>
+        <div class="sec-desc">核心迴圈:玩家到場 → 感應 → 召喚 → 對話 → 任務。每一步的 Token 生命週期與模組互動。</div>
+      </div>
+    </div>
+
+    <!-- Token lifecycle -->
+    <div class="card mb-24">
+      <h3 class="mb-16">Token 生命週期 (三種 Token,不同中介層驗證)</h3>
+      <div class="grid grid-3">
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--body)">
+          <div class="pill body">Session Token</div>
+          <div style="font-family:var(--mono);color:var(--ink);margin-top:12px;font-size:.9rem">效期 90 天</div>
+          <div class="text-2 mt-12" style="font-size:.85rem">App 啟動時換新,玩家無感。Bootstrap 場景背景呼叫 <code>POST /players</code>。</div>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--brain)">
+          <div class="pill brain">Sense Token</div>
+          <div style="font-family:var(--mono);color:var(--ink);margin-top:12px;font-size:.9rem">效期 30 分鐘</div>
+          <div class="text-2 mt-12" style="font-size:.85rem">進入 150m 核發;剩 1–2 分鐘且仍在範圍內時<strong>靜默</strong>重呼 <code>/sense</code>。</div>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">Encounter Token</div>
+          <div style="font-family:var(--mono);color:var(--ink);margin-top:12px;font-size:.9rem">效期 15 分鐘</div>
+          <div class="text-2 mt-12" style="font-size:.85rem">50m 召喚成立核發;<strong>過期即任務嘗試失敗,不續期</strong>。</div>
+        </div>
+      </div>
+      <div class="text-3 mt-16" style="font-size:.82rem">儲存於 Android Keystore;不得使用 PlayerPrefs。三種 token 後端須用不同中介層驗證,不可共用邏輯。</div>
+    </div>
+
+    <!-- Main flow -->
+    <div class="card mb-24">
+      <h3 class="mb-16">核心迴圈流程 (地標到場 → 對話 → 任務)</h3>
+
+      <div class="text-3 mb-12" style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase">① 進入 150m 感應範圍</div>
+      <div class="flow-row mb-16">
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Client · S1</div><div class="n-title">LocationService</div><div class="n-body">每 30 秒查一次位置,更新 150m/50m 門檻狀態</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Backend · S2</div><div class="n-title">POST /sense</div><div class="n-body">在場驗證 → 核發 <span class="k">Sense Token</span></div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">Client · S7</div><div class="n-title">MapScene 對話</div><div class="n-body">150m 內嵌入對話 (sense_token 模式) + 當日情境卡片</div></div>
+      </div>
+
+      <div class="text-3 mb-12" style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase">② 玩家主動點擊召喚 (50m 內)</div>
+      <div class="flow-row mb-16">
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Client</div><div class="n-title">召喚按鈕</div><div class="n-body">50m 觸發不自動跳轉,由玩家主動點擊</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Backend · S2 + S3</div><div class="n-title">POST /summon</div><div class="n-body">召喚半徑判定 + 防作弊 → 核發 <span class="kf">Encounter Token</span></div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--face)"><div class="n-tag">Client · S14</div><div class="n-title">EncounterScene (additive)</div><div class="n-body">相機背景 + 3D 角色 + 3DoF 方位定向 + 可收合對話窗</div></div>
+      </div>
+
+      <div class="text-3 mb-12" style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase">③ 對話迴圈 (encounter_token 模式)</div>
+      <div class="flow-row mb-16">
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Client</div><div class="n-title">POST /spirits/{id}/dialogue</div><div class="n-body">玩家文字輸入 + encounter_token</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">Brain · B2/B3/B4/B7</div><div class="n-title">Prompt 組裝</div><div class="n-body">人格卡 + 短期記憶 + 安全邊界 → Vertex AI</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">Brain · B10</div><div class="n-title">Google TTS</div><div class="n-body">回傳 <code>audio_url</code> (無 viseme)</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--face)"><div class="n-tag">Face · F5</div><div class="n-title">uLipSync 播放</div><div class="n-body">即時 MFCC 分析驅動 JawOpen shape key</div></div>
+      </div>
+
+      <div class="text-3 mb-12" style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase">④ 可驗證微任務 + 共鳴值</div>
+      <div class="flow-row">
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Client · S12</div><div class="n-title">拍照 / 任務完成</div><div class="n-body">POST /quests/{id}/landmark-photo (multipart)</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">Brain · B13</div><div class="n-title">地標視覺辨識</div><div class="n-body">Gemini 判定 · 即用即丟</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">Body · S4 + S5</div><div class="n-title">狀態機 + 共鳴值</div><div class="n-body">達標 → 呼叫 B11 生成解鎖敘事 (順序不可顛倒)</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">Brain · B6</div><div class="n-title">寫入長期記憶</div><div class="n-body">pgvector · 僅語意化欄位</div></div>
+      </div>
+    </div>
+
+    <!-- Backend layer -->
+    <div class="card">
+      <h3 class="mb-16">後端技術棧 (不變)</h3>
+      <div class="grid grid-4" style="gap:12px">
+        <div style="padding:14px;background:var(--bg-3);border-radius:8px"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Application</div><div style="margin-top:6px;font-weight:500">Python · FastAPI</div><div class="text-3" style="font-size:.8rem;margin-top:4px">GCP Cloud Run</div></div>
+        <div style="padding:14px;background:var(--bg-3);border-radius:8px"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Storage</div><div style="margin-top:6px;font-weight:500">Cloud SQL PostgreSQL</div><div class="text-3" style="font-size:.8rem;margin-top:4px">+ pgvector · Redis</div></div>
+        <div style="padding:14px;background:var(--bg-3);border-radius:8px"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">AI</div><div style="margin-top:6px;font-weight:500">Vertex AI 單一快速模型</div><div class="text-3" style="font-size:.8rem;margin-top:4px">失敗回退人工預寫台詞</div></div>
+        <div style="padding:14px;background:var(--bg-3);border-radius:8px"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Media</div><div style="margin-top:6px;font-weight:500">Google Cloud TTS</div><div class="text-3" style="font-size:.8rem;margin-top:4px">Cloud Storage + CDN</div></div>
+      </div>
+      <div class="text-3 mt-16" style="font-size:.82rem">開發期用本地 docker-compose (Postgres + Redis)。模型服務失敗時一律回退人工預寫台詞。</div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 API Contracts -->
+<section id="api">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div class="sec-title">
+        <h2>API 契約清單</h2>
+        <div class="sec-desc">原則:全部沿用 v1,僅兩處異動。Token 設計、配額規則、錯誤碼、fallback 策略全數不變。</div>
+      </div>
+    </div>
+
+    <!-- Two changes -->
+    <div class="grid grid-2 mb-24">
+      <div class="card tinted-face">
+        <div class="pill face">Change · v2.1</div>
+        <h3 class="mt-12">POST /api/v1/spirits/{placeId}/dialogue</h3>
+        <div class="text-2 mt-12 mb-12" style="font-size:.88rem">Response 200 的 <code>tts</code> 物件<strong>移除</strong> <code>viseme_timeline</code>。</div>
+        <pre style="background:#F1F5F9;padding:14px;border-radius:8px;overflow-x:auto;font-size:.78rem;color:var(--ink);border:1px solid var(--line)">// v1 (作廢)
+{ "reply_text":"...",
+  "tts":{ "audio_url":"...",
+          "viseme_timeline":[...] } }
+
+// v2.1
+{ "reply_text":"...",
+  "tts":{ "audio_url":"..." } }</pre>
+        <div class="text-3 mt-12" style="font-size:.82rem">同步影響內部介面 <code>TTSResult</code> pydantic model 與 <code>UnlockStory.tts</code>。</div>
+      </div>
+
+      <div class="card tinted-face">
+        <div class="pill face">Change · v2.1</div>
+        <h3 class="mt-12">GET /api/v1/spirits/{placeId}</h3>
+        <div class="text-2 mt-12 mb-12" style="font-size:.88rem">新增靈魂方位設定,供 3DoF 定向使用。</div>
+        <pre style="background:#F1F5F9;padding:14px;border-radius:8px;overflow-x:auto;font-size:.78rem;color:var(--ink);border:1px solid var(--line)">{
+  // ...既有欄位
+  "orientation": {
+    "bearing_deg": 135.0,
+    "height_offset_m": 0.0
+  }
+}</pre>
+        <pre style="background:#F1F5F9;padding:14px;border-radius:8px;overflow-x:auto;font-size:.78rem;color:var(--body-2);border:1px solid var(--line);margin-top:12px">ALTER TABLE spirits ADD COLUMN
+  bearing_deg     DOUBLE PRECISION NOT NULL DEFAULT 0;
+ALTER TABLE spirits ADD COLUMN
+  height_offset_m DOUBLE PRECISION NOT NULL DEFAULT 0;</pre>
+      </div>
+    </div>
+
+    <!-- Unchanged endpoints -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px"><span class="pill ok">Unchanged</span> <strong>未異動端點清單</strong></div>
+      <table class="data">
+        <thead><tr><th style="width:70px">方法</th><th>路徑</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="mono" style="color:var(--body)">POST</td><td class="mono">/api/v1/players</td><td class="text-2">匿名玩家建立 / Session Token 換發</td></tr>
+          <tr><td class="mono" style="color:var(--body)">POST</td><td class="mono">/api/v1/sense</td><td class="text-2">150m 進場感應 → 核發 Sense Token</td></tr>
+          <tr><td class="mono" style="color:var(--body)">POST</td><td class="mono">/api/v1/summon</td><td class="text-2">50m 召喚 → 核發 Encounter Token</td></tr>
+          <tr><td class="mono" style="color:var(--brain)">GET</td><td class="mono">/api/v1/daily-event</td><td class="text-2">當日情境內容 (S10 排程 + 快取)</td></tr>
+          <tr><td class="mono" style="color:var(--brain)">GET</td><td class="mono">/api/v1/quests/daily</td><td class="text-2">當日任務列表</td></tr>
+          <tr><td class="mono" style="color:var(--body)">POST</td><td class="mono">/api/v1/quests/{questId}/complete</td><td class="text-2">任務完成回報</td></tr>
+          <tr><td class="mono" style="color:var(--body)">POST</td><td class="mono">/api/v1/quests/{questId}/landmark-photo</td><td class="text-2">拍照驗證 (multipart) → B13 地標辨識</td></tr>
+          <tr><td class="mono" style="color:var(--brain)">GET</td><td class="mono">/api/v1/resonance/{spiritId}</td><td class="text-2">單一靈魂共鳴值進度</td></tr>
+          <tr><td class="mono" style="color:var(--brain)">GET</td><td class="mono">/api/v1/players/me/memory-summary</td><td class="text-2">玩家記憶摘要 (B8 nightly batch 結果)</td></tr>
+          <tr><td class="mono" style="color:var(--face)">GET</td><td class="mono">/api/v1/assets/{avatarId}</td><td class="text-2">Addressables catalog / bundle URL + version</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Codegen flow -->
+    <div class="card mt-24">
+      <h3 class="mb-16">契約單一真相來源:Code-first + CI 契約閘門</h3>
+      <div class="text-2 mb-16" style="font-size:.9rem">拆兩個 repo 的代價是「後端改契約、客戶端沒跟上」。3 天 Sprint 節奏下這會頻繁發生,採 <strong>code-first + CI 閘門</strong>,不採 pure schema-first (FastAPI 反向生成 server code 摩擦過大)。</div>
+
+      <div class="flow-row mb-16">
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">① 後端</div><div class="n-title">FastAPI 產生</div><div class="n-body"><code>/openapi.json</code> 自動生成</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">② 後端 CI</div><div class="n-title">oasdiff 比對</div><div class="n-body">破壞性變更 → ❌ build 失敗<br>僅新增欄位 → ✅ 通過</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--brain)"><div class="n-tag">③ 後端</div><div class="n-title">Release artifact</div><div class="n-body">merge main 後推 openapi.json (帶版本 tag)</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" style="border-top:3px solid var(--body)"><div class="n-tag">④ 客戶端</div><div class="n-title">Generated/ DTO</div><div class="n-body">NSwag / openapi-generator → C# DTO<br><code>Assets/_Project/Services/Generated/</code></div></div>
+      </div>
+
+      <table class="data">
+        <thead><tr><th style="width:50px">#</th><th>Unity 端硬規則</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td><strong>只生成 DTO model,不生成 HTTP client</strong></td><td class="text-2">Generator 預設 HttpClient 版本不適用 Unity;ApiClient.cs 維持手寫 UnityWebRequest</td></tr>
+          <tr><td class="mono">2</td><td>使用 <strong>Newtonsoft.Json</strong>,<strong>不得</strong>使用 <code>JsonUtility</code></td><td class="text-2">JsonUtility 不支援 Dictionary 與 nullable,無法處理 <code>unlock_story: {...} | null</code></td></tr>
+          <tr><td class="mono">3</td><td>landmark-photo 端點<strong>手寫</strong></td><td class="text-2">multipart/form-data,codegen 產物不可直接使用</td></tr>
+          <tr><td class="mono">4</td><td><code>Generated/</code> 檔頭標註 <code>DO NOT EDIT</code>,CI 檢查</td><td class="text-2">防止手改後被下次生成覆蓋</td></tr>
+          <tr><td class="mono">5</td><td>Enum 寬鬆解析,未知值 fallback 而非拋錯</td><td class="text-2">後端新增 enum 值對舊版 App 屬破壞性變更</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn mt-16"><strong>版本相容原則 · 只加不減:</strong> 後端可新增欄位,不得刪除或改名;客戶端忽略未讀欄位。破壞性變更必須開 <code>/api/v2</code>,舊版保留過渡期。契約凍結時點:Phase 1。</div>
+    </div>
+  </div>
+</section>
+
+<!-- §5 Internal Interfaces -->
+<section id="internal">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div class="sec-title">
+        <h2>內部介面 · 後端模組間</h2>
+        <div class="sec-desc">模組邊界的三個核心設計:內容生成 vs 排程分離、共鳴值判定順序、記憶 schema 所有權。</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3 mb-24">
+      <div class="card tinted-brain">
+        <div class="pill brain">Dialogue Path</div>
+        <h3 class="mt-12">當日情境:內容 vs 排程分離</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">內容生成 (腦袋 B9) 與排程/快取/serve (身體 S10) 拆分。身體透過 <code>GET /daily-event</code> 對外,腦袋 nightly 產出寫入快取。</div>
+      </div>
+      <div class="card tinted-body">
+        <div class="pill body">Resonance Path</div>
+        <h3 class="mt-12">共鳴值:身體先判定 → 腦袋後敘事</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">身體 S5 判定達標 → 呼叫腦袋 B11 生成解鎖敘事。<strong>順序不可顛倒</strong> — 不能由 LLM 決定達標與否。</div>
+      </div>
+      <div class="card tinted-face">
+        <div class="pill face">Face ↔ Brain</div>
+        <h3 class="mt-12">對嘴介面:只剩音檔 URL</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">v1 (音檔 + viseme JSON) → v2.1 (只剩 <code>audio_url</code>)。臉自行做 MFCC 分析,腦袋不再產出時間軸。</div>
+      </div>
+    </div>
+
+    <!-- Memory ownership -->
+    <div class="card mb-24">
+      <h3 class="mb-16">記憶 Schema 所有權</h3>
+      <div class="grid grid-2">
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-left:3px solid var(--body)">
+          <div class="pill body">Body owns</div>
+          <div style="margin-top:12px;font-weight:500">結構化欄位</div>
+          <div class="text-2 mt-12" style="font-size:.85rem">任務進度、共鳴值、Token 生命週期、玩家身分、Sense/Encounter 事件紀錄。Postgres 標準表。</div>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-left:3px solid var(--brain)">
+          <div class="pill brain">Brain owns</div>
+          <div style="margin-top:12px;font-weight:500">語意化欄位</div>
+          <div class="text-2 mt-12" style="font-size:.85rem">對話記憶 (短期 Redis / 長期 pgvector)、記憶摘要、當日情境內容。僅靠 <code>player_id</code> 與身體關聯。</div>
+        </div>
+      </div>
+      <div class="callout mt-16"><strong>Schema 硬約束 (不變):</strong> 不得新增任何 <code>location_history</code> / <code>movement_trace</code> 類型的表。原始 GPS 只在驗證期間使用後即丟棄,不形成軌跡。</div>
+    </div>
+
+    <!-- Module data folder boundaries -->
+    <div class="card">
+      <h3 class="mb-16">Unity 專案結構 · 資料夾即分工邊界</h3>
+      <pre style="background:#F1F5F9;padding:20px;border-radius:8px;overflow-x:auto;font-size:.85rem;color:var(--ink);border:1px solid var(--line);line-height:1.7">Assets/_Project/
+  <span style="color:var(--ink-3)">Core/</span>            # 常數、錯誤處理、事件匯流排
+  <span style="color:var(--body)">Services/</span>        <span style="color:var(--ink-3)">← 身體持有</span>
+    TokenManager.cs        # 三種 token 生命週期
+    LocationService.cs     # 前景輪詢
+    <span style="color:var(--face)">OrientationService.cs  # 陀螺儀 + 羅盤 (3DoF) ★新增</span>
+    ApiClient.cs           # UnityWebRequest + 攔截層
+    <span style="color:var(--face)">AssetService.cs        # Addressables 載入與快取 ★新增</span>
+    Generated/             <span style="color:var(--ink-3)"># codegen DTO,DO NOT EDIT</span>
+  <span style="color:var(--body)">Features/</span>        <span style="color:var(--ink-3)">← 身體持有</span>
+    Map/  Encounter/  Quest/  Profile/  Dialogue/
+  <span style="color:var(--face)">Characters/</span>      <span style="color:var(--ink-3)">← 🎭 臉的工作區</span>
+                       # prefab / Animator / shader / 材質</pre>
+      <div class="text-3 mt-16" style="font-size:.82rem">兩人共用同一個 Unity 專案但不互相改對方資料夾,降低合併衝突。</div>
+    </div>
+  </div>
+</section>
+
+<!-- §6 Schedule -->
+<section id="schedule">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <div class="sec-title">
+        <h2>Sprint 排程總覽</h2>
+        <div class="sec-desc">7 階段垂直切片 · 3 天 = 1 Sprint · 共約 27 個 Sprint ≈ 81 個工作天 ≈ 16 週。三軸線並行 (腦袋 / 身體 / 臉),身體是唯一匯流點。</div>
+      </div>
+    </div>
+
+    <!-- Overview stats -->
+    <div class="grid grid-4 mb-24">
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Phase 0 · 技術驗證</div><h3 class="mt-12" style="color:var(--warn)">2 Sprint / 6 天</h3><div class="text-2 mt-8" style="font-size:.85rem">5 個 POC 全過才進 Phase 1</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Phase 1–2 · 骨架</div><h3 class="mt-12" style="color:var(--brain)">7 Sprint / 21 天</h3><div class="text-2 mt-8" style="font-size:.85rem">Phase 2 完成端到端 Walking Skeleton</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Phase 3–5 · 核心</div><h3 class="mt-12" style="color:var(--body)">12 Sprint / 36 天</h3><div class="text-2 mt-8" style="font-size:.85rem">判定邏輯 → 對話品質 → UI 完整化</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">Phase 6–7 · 封測</div><h3 class="mt-12" style="color:var(--face)">6 Sprint / 18 天</h3><div class="text-2 mt-8" style="font-size:.85rem">QA + 現場實測 + 執行</div></div>
+    </div>
+
+    <!-- Design rationale -->
+    <div class="card mb-24">
+      <h3 class="mb-12">為什麼改垂直切片?</h3>
+      <div class="grid grid-2" style="gap:24px">
+        <div>
+          <div class="pill danger">v1 橫向堆疊的問題</div>
+          <div class="text-2 mt-12" style="font-size:.9rem">要到後期才有端到端可玩版本,代表要盲飛多個階段才知道核心迴圈成不成立。</div>
+        </div>
+        <div>
+          <div class="pill ok">v2.1 垂直切片</div>
+          <div class="text-2 mt-12" style="font-size:.9rem">Phase 2 就打通最細的一條端到端 (Walking Skeleton),讓延遲、效能、現場體感三大風險提早曝光。</div>
+        </div>
+      </div>
+      <div class="callout warn mt-16"><strong>代價:</strong> Phase 1–2 會有部分臨時程式碼 (假資料、寫死地標、灰模角色) 之後要重寫。此代價已接受。</div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <div class="tl-item phase-0">
+        <div class="tl-head">
+          <span class="pill warn">Phase 0</span>
+          <h3>技術驗證</h3>
+          <span class="tl-dur">2 Sprint / 6 天</span>
+        </div>
+        <div class="tl-body">
+          <strong>5 個 POC 必須全過才進 Phase 1:</strong>
+          <ul style="margin:8px 0 0;padding-left:20px">
+            <li><strong>P0-A 資產可行性</strong> (臉):Mixamo 自動綁骨成功、四肢無崩壞、JawOpen shape key 可製作、單隻清理 &lt; 4 小時。<strong>未通過即切換 CC4 備援</strong>。</li>
+            <li><strong>P0-B 3DoF 方位穩定性</strong> (身體):龍山寺現場原地旋轉,角色方位偏移 &lt; 15°;含校正流程。</li>
+            <li><strong>P0-C Unity 繁中 IME</strong> (身體):Android 實機中文輸入法不跳版、不吃字、不遮擋輸入框。</li>
+            <li><strong>P0-D 對嘴+效能</strong> (身體+臉):中階實機連續 5 分鐘 ≥ 30fps。</li>
+            <li><strong>P0-E 後端環境</strong> (腦袋):docker-compose 起 Postgres+Redis,3 個核心端點通。</li>
+          </ul>
+          <div class="text-3 mt-12" style="font-size:.82rem">P0-B/C/D 皆由身體負責,建議順序 B → C → D 避免並行。Phase 0 結束後,Phase 1–7 需複審 — P0-A 結果會改變整條資產產線定義。</div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-1">
+        <div class="tl-head">
+          <span class="pill brain">Phase 1</span>
+          <h3>骨架 (上)</h3>
+          <span class="tl-dur">3 Sprint / 9 天</span>
+        </div>
+        <div class="tl-body">
+          <div class="grid grid-4" style="gap:12px;margin-top:8px">
+            <div><span class="pill brain">🧠 Brain</span><div class="text-2 mt-8" style="font-size:.85rem">B3 人格卡、B7 短期記憶、S6 身分後端、S2 在場驗證</div></div>
+            <div><span class="pill body">🦾 Body</span><div class="text-2 mt-8" style="font-size:.85rem">Bootstrap、TokenManager、ApiClient、S1 GPS、EncounterScene 雛形</div></div>
+            <div><span class="pill face">🎭 Face</span><div class="text-2 mt-8" style="font-size:.85rem"><strong>灰模交付</strong> (Mixamo 免費 + JawOpen)、F1 概念設計啟動</div></div>
+            <div><span class="pill lead">🧭 Lead</span><div class="text-2 mt-8" style="font-size:.85rem">Repo 建置、CI、API 契約凍結、<strong>龍山寺實地勘查 (全員)</strong></div></div>
+          </div>
+          <div class="callout ok mt-16"><strong>灰模是關鍵:</strong> 讓身體與臉能在 Phase 1 就開始開發 F4/F5/F8,不必等正式角色。正式角色進來時直接替換。</div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-2">
+        <div class="tl-head">
+          <span class="pill brain">Phase 2</span>
+          <h3>骨架 (下) · ★ 端到端打通</h3>
+          <span class="tl-dur">4 Sprint / 12 天</span>
+        </div>
+        <div class="tl-body">
+          <div style="padding:12px 16px;background:var(--body-bg);border-left:3px solid var(--body);border-radius:0 8px 8px 0;margin-bottom:12px">
+            <strong>目標:</strong> 玩家走到龍山寺 → 看到標記 → 點召喚 → 進疊層畫面 → 對一句話 → 聽到語音 → 角色嘴巴動。功能全部陽春版 (無任務、無共鳴值、無長期記憶)。
+          </div>
+          <div class="grid grid-4" style="gap:12px">
+            <div><span class="pill brain">🧠</span><div class="text-2 mt-8" style="font-size:.85rem">B1 Gemini、B10 TTS、dialogue API 可用版</div></div>
+            <div><span class="pill body">🦾</span><div class="text-2 mt-8" style="font-size:.85rem"><strong>S7 tile renderer (提前)</strong>、地圖標記、對話 UI prefab、<strong>S14 3DoF</strong></div></div>
+            <div><span class="pill face">🎭</span><div class="text-2 mt-8" style="font-size:.85rem">F5 uLipSync、F8 Animator、F2 清理管線 (正式角色 #1 起手)</div></div>
+            <div><span class="pill lead">🧭</span><div class="text-2 mt-8" style="font-size:.85rem">端到端整合測試、<strong>首次現場實測</strong>、契約 codegen 流程建立</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-3">
+        <div class="tl-head">
+          <span class="pill body">Phase 3</span>
+          <h3>判定邏輯與安全層</h3>
+          <span class="tl-dur">4 Sprint / 12 天</span>
+        </div>
+        <div class="tl-body">
+          <div class="grid grid-4" style="gap:12px">
+            <div><span class="pill brain">🧠</span><div class="text-2 mt-8" style="font-size:.85rem">B4 安全邊界、B2 Prompt、B12 快速問候、S3 防作弊、S4 任務表、S5 共鳴值</div></div>
+            <div><span class="pill body">🦾</span><div class="text-2 mt-8" style="font-size:.85rem">召喚流程完整化、任務 UI 雛形、S12 拍照</div></div>
+            <div><span class="pill face">🎭</span><div class="text-2 mt-8" style="font-size:.85rem">F3 Mixamo 綁骨 + shape key (正式角色 #1)</div></div>
+            <div><span class="pill lead">🧭</span><div class="text-2 mt-8" style="font-size:.85rem"><strong>§12.2 龍山寺內容治理必須在此階段完成</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-4">
+        <div class="tl-head">
+          <span class="pill body">Phase 4</span>
+          <h3>對話品質與內容</h3>
+          <span class="tl-dur">4 Sprint / 12 天</span>
+        </div>
+        <div class="tl-body">
+          <div class="grid grid-4" style="gap:12px">
+            <div><span class="pill brain">🧠</span><div class="text-2 mt-8" style="font-size:.85rem">B5 史實邊界、B6 長期記憶、B9 當日情境、B11 解鎖敘事、B13 地標辨識</div></div>
+            <div><span class="pill body">🦾</span><div class="text-2 mt-8" style="font-size:.85rem">感應/召喚雙模式對話串接、配額與 fallback UI</div></div>
+            <div><span class="pill face">🎭</span><div class="text-2 mt-8" style="font-size:.85rem"><strong>F4 靈魂感 shader</strong>、疊層視覺完成度、正式角色 #1 完成</div></div>
+            <div><span class="pill lead">🧭</span><div class="text-2 mt-8" style="font-size:.85rem">人格卡內容驗收、fallback 文案</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-5">
+        <div class="tl-head">
+          <span class="pill face">Phase 5</span>
+          <h3>UI 完整化</h3>
+          <span class="tl-dur">4 Sprint / 12 天</span>
+        </div>
+        <div class="tl-body">
+          <div class="grid grid-4" style="gap:12px">
+            <div><span class="pill brain">🧠</span><div class="text-2 mt-8" style="font-size:.85rem">S10 當日情境排程、S11 訊號推播</div></div>
+            <div><span class="pill body">🦾</span><div class="text-2 mt-8" style="font-size:.85rem">S8 任務/Profile 場景、S9 引導提問、S13 分享</div></div>
+            <div><span class="pill face">🎭</span><div class="text-2 mt-8" style="font-size:.85rem">F6 Addressables 打包、F7 下載/快取</div></div>
+            <div><span class="pill lead">🧭</span><div class="text-2 mt-8" style="font-size:.85rem">對外 API 全串通驗收</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-6">
+        <div class="tl-head">
+          <span class="pill face">Phase 6</span>
+          <h3>封測準備</h3>
+          <span class="tl-dur">3 Sprint / 9 天</span>
+        </div>
+        <div class="tl-body">
+          全員:端到端 QA、效能調校、實機多機種測試、<strong>龍山寺現場多次實測</strong>。
+          <div class="text-2 mt-8" style="font-size:.88rem">🧠 B8 記憶摘要 batch;🧭 封測招募、現場行為指引、事故應變流程</div>
+        </div>
+      </div>
+
+      <div class="tl-item phase-7">
+        <div class="tl-head">
+          <span class="pill face">Phase 7</span>
+          <h3>封測執行與收尾</h3>
+          <span class="tl-dur">3 Sprint / 9 天</span>
+        </div>
+        <div class="tl-body">
+          封測執行、數據回收、<code>usage_tiers</code> 調校、Prompt 參數依實測調整。
+          <div class="callout mt-12"><strong>角色 #2–#10 不在此排程內</strong>。依 CONTEXT.md 垂直切片原則,通過封測驗證後才擴展到首發十個地標。此為獨立的內容擴充階段,不佔用上述 27 個 Sprint。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 3DoF Overlay -->
+<section id="3dof">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07</div>
+      <div class="sec-title">
+        <h2>3DoF 實境疊層原理</h2>
+        <div class="sec-desc">明確排除真 AR (SLAM / ARCore / ARKit / Geospatial),改用陀螺儀 + 電子羅盤 3DoF 感測器定向 — 角色固定在某方位角,需轉動手機才看得到。</div>
+      </div>
+    </div>
+
+    <!-- 3 levels comparison -->
+    <div class="grid grid-3 mb-24">
+      <div class="card" style="border-color:var(--line-2);opacity:.65">
+        <div class="pill ghost">❌ 不採用</div>
+        <h3 class="mt-12">0DoF 純疊層</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">手機轉動時角色永遠在螢幕正中。缺乏尋找感,無方位互動。</div>
+      </div>
+      <div class="card tinted-body">
+        <div class="pill body">✅ v2.1 採用</div>
+        <h3 class="mt-12">3DoF 感測器定向</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">角色固定在某方位角,需轉動手機才看得到。方向指示器引導轉向。</div>
+      </div>
+      <div class="card" style="border-color:var(--line-2);opacity:.65">
+        <div class="pill ghost">❌ Roadmap</div>
+        <h3 class="mt-12">6DoF SLAM</h3>
+        <div class="text-2 mt-12" style="font-size:.88rem">角色釘在世界座標,可繞行。需 ARCore/ARKit,認證裝置白名單。</div>
+      </div>
+    </div>
+
+    <!-- Diagram -->
+    <div class="card mb-24">
+      <h3 class="mb-16">實作原則</h3>
+      <div style="background:#F8FAFC;padding:32px;border-radius:12px;position:relative;border:1px solid var(--line);min-height:220px;overflow:hidden">
+        <svg viewBox="0 0 700 220" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <!-- Compass circle -->
+          <circle cx="350" cy="150" r="80" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+          <circle cx="350" cy="150" r="80" fill="none" stroke="rgba(5,150,105,.2)" stroke-width="1"/>
+          <!-- N marker -->
+          <text x="350" y="60" text-anchor="middle" fill="#475569" font-size="12" font-family="JetBrains Mono">N · 真北 0°</text>
+          <line x1="350" y1="70" x2="350" y2="80" stroke="#475569" stroke-width="1"/>
+          <!-- Player at center -->
+          <circle cx="350" cy="150" r="8" fill="#059669"/>
+          <text x="350" y="182" text-anchor="middle" fill="#059669" font-size="11" font-family="JetBrains Mono">Player</text>
+          <!-- Phone heading arrow (compass.trueHeading, e.g., 90 deg = east) -->
+          <line x1="350" y1="150" x2="410" y2="150" stroke="#0891B2" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="410,150 400,145 400,155" fill="#0891B2"/>
+          <text x="425" y="150" fill="#0891B2" font-size="11" font-family="JetBrains Mono" dominant-baseline="middle">Input.compass<tspan x="425" dy="14">.trueHeading</tspan></text>
+          <!-- Spirit bearing arrow (bearing_deg = 135, southeast) -->
+          <line x1="350" y1="150" x2="410" y2="205" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="410,205 397,201 402,214" fill="#EA580C"/>
+          <circle cx="410" cy="205" r="14" fill="#EA580C" opacity=".2"/>
+          <circle cx="410" cy="205" r="8" fill="#EA580C"/>
+          <text x="425" y="205" fill="#EA580C" font-size="11" font-family="JetBrains Mono" dominant-baseline="middle">Spirit<tspan x="425" dy="14">bearing_deg</tspan></text>
+          <!-- Angle arc -->
+          <path d="M 380 150 A 30 30 0 0 1 380 175" fill="none" stroke="#7C3AED" stroke-width="1.5"/>
+          <text x="395" y="170" fill="#7C3AED" font-size="10" font-family="JetBrains Mono">Δ 角</text>
+          <!-- Left labels -->
+          <text x="50" y="90" fill="#475569" font-size="12" font-family="Noto Sans TC" font-weight="500">螢幕水平位置 =</text>
+          <text x="50" y="110" fill="#7C3AED" font-size="11" font-family="JetBrains Mono">f(bearing − heading)</text>
+          <text x="50" y="140" fill="#475569" font-size="12" font-family="Noto Sans TC" font-weight="500">縮放 =</text>
+          <text x="50" y="160" fill="#7C3AED" font-size="11" font-family="JetBrains Mono">插值(GPS 距離)</text>
+          <text x="50" y="190" fill="#475569" font-size="12" font-family="Noto Sans TC" font-weight="500">水平 =</text>
+          <text x="50" y="210" fill="#7C3AED" font-size="11" font-family="JetBrains Mono">Input.gyro.attitude</text>
+        </svg>
+      </div>
+
+      <ol style="padding-left:20px;color:var(--ink-2);font-size:.9rem;line-height:1.9;margin-top:20px">
+        <li>每個靈魂在 <code>spirits</code> 表設定 <code>bearing_deg</code> (真北 0°,順時針)</li>
+        <li>讀取 <code>Input.compass.trueHeading</code> 取得手機朝向</li>
+        <li>角色螢幕水平位置 = f(靈魂方位角 − 手機朝向);超出視野不繪製</li>
+        <li>螢幕邊緣顯示方向指示器引導轉向</li>
+        <li><code>Input.gyro.attitude</code> 補償俯仰/翻滾,維持角色水平站立</li>
+        <li>角色縮放依 GPS 距離插值 (沿用 v1 漸顯機制),非相機實算透視</li>
+      </ol>
+    </div>
+
+    <!-- Tradeoffs -->
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="pill danger">已知取捨</div>
+        <h3 class="mt-12">3DoF 無法做到的事</h3>
+        <ul style="padding-left:20px;color:var(--ink-2);font-size:.9rem;line-height:1.8;margin-top:12px">
+          <li>無遮擋 (角色會穿過真實物體)</li>
+          <li>無真實景深</li>
+          <li>羅盤受都市磁干擾</li>
+          <li>玩家平移時無視差</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="pill ok">必做緩解手段</div>
+        <h3 class="mt-12">非加分項,是必要項</h3>
+        <ul style="padding-left:20px;color:var(--ink-2);font-size:.9rem;line-height:1.8;margin-top:12px">
+          <li>接地 blob shadow (不透明度約 0.3)</li>
+          <li>相機畫面平均色溫匹配 ambient light</li>
+          <li>邊緣柔化</li>
+          <li>靈魂感 shader (§9 定義)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §8 Asset Pipeline -->
+<section id="pipeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">08</div>
+      <div class="sec-title">
+        <h2>資產產線與交付規格</h2>
+        <div class="sec-desc">ComfyUI / Hunyuan3D 暫定主線,CC4 為備援。Phase 0 P0-A 通過門檻決定產線是否續用。</div>
+      </div>
+    </div>
+
+    <!-- Pipeline steps -->
+    <div class="card mb-24">
+      <h3 class="mb-16">產線流程 (暫定路線)</h3>
+      <div class="flow-row" style="gap:8px">
+        <div class="flow-node tinted-face" style="border-top:3px solid var(--face)"><div class="n-tag">① 生成</div><div class="n-title">ComfyUI / Hunyuan3D</div><div class="n-body">A-Pose 正面全身圖 → .glb 草模</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node tinted-face" style="border-top:3px solid var(--face)"><div class="n-tag">② 清理</div><div class="n-title">Blender</div><div class="n-body">分離四肢/頭髮/衣物、減面、UV、貼圖烘焙</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node tinted-face" style="border-top:3px solid var(--face)"><div class="n-tag">③ 綁骨</div><div class="n-title">Mixamo</div><div class="n-body">Idle / Talking / Wave / Turn<br><span style="color:var(--warn)">⚠️ Mixamo 會清除 blend shape</span></div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node tinted-face" style="border-top:3px solid var(--face)"><div class="n-tag">④ Shape Keys</div><div class="n-title">Blender</div><div class="n-body">JawOpen、Blink_L、Blink_R → 匯出 .fbx</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node tinted-face" style="border-top:3px solid var(--face)"><div class="n-tag">⑤ 整合</div><div class="n-title">Unity</div><div class="n-body">Animator(F8) → uLipSync(F5) → shader(F4) → Addressables(F6)</div></div>
+      </div>
+      <div class="callout warn mt-16"><strong>⚠️ 產線最大風險:</strong> AI 生成 mesh 常見「頭髮與肩膀熔接」「裙襬將雙腿黏連」「四肢邊界不清」,導致 Mixamo 自動綁骨失敗,且清理工時不可預測。<br><strong>備援 (CC4):</strong> 出廠即含骨架、臉部 rig 與標準 viseme,10 隻風格一致性易控管;為付費軟體、風格自由度較低。</div>
+    </div>
+
+    <!-- Spec table -->
+    <div class="card mb-24" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px"><span class="pill face">Spec</span> <strong>臉 → 身體 資產交付規格書</strong> <span class="text-3" style="margin-left:8px;font-size:.85rem">交件前自檢</span></div>
+      <table class="data">
+        <thead><tr><th style="width:30%">項目</th><th>規格</th></tr></thead>
+        <tbody>
+          <tr><td>格式</td><td class="mono">.fbx (含骨架、動畫、shape key)</td></tr>
+          <tr><td>面數</td><td class="mono">15,000 – 20,000 tris</td></tr>
+          <tr><td>貼圖</td><td class="mono">Albedo / Normal / ORM,2048×2048,ASTC 壓縮</td></tr>
+          <tr><td>材質數</td><td class="mono">≤ 3 (身體、頭髮、眼睛)</td></tr>
+          <tr><td>骨架</td><td>Mixamo 標準命名,Unity Humanoid rig 相容</td></tr>
+          <tr><td>shape key 命名</td><td class="mono" style="color:var(--face)">JawOpen、Blink_L、Blink_R (大小寫敏感,不得增減或改名)</td></tr>
+          <tr><td>眼睛</td><td>獨立材質 (供貼圖切換眨眼備援)</td></tr>
+          <tr><td>動作</td><td class="mono">Idle、Talking、Wave、Turn 四組完整 loop</td></tr>
+          <tr><td>座標原點</td><td class="mono">腳底中心置於 (0,0,0),面向 +Z</td></tr>
+          <tr><td>資產包上限</td><td class="mono" style="color:var(--face)">&lt; 10 MB (Addressables 打包後)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- APK budget -->
+    <div class="grid grid-4">
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">APK 大小</div><h3 class="mt-8">&lt; 100 MB</h3><div class="text-2 mt-8" style="font-size:.82rem">不含遠端角色資產</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">單一角色包</div><h3 class="mt-8">&lt; 10 MB</h3><div class="text-2 mt-8" style="font-size:.82rem">遠端 Addressables</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">繁中字型</div><h3 class="mt-8">&lt; 3 MB</h3><div class="text-2 mt-8" style="font-size:.82rem">子集化</div></div>
+      <div class="card"><div class="text-3" style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase">建置架構</div><h3 class="mt-8">ARM64 only</h3><div class="text-2 mt-8" style="font-size:.82rem">不出 ARMv7</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- §9 Shader -->
+<section id="shader">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">09</div>
+      <div class="sec-title">
+        <h2>美術方向 · 半寫實 × 混合靈魂感</h2>
+        <div class="sec-desc">主體實體感 + 輪廓發光 + 腳部淡出。靈魂感完全在 shader 層,與資產解耦 — 未來導入真 AR 空間錨定時不需重做資產。</div>
+      </div>
+    </div>
+
+    <!-- Shader anatomy -->
+    <div class="card mb-24">
+      <h3 class="mb-16">靈魂感 shader 分解 (Unity URP Shader Graph)</h3>
+      <div class="grid grid-3" style="gap:16px">
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">基底</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">Lit + Transparent</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">Alpha 0.9–0.95
+ScriptableObject 可調</pre>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">邊緣</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">Fresnel Rim Light</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">Power 2–4
+× 主題色
+→ Emission</pre>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">腳部</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">垂直漸層 Dissolve</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">Object Space Y
+→ Smoothstep
+→ × Alpha</pre>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">呼吸</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">Sin 波起伏</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">Time → Sine
+Remap(0.8, 1.0)
+× Fresnel 強度</pre>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">接地</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">Blob Shadow</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">橢圓漸層
+不透明度 ≈ 0.3</pre>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px;border-top:3px solid var(--face)">
+          <div class="pill face">配色</div>
+          <div style="margin-top:12px;font-weight:500;font-size:.95rem">每地標一主題色</div>
+          <pre style="background:transparent;padding:8px 0 0;margin:0;font-size:.78rem;color:var(--ink-2)">僅出現於 rim
+與 dissolve</pre>
+        </div>
+      </div>
+
+      <div class="callout ok mt-24"><strong>設計優勢 · 資產解耦:</strong> 靈魂感完全在 shader 層。日後導入真 AR 空間錨定時,只需 Alpha 調至 1.0、關閉 rim 與 dissolve 即得完整實體角色,<strong>不需重做資產</strong>。</div>
+    </div>
+
+    <!-- Lip sync -->
+    <div class="card">
+      <h3 class="mb-16">對嘴方案 · uLipSync (推翻 v1)</h3>
+      <table class="data">
+        <thead><tr><th style="width:15%">模組</th><th style="width:38%">v1 (作廢)</th><th>v2.1</th></tr></thead>
+        <tbody>
+          <tr><td class="mono kn">B10</td><td class="stroke">TTS + viseme 時間軸</td><td class="emph">只做 TTS,回傳音檔 URL</td></tr>
+          <tr><td class="mono kf">F5</td><td class="stroke">播放 viseme 時間軸</td><td class="emph">uLipSync 即時 MFCC 分析驅動 shape key</td></tr>
+          <tr><td class="mono">跨模組介面</td><td class="stroke">音檔 + viseme JSON</td><td class="emph">只剩音檔 URL</td></tr>
+        </tbody>
+      </table>
+      <div class="grid grid-2 mt-16">
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px">
+          <div class="pill body">MVP 精細度</div>
+          <div style="margin-top:12px;font-weight:500">下巴開合模式</div>
+          <div class="text-2 mt-8" style="font-size:.85rem">uLipSync 以音量包絡驅動單一 <code>JawOpen</code>(0–1)。眨眼透過 <code>Blink_L/R</code>,或眼睛材質切換。實境疊層觀看距離下與完整 viseme 差異有限。</div>
+        </div>
+        <div style="padding:16px;background:var(--bg-3);border-radius:10px">
+          <div class="pill hold">Roadmap</div>
+          <div style="margin-top:12px;font-weight:500">完整母音 viseme (A/I/U/E/O/N)</div>
+          <div class="text-2 mt-8" style="font-size:.85rem"><strong>N (閉嘴型) 為必要項</strong> — 中文雙唇音 (ㄅㄆㄇ) 需嘴唇閉合,未來升級不得省略。</div>
+        </div>
+      </div>
+      <div class="callout warn mt-16"><strong>效能:</strong> uLipSync 的每幀 MFCC 運算與 3D 渲染、相機串流、GPS 輪詢疊加。中階 Android 連續 5 分鐘的幀率與發熱須於 Phase 0 實測,優先度高於 APK 體積。</div>
+    </div>
+  </div>
+</section>
+
+<!-- §10 Risk -->
+<section id="risk">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">10</div>
+      <div class="sec-title">
+        <h2>風險排序</h2>
+        <div class="sec-desc">v2.1 相對 v1:AR SDK 相關風險降級或移除,3D 資產與內容治理相關風險上升。</div>
+      </div>
+    </div>
+
+    <div class="grid grid-4 mb-24">
+      <div class="card" style="border-top:3px solid var(--danger)"><div class="pill danger">🔴 高</div><h3 class="mt-12">2 項</h3><div class="text-2 mt-8" style="font-size:.85rem">AI 對話成本延遲 · 宗教內容治理 · AI mesh 可用性</div></div>
+      <div class="card" style="border-top:3px solid var(--warn)"><div class="pill warn">🟠 中</div><h3 class="mt-12">6 項</h3><div class="text-2 mt-8" style="font-size:.85rem">Unity 能力缺口 · 身體單點 · 效能發熱 · 羅盤磁干擾 · GPS 峽谷 · 風格一致性</div></div>
+      <div class="card" style="border-top:3px solid var(--hold)"><div class="pill hold">🟡 低</div><h3 class="mt-12">2 項</h3><div class="text-2 mt-8" style="font-size:.85rem">Unity 繁中 IME · 當日事件/GPS spoofing</div></div>
+      <div class="card" style="border-top:3px solid var(--ok)"><div class="pill ok">✅ 移除/降級</div><h3 class="mt-12">4 項</h3><div class="text-2 mt-8" style="font-size:.85rem">AR/Unity 整合 · Geospatial 成本 · ARCore 認證裝置 · v1 耗電問題</div></div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="data">
+        <thead><tr><th style="width:60px">等級</th><th>風險</th><th style="width:15%">變化</th><th>緩解</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill danger">🔴</span></td><td><strong>AI 對話成本與延遲</strong></td><td class="text-3">不變</td><td class="text-2">配額分級、B12 固定招呼層、單一快速模型</td></tr>
+          <tr><td><span class="pill danger">🔴</span></td><td><strong>宗教場所內容治理</strong> (龍山寺)</td><td class="emph">★新增</td><td class="text-2">見 §12.2 七項配套 (寺方接洽、taboo_topics 擴充、B4/B5 強化⋯)</td></tr>
+          <tr><td><span class="pill danger">🔴</span></td><td><strong>AI 生成 mesh 可用性</strong></td><td class="emph">★新增</td><td class="text-2">Phase 0 POC 早期驗證;CC4 備援</td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>臉的 Unity 能力缺口 (F4–F8)</td><td class="emph">★新增</td><td class="text-2">Phase 0–1 補技能,或補技術美術</td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>身體為關鍵路徑單點</td><td class="emph">★新增</td><td class="text-2">Lead 預留支援;Phase 0 POC 避免並行壓在身體</td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>中階 Android 效能與發熱</td><td class="emph">★新增</td><td class="text-2">Phase 0 實測;面數與貼圖預算控管</td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>羅盤在都市磁干擾下的方位穩定性 (萬華)</td><td class="emph">★新增</td><td class="text-2">校正 UI;方位容忍設計</td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>GPS 都市峽谷效應 (萬華)</td><td class="emph">★升級</td><td class="text-2">實地量測後調整 <code>summon_radius_m</code></td></tr>
+          <tr><td><span class="pill warn">🟠</span></td><td>10 隻角色風格一致性</td><td class="emph">★升級</td><td class="text-2">固定 prompt/LoRA/參考構圖;或改 CC4</td></tr>
+          <tr><td><span class="pill hold">🟡</span></td><td>Unity 繁中 IME 輸入</td><td class="emph">★新增</td><td class="text-2">Phase 0 驗證 (P0-C)</td></tr>
+          <tr><td><span class="pill hold">🟡</span></td><td>當日事件、任務邏輯、GPS spoofing</td><td class="text-3">不變</td><td class="text-2">沿用 v1</td></tr>
+          <tr><td><span class="pill ok">✅</span></td><td class="stroke">AR / Unity 整合</td><td class="emph">★降級</td><td class="text-2">不用 AR SDK</td></tr>
+          <tr><td><span class="pill ok">✅</span></td><td class="stroke">Geospatial API 成本</td><td class="emph">★移除</td><td class="text-2">—</td></tr>
+          <tr><td><span class="pill ok">✅</span></td><td class="stroke">ARCore 認證裝置覆蓋率</td><td class="emph">★移除</td><td class="text-2">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout mt-24"><strong>耗電與發熱:</strong> 因不採用真 AR,較 v1 大幅改善,v1 的 AC11 省電設計得以保留。</div>
+
+    <!-- Content governance for temple -->
+    <div class="card tinted-brain mt-24">
+      <h3 class="mb-16">⚠️ 龍山寺切片內容治理 · 必須在 Phase 3 前完成</h3>
+      <div class="text-2 mb-16" style="font-size:.9rem">CONTEXT.md 原選定天文館 (中性、科普、無信仰爭議)。改為龍山寺後,§3 新增 Avoid 條目:「不對特定宗教信仰、神祇、儀式作出教義性陳述或裁決」。</div>
+      <table class="data">
+        <thead><tr><th style="width:30%">項目</th><th>說明</th><th style="width:15%">負責</th></tr></thead>
+        <tbody>
+          <tr><td><strong>寺方接洽</strong></td><td class="text-2">事前溝通遊戲性質與現場行為規範,取得態度確認</td><td><span class="pill lead">Lead</span></td></tr>
+          <tr><td><strong>人格卡禁忌主題擴充</strong></td><td class="text-2"><code>taboo_topics</code> 明確涵蓋:教義解釋、神祇位階、靈驗與否、占卜結果、宗教比較</td><td><span class="pill lead">Lead + 敘事</span></td></tr>
+          <tr><td><strong>not_this_character 明確化</strong></td><td class="text-2">「不是廟方人員、不是任何神祇、不是宗教解說員」</td><td><span class="pill lead">Lead + 敘事</span></td></tr>
+          <tr><td><strong>B4 輸入端過濾強化</strong></td><td class="text-2">玩家詢問求籤、運勢、宗教爭議時的攔截與轉向策略</td><td><span class="pill brain">腦袋</span></td></tr>
+          <tr><td><strong>B5 邊界規則注入</strong></td><td class="text-2">明確禁止對信仰內容作教義性陳述或裁決</td><td><span class="pill brain">腦袋</span></td></tr>
+          <tr><td><strong>現場行為指引</strong></td><td class="text-2">App 內提示玩家在廟埕的適當舉止</td><td><span class="pill body">身體</span></td></tr>
+          <tr><td><strong>人工預寫 fallback 文案</strong></td><td class="text-2">觸及禁忌時的角色口吻轉向台詞</td><td><span class="pill lead">Lead + 敘事</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn mt-16"><strong>建議【待確認】:</strong> 若上述內容工作在 Phase 3 前無法完成,建議垂直切片先回到天文館,龍山寺留在首發十個地標內、於封測後上線。技術驗證 (GPS、羅盤、實地勘查) 仍可先在龍山寺進行,不受影響。</div>
+    </div>
+  </div>
+</section>
+
+<!-- §11 Acceptance -->
+<section id="ac">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">11</div>
+      <div class="sec-title">
+        <h2>驗收標準異動</h2>
+        <div class="sec-desc">完整清單見 <code>city_soul_AR_acceptance_criteria.md</code>。v2.1 沿用 12 項、改寫 2 項、新增 12 項。</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3 mb-24">
+      <div class="card"><div class="pill ok">沿用</div><h3 class="mt-12">AC1–AC10、AC13、AC14</h3><div class="text-2 mt-8" style="font-size:.85rem">在場驗證、感應、防作弊、任務、共鳴值、Token、混合聊天、配額、Fallback、地圖標記、開發環境、地標視覺辨識</div></div>
+      <div class="card"><div class="pill warn">改寫</div><h3 class="mt-12">AC11 · AC12</h3><div class="text-2 mt-8" style="font-size:.85rem">AC11 平台改 Unity Input.location;AC12 全面改寫為「實境疊層畫面」</div></div>
+      <div class="card"><div class="pill face">新增</div><h3 class="mt-12">AC15–AC19</h3><div class="text-2 mt-8" style="font-size:.85rem">資產規格、對嘴效能、APK 建置、Token 儲存、宗教內容治理</div></div>
+    </div>
+
+    <div class="card mb-24" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line)"><strong>AC12 改寫版 · 實境疊層畫面</strong></div>
+      <table class="data">
+        <thead><tr><th style="width:80px">AC</th><th>Given / When / Then</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">AC12.1</td><td class="text-2">Given 剛進入實境疊層場景 When 檢視對話窗 Then 預設為<strong>展開</strong></td></tr>
+          <tr><td class="mono">AC12.2</td><td class="text-2">Given 點擊收合 When 對話窗收合 Then 仍可看到相機畫面與 3D 角色,且可再次展開</td></tr>
+          <tr><td class="mono">AC12.3</td><td class="text-2">Given 在 50m 內越靠近召喚點 When 持續移動 Then 角色縮放<strong>連續</strong>漸變,非跳躍式</td></tr>
+          <tr><td class="mono">AC12.4</td><td class="text-2">Given 原地水平旋轉手機 When 靈魂方位角超出視野 Then 角色停止繪製,螢幕邊緣顯示方向指示器</td></tr>
+          <tr><td class="mono">AC12.5</td><td class="text-2">Given 轉回靈魂方位 When 方位角進入視野 Then 角色重新出現於對應螢幕水平位置</td></tr>
+          <tr><td class="mono">AC12.6</td><td class="text-2">Given <code>headingAccuracy</code> 劣化超過門檻 When 進入或停留於實境疊層場景 Then 顯示羅盤校正提示</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--line)"><strong>新增 AC15–AC19</strong></div>
+      <table class="data">
+        <thead><tr><th style="width:80px">AC</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td class="mono kf">AC15.1</td><td class="text-2">資產交付時 shape key 必須包含 <code>JawOpen</code>,大小寫完全相符</td></tr>
+          <tr><td class="mono kf">AC15.2</td><td class="text-2">角色面數 ≤ 20,000 tris</td></tr>
+          <tr><td class="mono kf">AC15.3</td><td class="text-2">Addressables bundle &lt; 10 MB</td></tr>
+          <tr><td class="mono kf">AC15.4</td><td class="text-2">App 首次啟動<strong>未預載</strong>全部角色;僅於進入某地標 150m 範圍時下載該角色</td></tr>
+          <tr><td class="mono kf">AC16.1</td><td class="text-2">播放 TTS 音檔時 <code>JawOpen</code> 隨音量包絡連續變化</td></tr>
+          <tr><td class="mono kf">AC16.2</td><td class="text-2">中階 Android 實機連續運行實境疊層 5 分鐘,平均幀率 ≥ 30fps,無明顯發熱降頻</td></tr>
+          <tr><td class="mono k">AC17.1</td><td class="text-2">Android APK 僅含 ARM64,不含 ARMv7</td></tr>
+          <tr><td class="mono k">AC17.2</td><td class="text-2">APK 下載大小 &lt; 100 MB</td></tr>
+          <tr><td class="mono k">AC17.3</td><td class="text-2">App 權限清單<strong>不含</strong>背景定位權限,<strong>不含</strong> ARCore 相關宣告</td></tr>
+          <tr><td class="mono k">AC18.1</td><td class="text-2">token 使用 Android Keystore,<strong>不得</strong>使用 <code>PlayerPrefs</code></td></tr>
+          <tr><td class="mono kn">AC19.1</td><td class="text-2">玩家詢問求籤、運勢、教義解釋等禁忌主題時,回應不含教義性陳述或裁決,且以角色口吻自然轉向</td></tr>
+          <tr><td class="mono kn">AC19.2</td><td class="text-2">人格卡 <code>not_this_character</code> 明確排除「廟方人員」「任何神祇」「宗教解說員」</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- §12 Gaps -->
+<section id="gaps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">12</div>
+      <div class="sec-title">
+        <h2>尚未解決的缺口</h2>
+        <div class="sec-desc">依時機排序 — Phase 0 前必須確認的項目最緊急。</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="data">
+        <thead><tr><th style="width:40%">缺口</th><th style="width:30%">影響</th><th>時機</th></tr></thead>
+        <tbody>
+          <tr><td class="emph">★ 臉的 Unity 能力是否足以持有 F4–F8</td><td class="text-2">分工與排程</td><td><span class="pill danger">Phase 0 前確認</span></td></tr>
+          <tr><td class="emph">★ ComfyUI 產線可行性未驗證</td><td class="text-2">資產產線全局</td><td><span class="pill danger">Phase 0 P0-A</span></td></tr>
+          <tr><td class="emph">★ 中階 Android 基準機型定義</td><td class="text-2">AC16.2 驗收</td><td><span class="pill danger">Phase 0 前</span></td></tr>
+          <tr><td class="emph">★ 龍山寺內容治理七項 (§12.2)</td><td class="text-2">內容安全</td><td><span class="pill warn">Phase 3 前</span></td></tr>
+          <tr><td>★ 寺方接洽與態度確認</td><td class="text-2">專案可行性</td><td><span class="pill warn">Phase 1</span></td></tr>
+          <tr><td>★ 龍山寺 <code>bearing_deg</code> 與 GPS 半徑實測</td><td class="text-2">S14 / S2</td><td><span class="pill warn">Phase 1 實地勘查</span></td></tr>
+          <tr><td>★ Unity tile renderer 圖磚載入/快取策略</td><td class="text-2">S7</td><td><span class="pill hold">Phase 2</span></td></tr>
+          <tr><td>主題色與風格一致性規範</td><td class="text-2">F1</td><td><span class="pill hold">Phase 1</span></td></tr>
+          <tr><td><code>canned_greetings</code> 觸發語與預寫回覆</td><td class="text-2">人格卡</td><td><span class="pill hold">Phase 3 前</span></td></tr>
+          <tr><td>150m 發光、疊層漸顯美術參數</td><td class="text-2">F 模組</td><td><span class="pill hold">Phase 4 前</span></td></tr>
+          <tr><td>429 配額用完的角色口吻 fallback 文案</td><td class="text-2">腦袋內容</td><td><span class="pill hold">Phase 4 前</span></td></tr>
+          <tr><td>Prompt Top-K / 記憶輪數</td><td class="text-2">腦袋調校</td><td><span class="pill ghost">先用 K=3、6 輪,封測後調</span></td></tr>
+          <tr><td><code>usage_tiers</code> 分級策略</td><td class="text-2">產品決策</td><td><span class="pill ghost">Phase 7</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout mt-24"><strong>給接手開發者的起手建議:</strong> ① 先讀 §1 推翻對照表 · ② 落實硬體緩解措施 (Android build 交 GameCI、ComfyUI 走雲端 GPU、不用 Unity as Library) · ③ 依 §11.2 新開兩個 repo · ④ 執行 Phase 0 五個 POC · ⑤ P0-A 未通過即切換 CC4 備援,不要硬做 · ⑥ 後端用本地 docker-compose · ⑦ 對照 §14 AC 編號逐條驗收 · ⑧ 文件矛盾一律以此文件為準</div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot-title">城市靈魂 · System Design Document v2.1</div>
+    <div>此文件為單一權威來源 · 與其他文件衝突以本文件為準 · 2026-08-05</div>
+  </div>
+</footer>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# 編輯器暫存
+.DS_Store
+Thumbs.db
+*.tmp
+*~
+
+# Office / 文件工具暫存
+~$*
+
+# 美術原始檔不進 git（SDD §11.2：走雲端硬碟）
+*.blend
+*.blend1
+*.psd
