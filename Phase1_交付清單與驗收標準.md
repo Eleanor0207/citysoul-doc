@@ -122,7 +122,7 @@ pytest
 | BO-7  | **ApiClient**           | `Services/ApiClient.cs`                  | `UnityWebRequest` 封裝；統一錯誤碼處理；逾時與重試策略                                |
 | BO-8  | **TokenManager**        | `Services/TokenManager.cs`               | 三種 token 生命週期；session 自動換發；**sense 靜默續期骨架**（可先不觸發）       |
 | BO-9  | 安全儲存                      | `Services/SecureStorage.cs`              | Android Keystore 封裝。**不得使用 `PlayerPrefs`**                               |
-| BO-10 | **S1 LocationService**  | `Services/LocationService.cs`            | 30 秒前景輪詢；150m / 50m 門檻狀態機；離開場景即停止；**不申請背景定位權限**      |
+| BO-10 | **S1 LocationService**  | `Services/LocationService.cs`            | 10 秒前景輪詢；150m / 50m 門檻狀態機；離開場景即停止；**不申請背景定位權限**      |
 | BO-11 | Bootstrap 場景                | `Features/Bootstrap/`                    | 啟動 → 有 token 就帶出、沒有就呼叫`POST /players` → 進下一場景。**無登入 UI** |
 | BO-12 | **EncounterScene 雛形** | `Features/Encounter/`                    | 相機背景（`WebCamTexture`）＋ 灰模顯示 ＋ 佔位對話 UI（可收合）                       |
 | BO-13 | 環境設定檔                    | `Resources/env.json` 或 ScriptableObject | 後端 base URL 可切換（local / dev）                                                     |
