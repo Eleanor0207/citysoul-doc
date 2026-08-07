@@ -479,6 +479,9 @@ CREATE TABLE brain.character_personas (
     personality_traits TEXT[],
     values            TEXT[],
     taboos            TEXT[],
+    not_this_character TEXT,           -- 負面人格聲明:「不是誰」
+    imagination_license TEXT,          -- 虛構授權:神祕感的來源,以及不能宣稱什麼
+    quest_themes      TEXT[],
     tone_override     TEXT,             -- 允許明確聲明「不遵循 city 基調」的原因
     reviewed_by       TEXT NOT NULL,
     reviewed_at       TIMESTAMPTZ NOT NULL,
@@ -490,9 +493,39 @@ CREATE TABLE brain.character_personas (
 -- 一個角色同時只能有一個生效版本
 CREATE UNIQUE INDEX uq_character_personas_active
     ON brain.character_personas(character_id) WHERE active;
+
+-- B12 快速問候的預寫台詞(AC7.1)
+CREATE TABLE brain.canned_greetings (
+    greeting_id     UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    character_id     TEXT NOT NULL,
+    version           INT NOT NULL,
+    trigger_phrases    TEXT[] NOT NULL,
+    response_text       TEXT NOT NULL,
+    FOREIGN KEY (character_id, version)
+        REFERENCES brain.character_personas(character_id, version),
+    CONSTRAINT ck_canned_greetings_response CHECK (response_text <> ''),
+    CONSTRAINT ck_canned_greetings_triggers CHECK (cardinality(trigger_phrases) > 0)
+);
+
+CREATE INDEX ix_canned_greetings_persona ON brain.canned_greetings(character_id, version);
 ```
 
 **為什麼多一張 `brain.characters`**:人格有版本,主鍵是 `(character_id, version)`。`spirits`、`resonance_unlockables`、`story_beats` 要指的是「這個角色」而不是「這個角色的第 3 版」,需要一個穩定的單欄位主鍵可以引用。沒有這張表的話,那些外鍵無法成立。
+
+### 拆開 `persona_cards` 時真正的缺口
+
+舊的 `persona_cards.content` JSONB 裡有九個欄位,三層草稿只接住了五個。補回來的四個都不是可有可無:
+
+| 舊欄位 | 現在的去處 | 為什麼不能丟 |
+|---|---|---|
+| `canned_greetings` | **獨立成 `brain.canned_greetings` 表** | B12 混合式聊天(AC7.1)正在讀它。少了它,「不呼叫 Gemini 直接回預寫台詞」這條省成本的路徑就斷了 |
+| `not_this_character` | `character_personas.not_this_character` | 負面人格聲明,跟 `taboos` 是兩件事:taboos 說「不談什麼」,這裡說「不是誰」。玩家把 AI 的話當成廟方或神明的話,是這個題材最實際的風險 |
+| `factual_boundary.imagination` | `character_personas.imagination_license` | 明確授權「神祕感可以從哪裡來」,同時劃出「不宣稱靈驗、不預言吉凶」 |
+| `quest_themes` | `character_personas.quest_themes` | 任務生成的取材範圍 |
+
+**`canned_greetings` 做成獨立的表而不是一個 JSONB 欄位**,因為它本來就是一對多。附帶的好處是 `response_text TEXT NOT NULL CHECK (<> '')` 與 `trigger_phrases TEXT[] NOT NULL CHECK (cardinality > 0)` 讓「某一筆格式打錯」在資料庫層級就寫不進來——`greetings.py` 裡整段防禦性解析因此可以刪掉,連同九個「讀到壞資料會不會優雅跳過」的測試。**用 schema 讓壞狀態無法表示,比在讀取端反覆檢查更可靠。**
+
+**外鍵指向 `(character_id, version)` 而不是只有 `character_id`**:預寫台詞是人工審核過的內容,而且是唯一**不經過 LLM、原樣送到玩家眼前**的內容。改台詞就是改人格內容,要走「新版本 → 重新審核」的同一條路,不能繞過去。
 
 **設計原則**:
 
@@ -809,19 +842,45 @@ def check_beat_unlockable(player_id: str, beat_id: str) -> bool:
 
 ---
 
-## 附錄:本版與 code 現況的差異(遷移清單)
+## 附錄:遷移進度(#31)
 
-`citysoul-backend` 現有 code 與本文件的落差,#31 Alembic 第一版 migration 要處理的:
+Alembic 已導入。schema 的唯一真相是 `citysoul-backend/migrations/versions/`,
+`scripts/init_db.py` 只負責「跑到最新版然後 seed」,不再有 `create_all` 或
+手寫的 `ALTER TABLE` 清單。
 
-| 項目 | code 現況 | 本文件 | 動作 |
-|---|---|---|---|
-| `spirits` 主鍵 | `place_id` | `spirit_id` | rename(API 路徑 `{placeId}` 不變) |
-| 半徑欄位 | `summon_radius_m` / `sense_radius_m` | `..._meters` | rename |
-| 座標型別 | `Float` | `NUMERIC(9,6)` | alter type |
-| `players` | `device_id` + `account_id` | 見第1節 | 加欄位、加 CHECK、加 partial index |
-| `resonance.stage` | 有欄位 | 不存 | drop column |
-| `quest_progress` 主鍵 | `(player_id, quest_id)` | `progress_id BIGSERIAL` | 改主鍵、加 `issued_date` 與兩個 partial index |
-| `brain.persona_cards` | 存在,B3 loader 在吃 | 由三層表取代 | 建三層表、重寫 loader 與 seed、drop 舊表 |
-| embedding 維度 | 768 | 768 | 不變 ✓ |
-| 配額表 | 不存在 | 第6節 | 新建,`closed_beta` 資料寫在 migration 裡 |
-| PostGIS | 未啟用 | 需要 | `CREATE EXTENSION postgis`,Cloud SQL 需確認可用 |
+| Revision | 內容 | 狀態 |
+|---|---|---|
+| `0001` | baseline:等同舊 `create_all`,不改變任何東西。舊資料庫可 `alembic stamp 0001` | ✅ |
+| `0002` | `place_id → spirit_id`、`_m → _meters`、座標改 `NUMERIC(9,6)` | ✅ |
+| `0003` | `players` 綁定欄位＋CHECK＋partial index、`quest_progress` 代理主鍵＋`issued_date`、drop `resonance.stage` | ✅ |
+| `0004` | `usage_tiers` / `usage_tier_limits`(含 `closed_beta` 資料)、`players.usage_tier_id`、`encounter_collections` | ✅ |
+| `0005` | brain 三層＋`characters`＋`canned_greetings` 取代 `persona_cards`;`spirits` 接上 `character_id` | ✅ |
+
+**對外 API 契約完全沒有變動。** `GET /api/v1/spirits/{placeId}` 仍回 `place_id` /
+`name` / `summon_radius_m` / `sense_radius_m`,`POST /api/v1/players` 仍回
+`account_id`——Unity client 的 DTO 用 `[JsonProperty]` 寫死了那些 key。對應寫在
+`schemas.py` 的 `validation_alias`,並有測試釘住整組回應欄位名。
+
+### ⛔ PostGIS:`districts` 的前置條件
+
+`brain.districts` / `story_arcs` 還沒建,因為 PostGIS 裝不起來:
+
+```
+extension "postgis" is not available
+Could not open extension control file
+"/usr/share/postgresql/16/extension/postgis.control"
+```
+
+`docker-compose.yml` 的 `pgvector/pgvector:pg16` 只有 pgvector。要兩個都有,得
+自建映像檔(`FROM pgvector/pgvector:pg16` 再 `apt-get install
+postgresql-16-postgis-3`),Cloud SQL 那邊也要另外確認可用性。
+
+連帶未做:`landmark_souls.district_id`(之後 `ALTER TABLE` 加一個可為 NULL 的
+欄位即可,不影響現有結構)。
+
+### 其他尚未落地的表
+
+`quests` 目錄表、`quest_progress` 的 `step_states` / `current_step_index` /
+`expires_at`、`media_assets` 系列、`dialogue_turns`、`players_story_progress`、
+`resonance_unlockables`、`story_beats`、`memory_embeddings` 的
+`source_turn_id` / `importance_score`——都還沒建,對應的功能也還沒開始做。
