@@ -1,0 +1,14 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel). Small label chip at top-left corner of the map area saying "Zoom 3 / 4 · 街區".
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER MAP (STAGE 3 - neighborhood level, transition point where 2.5D volumes clearly emerge but watercolor surface remains):
+- The map now shows a neighborhood scale around the pin. Individual buildings are visible.
+- Structure is now 50/50: gentle 45-degree isometric perspective begins here. Buildings have clear low-poly 3D volume with tasteful varied heights (2-6 stories), casting soft ambient occlusion shadows on one side.
+- Surface treatment still watercolor: building tops and side faces show watercolor gradient shading (not flat plastic fills), terracotta/ochre pigment washes, olive green park with wet edges, sepia ink outlines on building corners with slight imperfection, paper fiber grain still faintly visible. River is a clearer blue ribbon with subtle depth.
+- Small ink-drawn details: tiny window rows on building faces, tree canopy dots, a landmark silhouette (planetarium dome, tower).
+- The warm amber pin (with soft watercolor halo) is center-left, floating label chip "天文館靈魂" clearly attached to a specific building. Smaller teal pin in the right-middle now on a specific block.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall mood: the city has "risen" from the paper. A modern 2.5D isometric city, but still hand-painted in watercolor. The magical middle ground.

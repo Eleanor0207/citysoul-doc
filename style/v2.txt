@@ -1,0 +1,17 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel).
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER SECTION (main focus, ~60% of card height): a HYBRID vector tile map combining "Minimalist Semi-realistic 2.5D" structure with "Watercolor Terrain" texture and color treatment.
+
+STRUCTURE (from Style B): gentle 45-degree isometric perspective like Apple Maps Flyover simplified. Low-poly vector 3D building blocks with clean edges and tasteful varied heights, casting soft ambient occlusion shadows. Crisp clean street network. A river curves through with subtle depth. Small vector trees dotted along boulevards.
+
+SURFACE TREATMENT (from Style D): apply watercolor pigment on textured paper aesthetic ON TOP of the 2.5D geometry. Warm palette: aged parchment cream base, terracotta and ochre building tops with soft pigment bleed edges, sage and olive green parks with watery washes, sepia street lines with slight ink imperfection, misty blue-gray river with wet-on-wet blending. Subtle paper fiber texture visible throughout. Building faces show gentle watercolor gradient shading rather than flat fills. Ink-drawn tiny details: window rows, tree canopy dots, landmark silhouettes.
+
+The overall effect: modern 2.5D isometric city that looks like it was hand-painted in watercolor and lifted off a travel journal page. Clean vector geometry + warm painterly surface = premium yet soulful.
+
+Place a warm amber pin (circular with drop-tail, subtle watercolor bleed halo) in center-left with a clean floating label chip "天文館靈魂". A smaller teal pin with ink-wash accent in the right-middle.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall: literary yet modern, warm travel-journal aesthetic married with premium iOS-style UI chrome. Crisp UI text over a painterly semi-realistic 2.5D vector map.

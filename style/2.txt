@@ -1,0 +1,13 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel). Small label chip at top-left corner of the map area saying "Zoom 2 / 4 · 行政區".
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER MAP (STAGE 2 - district level zoom, watercolor v2 dominant with FIRST hint of block structure):
+- The map shows a single district — the same city region seen closer, focused on the area around the amber pin.
+- Still 80% watercolor v2: warm parchment base, olive/sage park washes, terracotta pigment for building zones, sepia ink streets with soft imperfect edges, dusty blue river winding through, visible paper fiber.
+- 20% structure emerges: city blocks are now starting to separate into clusters of small painted rectangles instead of one big smudge. Main streets have clearer sepia lines. A few tiny ink-drawn landmark silhouettes appear (a tower, a treetop cluster, a bridge). No 3D yet, still fully flat top-down.
+- ONE glowing warm amber pin center-left with a small floating label chip "天文館靈魂" in clean sans-serif. A smaller secondary teal ink pin appears in the right-middle now.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall mood: still very painterly, but the city is beginning to reveal its bones. The watercolor is now organized into districts and streets.

@@ -1,0 +1,15 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel).
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER SECTION (main focus, ~60% of card height): a HYBRID vector tile map that leans MORE into watercolor character while keeping subtle 2.5D depth.
+
+SURFACE (from Style D, dominant): watercolor-on-textured-paper aesthetic as the primary look. Rich pigment washes: aged parchment cream base, terracotta and ochre for buildings, olive and sage green for parks, sepia ink for streets, dusty blue-gray river with wet-on-wet blooms. Visible paper fiber grain. Hand-drawn ink outlines with slight imperfection, tiny landmark silhouettes (church steeple, tower, treetop dots).
+
+STRUCTURE HINT (from Style B, secondary): buildings still have GENTLE 45-degree isometric depth — you can read them as small 3D volumes with soft watercolor shadows on one side, not just flat 2D patches. Streets have a hair of perspective. This gives dimensionality without breaking the painterly feel.
+
+Place a red vermilion pin (ink-drawn circular pin with soft watercolor halo bleeding into the paper) in center-left with a small parchment-tone label "天文館靈魂" in clean modern sans-serif (NOT handwritten, keep it legible for UI). A smaller indigo ink pin with tiny wash halo in the right-middle.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall: a hand-painted watercolor city map that quietly reveals dimensional depth on second look. Warm, literary, humanistic, but still framed by a crisp modern app UI. Perfect for a "city soul" narrative product.

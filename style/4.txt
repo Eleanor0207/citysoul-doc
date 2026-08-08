@@ -1,0 +1,14 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel). Small label chip at top-left corner of the map area saying "Zoom 4 / 4 · 建物".
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER MAP (STAGE 4 - closest zoom in, v1 style dominant, buildings are the hero):
+- The map is now focused on a tight cluster of buildings around the "天文館靈魂" pin. You can clearly see individual buildings up close.
+- 80% Style B 2.5D structure: strong 45-degree isometric perspective, clean vector low-poly 3D buildings with tasteful geometry, clear ambient occlusion shadows, crisp street network with sidewalks and pedestrian crossings visible, small vector trees dotted along boulevards. A planetarium-like domed building is prominently visible (this is the "天文館靈魂" location).
+- 20% Style D watercolor surface remains: building faces still have gentle watercolor gradient shading rather than pure flat fills, terracotta/ochre color palette warmth is preserved, subtle paper fiber grain lingers faintly in shadow areas, sepia ink outlines still slightly imperfect (not machine-perfect).
+- The warm amber pin sits on top of the domed planetarium building with a strong halo, prominent floating label chip "天文館靈魂" attached. A smaller teal pin nearby on a specific building.
+- Fine details: labeled street names in tiny sepia text on a couple of major roads, park benches or plaza pattern hinted in the small green space.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall mood: modern, functional, POI-ready — but still with a soul. Clean 2.5D city map with warm watercolor DNA in its palette and surface.

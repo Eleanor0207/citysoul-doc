@@ -1,0 +1,13 @@
+A mobile app UI mockup shown on a warm cream background, portrait orientation, rounded 24px corners, single phone-sized card layout (380px wide feel). Small label chip at top-left corner of the map area saying "Zoom 1 / 4 · 城市全景".
+
+TOP SECTION: a rounded search bar with a chat bubble icon on the left, placeholder text "跟城市靈魂聊聊..." in soft gray, and a small microphone icon on the right. Below it, three equal pill-shaped tab buttons labeled "召喚點", "當日情境", "收藏".
+
+CENTER MAP (STAGE 1 - farthest zoom out, pure watercolor v2 style, city-wide overview):
+- The map shows a whole city region from very high altitude — you see the overall shape of the city, major green belts, a winding river, a distant mountain silhouette on the horizon.
+- 100% watercolor treatment: aged parchment cream base, olive and sage green washes for the large park zones, dusty terracotta smudges for dense urban blocks, sepia thin ink strokes for arterial roads, misty blue-gray river with wet-on-wet blooms. Strong paper fiber grain.
+- NO individual buildings visible yet — the city reads as painted regions, not blocks. Very atmospheric, ethereal, "a city as a painting".
+- ONE glowing warm amber pin near the center-left with a soft watercolor halo bleeding into the paper, small floating label chip "天文館靈魂" in clean sans-serif. No secondary pins at this zoom.
+
+BOTTOM SECTION: a "當地氛圍" info row with a cloud icon and text "26° · 空氣佳". Below it, three square tab cards side by side with icons and labels: 探索 (map pin icon), 任務 (star icon), 共鳴值 (heart icon).
+
+Overall mood: distant, poetic, "the city as a whispered watercolor". Maximum artistic soul, minimum geometric structure.
