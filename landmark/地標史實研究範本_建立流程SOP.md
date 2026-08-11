@@ -58,7 +58,7 @@
 ### Step 5｜命名與存放
 
 - 檔名：`{地標中文名}_史實研究記錄範本.md`（多字地標可用底線分隔，如「臺灣新文化運動紀念館」不需要）
-- 存放：目前先集中放 `/mnt/user-data/outputs/`，之後團隊如果要放進 repo，建議對應 README 說明的文件庫模式（單一真相來源，不要多處複製）
+- 存放：統一存放於專案文件庫 [citysoul-doc/landmark/](file:///Users/doudou/Desktop/團專路徑/citysoul-doc/landmark/) 目錄下，遵循單一真相來源（Single Source of Truth），避免多處複製。
 
 ---
 

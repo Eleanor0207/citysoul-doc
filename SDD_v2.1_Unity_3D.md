@@ -487,7 +487,7 @@ ALTER TABLE spirits ADD COLUMN height_offset_m DOUBLE PRECISION NOT NULL DEFAULT
 ### 10.3 未異動
 
 `POST /players`、`POST /sense`、`POST /summon`、`GET /daily-event`、`GET /quests/daily`、
-`POST /quests/{questId}/complete`、`GET /resonance/{spiritId}`、`GET /players/me/memory-summary`、
+`POST /quests/{questId}/complete`、`GET /resonance/{spiritId}`、`GET /profile`、`GET /players/me/memory-summary`、
 `GET /assets/{avatarId}`、`POST /quests/{questId}/landmark-photo`。
 
 Token 設計、配額規則、錯誤碼、fallback 策略全數不變。
