@@ -11,3 +11,9 @@ Thumbs.db
 *.blend
 *.blend1
 *.psd
+
+
+# 本機開發專用，不該帶進雲端建置
+.claude/
+.codex/
+/AGENTS.md
