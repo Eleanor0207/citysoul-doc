@@ -18,9 +18,8 @@
 | `taipei_fine_arts_museum.md` | 臺北市立美術館 | 中山 |
 | `moca_taipei.md` | 台北當代藝術館 | 中山 |
 | `songshan_cultural_park.md` | 松山文創園區 | 信義 |
-| `rongjin_gorgeous_time.md` | 榕錦時光生活園區 | 大安 |
 
-11 個地標，內容皆已填寫並經 Lead 覆核（各檔末尾的「下一步」checklist 可看完成狀態）。
+10 個地標，內容皆已填寫並經 Lead 覆核（各檔末尾的「下一步」checklist 可看完成狀態）。
 
 ## 三件已知的事
 
@@ -30,7 +29,7 @@
 
 ### 2. `spirit_id` 全部定案（2026-08-13）
 
-11 個全數拍板，各研究檔的基本資訊區已寫入。
+10 個全數拍板，各研究檔的基本資訊區已寫入。
 
 | 地標 | `spirit_id` |
 |---|---|
@@ -44,12 +43,11 @@
 | 臺北市立美術館 | `taipei_fine_arts_museum` |
 | 台北當代藝術館 | `moca_taipei` |
 | 松山文創園區 | `songshan_cultural_park` |
-| 榕錦時光生活園區 | `taipei_prison_quarters` |
 
 命名規則三條：
 
 1. **`{專名}_{類型}`，全稱不縮寫。** `longshan_temple` 是既有值，其餘對齊它。研究檔原本的 `npm`（故宮）在任何有 JavaScript 的環境裡都是別的東西；`tp`、`tfam` 是同一類問題。
-2. **不用營運品牌名。** 榕錦時光取文資登錄名「原臺北刑務所官舍」→ `taipei_prison_quarters`。品牌會換約改名，文資登錄名不會。
+2. **不用營運品牌名，用文資登錄名。** 品牌會換約、會改名，登錄名不會。目前 10 個沒有踩到這條，但下一個地標可能會。
 3. **不用角色暱稱**（SDD §7.3.1：角色名可能變更，不得進入技術命名）。
 
 唯一的例外是 `moca_taipei`——展開的 `museum_of_contemporary_art_taipei` 幾乎沒人使用，館方對外正式英文名就是 MOCA Taipei。北美館沒有這個問題，所以用全稱。
@@ -73,6 +71,5 @@
 `lead_decisions_v3.md` 標出兩處空間關係的事實錯誤，性質跟 `taboos`（不談什麼）不同，是「談的時候不能講錯」：
 
 - 蔣渭水沒有被關在臺灣新文化運動紀念館現存的建築裡（他 1931 年逝世，現存建築 1933 年完工）
-- 榕錦時光是刑務所的**官舍**，不是牢房也不是刑場
 
 `brain.character_personas` 目前沒有欄位放這類「事實更正」。要嘛併進 `landmark_souls.key_events` 用敘述表達，要嘛另加欄位——待決。

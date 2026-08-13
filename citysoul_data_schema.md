@@ -522,7 +522,7 @@ CREATE INDEX ix_canned_greetings_persona ON brain.canned_greetings(character_id,
 
 **跟 `character_personas.taboos` 是兩件事**:taboos 說「不談什麼」,這裡說「談的時候不能講錯」。也因此它屬於**史實層而不是人格層**——同一條事實更正在人格改版時不會變,放進有版本的人格表等於每改一版就要複製一次,遲早有一版漏掉。
 
-目前已知兩條(來源:`landmark/lead_decisions_v3.md`):蔣渭水沒有被關在臺灣新文化運動紀念館現存的建築裡;榕錦時光是刑務所的官舍,不是牢房也不是刑場。
+目前已知一條(來源:`landmark/lead_decisions_v3.md`):蔣渭水沒有被關在臺灣新文化運動紀念館現存的建築裡——他 1931 年逝世,現存建築 1933 年完工。
 
 **為什麼多一張 `brain.characters`**:人格有版本,主鍵是 `(character_id, version)`。`spirits`、`resonance_unlockables`、`story_beats` 要指的是「這個角色」而不是「這個角色的第 3 版」,需要一個穩定的單欄位主鍵可以引用。沒有這張表的話,那些外鍵無法成立。
 
