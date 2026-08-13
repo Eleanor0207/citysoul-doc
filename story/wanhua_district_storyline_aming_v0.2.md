@@ -208,11 +208,11 @@ v0.1 曾有一個 `beat_bopiliao_vague`（`one_time=false`，可重複觸發）�
 ```sql
 INSERT INTO brain.resonance_unlockables (unlock_id, character_id, min_resonance, unlock_type, content) VALUES
 ('unlock_longshan_aming_memory', 'longshan_watcher', 40, 'memory_fragment',
- '在「信任」階段才願意多說的一件事：牠記得阿明離開時腳步很輕，輕到不像活人。語氣是不確定要不要說出口的猶豫。'),
+ '在「信任」階段才願意多說的一件事：祂記得阿明離開時腳步很輕，輕到不像活人。語氣是不確定要不要說出口的猶豫。'),
 ('unlock_hongluo_aming_memory',  'red_house_collector',  40, 'memory_fragment',
- '在「信任」階段補的一句：牠曾經考慮過幫阿明找那個女孩，但後來覺得哪裡怪怪的，說不上來。語氣是難得的收斂。'),
+ '在「信任」階段補的一句：祂曾經考慮過幫阿明找那個女孩，但後來覺得哪裡怪怪的，說不上來。語氣是難得的收斂。'),
 ('unlock_bopiliao_aming_memory', 'bopiliao_keeper', 100, 'secret_story',
- '在「摯友」階段才鬆口：牠其實一直都記得，只是不敢先說，怕說出口就要承認阿明真的不會再回來了。這是三則裡唯一觸及自我認知的一則，語氣要最安靜。');
+ '在「摯友」階段才鬆口：祂其實一直都記得，只是不敢先說，怕說出口就要承認阿明真的不會再回來了。這是三則裡唯一觸及自我認知的一則，語氣要最安靜。');
 ```
 
 > 門檻沿用固定的 10/40/100（`citysoul_data_schema.md` §8 `RESONANCE_STAGES`），不為這條主線另開特例數值。
