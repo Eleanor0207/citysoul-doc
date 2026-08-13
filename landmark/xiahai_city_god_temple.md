@@ -1,6 +1,7 @@
 # 霞海城隍廟 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/xiahai.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/xiahai_city_god_temple.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`xiahai_city_god_temple`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > 行政區：大同區
@@ -116,7 +117,7 @@
 [x] 上表填完
 [x] Lead 過一輪，把 confidence=official/mainstream 的項目定案
 [x] 爭議區逐條決定：排除 / 保守措辭收錄 / 轉進 taboos 素材
-[x] 定案內容轉成 landmarks/xiahai.yaml
+[x] 定案內容轉成 landmarks/xiahai_city_god_temple.yaml
 [x] 寫入 brain.landmark_souls
 [x] 姻緣類 canned_greetings 優先設計（比其他地標更早排入時程）
 [x] not_this_character 明確排除「月老本人」「代替月老賜籤/牽紅線」

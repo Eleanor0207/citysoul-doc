@@ -1,6 +1,7 @@
 # 臺灣新文化運動紀念館 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/newculture.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/new_cultural_movement_memorial.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`new_cultural_movement_memorial`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > 行政區：大同區
@@ -112,7 +113,7 @@
 [x] 上表填完
 [x] Lead 過一輪，把 confidence=official/mainstream 的項目定案
 [x] 爭議區逐條決定：排除 / 保守措辭收錄 / 轉進 taboos 素材
-[x] 定案內容轉成 landmarks/newculture.yaml
+[x] 定案內容轉成 landmarks/new_cultural_movement_memorial.yaml
 [x] 寫入 brain.landmark_souls
 [x] 若涉及歷史人物當代政治詮釋，比照政治敏感類地標處理原則
 ```

@@ -28,13 +28,45 @@
 
 `lead_decisions_v3.md` 把它列為新建的兩份範本之一，並開了一項 A 級阻擋決策（角色採哪一種語域）。**該決策已作廢，不需要再拍板**，也不要為它補範本。地標總數是 11 個，不是該文件寫的 12 個。
 
-### 2. `spirit_id`：龍山寺已定案，其餘 10 個待定
+### 2. `spirit_id` 全部定案（2026-08-13）
 
-龍山寺定為 **`longshan_temple`**（2026-08-13），與 `citysoul-backend` 的 `app/db/seed.py` 已寫入資料庫的值一致。研究檔原本寫的 `taipei_longshan` 已改掉。
+11 個全數拍板，各研究檔的基本資訊區已寫入。
 
-> SDD §7.3.1 的 Addressables key `spirit_longshan` 是**客戶端載 3D 模型用的資源鍵**，本來就跟後端主鍵是兩個不同的識別碼，不算衝突。
+| 地標 | `spirit_id` |
+|---|---|
+| 艋舺龍山寺 | `longshan_temple` |
+| 西門町紅樓 | `ximen_red_house` |
+| 剝皮寮歷史街區 | `bopiliao_historic_block` |
+| 霞海城隍廟 | `xiahai_city_god_temple` |
+| 臺灣新文化運動紀念館 | `new_cultural_movement_memorial` |
+| 國立故宮博物院 | `national_palace_museum` |
+| 天文台 | `taipei_astronomical_museum` |
+| 臺北市立美術館 | `taipei_fine_arts_museum` |
+| 台北當代藝術館 | `moca_taipei` |
+| 松山文創園區 | `songshan_cultural_park` |
+| 榕錦時光生活園區 | `taipei_prison_quarters` |
 
-其餘 10 個地標的研究檔都寫「spirit_id 命名待定」，只有榕錦時光給了建議值 `tpprison_quarters`（取文資登錄名而非營運品牌名，理由見該檔 Step 1）。**開始寫 `landmarks/*.yaml` 之前要全部定案**——改資料庫主鍵比改文件貴得多。
+命名規則三條：
+
+1. **`{專名}_{類型}`，全稱不縮寫。** `longshan_temple` 是既有值，其餘對齊它。研究檔原本的 `npm`（故宮）在任何有 JavaScript 的環境裡都是別的東西；`tp`、`tfam` 是同一類問題。
+2. **不用營運品牌名。** 榕錦時光取文資登錄名「原臺北刑務所官舍」→ `taipei_prison_quarters`。品牌會換約改名，文資登錄名不會。
+3. **不用角色暱稱**（SDD §7.3.1：角色名可能變更，不得進入技術命名）。
+
+唯一的例外是 `moca_taipei`——展開的 `museum_of_contemporary_art_taipei` 幾乎沒人使用，館方對外正式英文名就是 MOCA Taipei。北美館沒有這個問題，所以用全稱。
+
+> **客戶端的 Addressables key 是另一套識別碼**，不受影響。SDD §7.3.1 的 `spirit_longshan` 是載 3D 模型用的資源鍵，跟後端主鍵本來就不同。
+
+### 2.1 `character_id` 不重複整個 `spirit_id`
+
+既有值是 `longshan_watcher`，不是 `longshan_temple_watcher`。慣例是 `{地名}_{英文角色定位詞}`——地名取短的那一段，定位詞用角色在敘事裡的功能。
+
+萬華三個地標的建議值（尚未建立）：
+
+| 地標 | `character_id` |
+|---|---|
+| 艋舺龍山寺 | `longshan_watcher`（已存在） |
+| 西門町紅樓 | `red_house_collector` |
+| 剝皮寮歷史街區 | `bopiliao_keeper` |
 
 ### 3. 兩條「必須寫死進角色知識層」的事實
 

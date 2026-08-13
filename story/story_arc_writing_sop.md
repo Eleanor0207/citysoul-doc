@@ -164,7 +164,7 @@ MVP 採單一角色內線性排序（`citysoul_data_schema.md` §8）。所以�
 
 必須對到 `brain.characters` 的實際值。寫佔位字串（`char_longshan` 這種）的成本是：之後有人照著文件寫 YAML，匯入時才發現外鍵插不進去。
 
-慣例是 `{landmark_id}_{英文角色定位詞}`，例如已存在的 `longshan_watcher`。
+慣例是 `{地名}_{英文角色定位詞}`——**地名取短的那一段，不重複整個 `spirit_id`**。既有值是 `longshan_watcher`，不是 `longshan_temple_watcher`。
 
 定位詞用**角色在敘事裡的功能**，不用角色暱稱或人名——SDD §7.3.1：角色名可能變更，不得進入技術命名。
 

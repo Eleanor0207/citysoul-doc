@@ -1,6 +1,6 @@
 # 榕錦時光生活園區（原臺北刑務所官舍） 史實研究記錄範本
 
-> **用途**：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/tpprison_quarters.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
+> **用途**：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/taipei_prison_quarters.yaml`→ 寫入 `brain.landmark_souls`。這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 > 
 > **資料蒐集狀態**：第一輪已填。
 
@@ -13,12 +13,12 @@
 | 地標中文名稱 | 榕錦時光生活園區 | 這是營運品牌名，不是文資登錄名，見下方附註 |
 | 文資登錄名稱 | 原臺北刑務所官舍 | 2013 年底登錄為臺北市歷史建築 |
 | 行政區 | 大安區（金華街 157 號） | 對應 `brain.districts` |
-| 暫定 spirit_id | `tpprison_quarters` | 取自文資登錄名，不取營運品牌名 |
+| `spirit_id` | `taipei_prison_quarters` | 2026-08-13 定案。取文資登錄名而非營運品牌名；`tp` 縮寫展開為 `taipei`，理由同全表不用縮寫 |
 
 > ⚠️ **Step 1 附註：不要用「榕錦時光」當技術命名**  
 > SDD §7.3.1 規定技術命名不得使用可能變更的名稱。本地標有一個中正紀念堂那份沒有的變數：  
 > 「榕錦時光生活園區」是委外營運團隊的品牌名。園區透過臺北市文化局「老房子文化運動計畫」媒合民間業者營運，此類契約有期限；營運團隊更換時，園區名稱極可能一併更換，但文資登錄名「原臺北刑務所官舍」不會變。  
-> 建議 `spirit_id` 採 `tpprison_quarters`（或其他基於文資登錄名的形式），不要用 `rongjin`。
+> `spirit_id` 採 `taipei_prison_quarters`，取自文資登錄名，不用營運品牌名 `rongjin`。
 
 ---
 
@@ -164,10 +164,10 @@
 ```
 [x] 上表填完
 [x] 提醒 (1) 的事實區分寫進角色知識層（園區是官舍，不是牢房或刑場）
-[x] Step 1 的 spirit_id 採文資登錄名 tpprison_quarters
+[x] Step 1 的 spirit_id 採文資登錄名 taipei_prison_quarters
 [x] 第 3 節文化意義草稿確認
 [x] 第 4 節大安區基調定稿
 [x] 採納角色定位：「旁邊那戶人家」
-[x] 定案內容轉成 landmarks/tpprison_quarters.yaml
+[x] 定案內容轉成 landmarks/taipei_prison_quarters.yaml
 [x] 寫入 brain.landmark_souls
 ```

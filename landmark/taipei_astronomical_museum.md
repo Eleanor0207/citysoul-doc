@@ -1,6 +1,7 @@
 # 天文台 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/observatory.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/taipei_astronomical_museum.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`taipei_astronomical_museum`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > 行政區：士林區
@@ -99,7 +100,7 @@
 [x] 上表填完
 [x] Lead 過一輪，把 confidence=official/mainstream 的項目定案
 [x] 爭議區逐條決定：排除 / 保守措辭收錄 / 轉進 taboos 素材
-[x] 定案內容轉成 landmarks/observatory.yaml
+[x] 定案內容轉成 landmarks/taipei_astronomical_museum.yaml
 [x] 寫入 brain.landmark_souls
 [x] 設計人格時特別處理「天文 vs 占星」邊界的 taboo/轉向話術
 ```

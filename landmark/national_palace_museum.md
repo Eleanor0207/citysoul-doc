@@ -1,6 +1,7 @@
 # 國立故宮博物院 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/npm.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/national_palace_museum.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`national_palace_museum`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > 行政區：士林區
@@ -119,7 +120,7 @@ SDD `SDD_v2_1_Unity_3D.md` §12.2 為龍山寺設計了一整套內容治理流�
 [x] 第 6 節政治敏感區內容，提交 Lead 決策是否需要專門治理流程
 [x] Lead 過一輪，把 confidence=official/mainstream 的項目定案
 [x] 一般爭議區逐條決定：排除 / 保守措辭收錄
-[x] 定案內容轉成 landmarks/npm.yaml
+[x] 定案內容轉成 landmarks/national_palace_museum.yaml
 [x] 寫入 brain.landmark_souls
 [x] 【待確認】是否需要比照 SDD §12.2 另訂故宮專屬內容治理章節
 ```

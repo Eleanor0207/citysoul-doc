@@ -1,6 +1,7 @@
 # 剝皮寮歷史街區 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/bopiliao.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/bopiliao_historic_block.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`bopiliao_historic_block`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > ⚠️ 提醒：剝皮寮是**街區型地標**，不是單一建物，實際查資料時要留意：

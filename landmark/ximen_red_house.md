@@ -1,6 +1,7 @@
 # 西門町紅樓 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/hongloutheatre.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/ximen_red_house.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`ximen_red_house`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > ⚠️ 與龍山寺不同：紅樓非宗教場所，§12.2 的宗教內容治理條款不適用於此地標。但仍要留意：紅樓歷史橫跨日治市場建築、電影院、劇場、次文化聚落等多重身分轉變，若有政治敏感或文化認同爭議的敘事（例如日治時期定位），建議一樣走「爭議區」流程，不要直接寫進 `founding_facts`。

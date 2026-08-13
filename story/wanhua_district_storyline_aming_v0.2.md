@@ -147,10 +147,12 @@ VALUES (
 | 靈魂     | `character_id`                      | 狀態                                                                    |
 | -------- | ------------------------------------- | ----------------------------------------------------------------------- |
 | 龍山寺   | `longshan_watcher`                  | ✅ 已存在（`app/db/seed.py`），人格卡為 `active=false` 的未審核草稿 |
-| 西門紅樓 | `ximen_red_house_collector`（建議） | ❌ 尚未建立                                                             |
+| 西門紅樓 | `red_house_collector`（建議） | ❌ 尚未建立                                                             |
 | 剝皮寮   | `bopiliao_keeper`（建議）           | ❌ 尚未建立                                                             |
 
-命名慣例沿用現有的 `{landmark_id}_{英文角色定位詞}`。定位詞用**角色在敘事裡的功能**，不用角色暱稱——SDD §7.3.1：角色名可能變更，不得進入技術命名。後兩者的最終命名待新地標的人格卡建立時一併定案。
+命名慣例沿用現有的 `{地名}_{英文角色定位詞}`——地名取短的那一段，不重複整個 `spirit_id`（既有值是 `longshan_watcher` 而非 `longshan_temple_watcher`）。定位詞用**角色在敘事裡的功能**，不用角色暱稱——SDD §7.3.1：角色名可能變更，不得進入技術命名。
+
+三個地標的 `spirit_id` 已於 2026-08-13 全數定案（見 `landmark/README.md`）：`longshan_temple`、`ximen_red_house`、`bopiliao_historic_block`。
 
 #### 節點表
 
@@ -158,8 +160,8 @@ VALUES (
 | ------------------------ | ---------------- | ------------------------- | -------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------- | ------------------------------------------------------------------- | -------- |
 | `beat_longshan_gate`   | arc_wanhua_aming | longshan_watcher          | 1              | 玩家首次與龍山寺靈魂對話                                 | 以「先幫忙向各廳打聲招呼」為由引導玩家做靈魂任務；任務完成前提及阿明一律溫和帶開                               | —                                            | —                        | 見 §5.3 龍山寺帶開語氣                                             | true     |
 | `beat_longshan_clue`   | arc_wanhua_aming | longshan_watcher          | 2              | `quest_progress` 中 `q_longshan_ceremony` 狀態為完成 | 敘述兩次見到阿明的經過；語氣淡然帶憐惜；**不得**用「神明告訴我」交代資訊來源                             | `beat_longshan_gate`                        | —                        | 見 §5.1                                                            | true     |
-| `beat_hongluo_gate`    | arc_wanhua_aming | ximen_red_house_collector | 1              | 玩家首次與紅樓靈魂對話                                   | 先介紹紅樓歷史，引導做靈魂任務                                                                                 | —                                            | —                        | 見 §5.2                                                            | true     |
-| `beat_hongluo_clue`    | arc_wanhua_aming | ximen_red_house_collector | 2              | `q_hongluo_ceremony` 完成                              | 主動拿出畫作，坦承忙到沒空追問，交付畫作道具                                                                   | `beat_hongluo_gate`, `beat_longshan_clue` | —                        | 觸發`player_inventory` 寫入 `item_painting_of_girl`（見 §3.7） | true     |
+| `beat_hongluo_gate`    | arc_wanhua_aming | red_house_collector | 1              | 玩家首次與紅樓靈魂對話                                   | 先介紹紅樓歷史，引導做靈魂任務                                                                                 | —                                            | —                        | 見 §5.2                                                            | true     |
+| `beat_hongluo_clue`    | arc_wanhua_aming | red_house_collector | 2              | `q_hongluo_ceremony` 完成                              | 主動拿出畫作，坦承忙到沒空追問，交付畫作道具                                                                   | `beat_hongluo_gate`, `beat_longshan_clue` | —                        | 觸發`player_inventory` 寫入 `item_painting_of_girl`（見 §3.7） | true     |
 | `beat_bopiliao_gate`   | arc_wanhua_aming | bopiliao_keeper           | 1              | 玩家首次與剝皮寮靈魂對話                                 | 反問玩家為何來此，語氣疏離帶防備                                                                               | —                                            | —                        | 條件未滿足時的「想不起來」走 §5.4                                  | true     |
 | `beat_bopiliao_reveal` | arc_wanhua_aming | bopiliao_keeper           | 2              | 玩家持有`item_painting_of_girl`                        | **全劇情最重的一拍**：靈魂逐漸認出畫中人是自己，語氣由破碎轉短暫清醒；調侃畫工差；揭露死亡年齡與地震年份 | `beat_bopiliao_gate`, `beat_hongluo_clue` | `item_painting_of_girl` | 見 §7 情感節奏建議                                                 | true     |
 | `beat_finale_reveal`   | arc_wanhua_aming | bopiliao_keeper           | 3              | `beat_bopiliao_reveal` 完成後的下一次對話              | 完整揭露：思鄉而非思人、剝皮寮靈魂即記憶投影、1815 地震、1816 百日離開                                         | `beat_bopiliao_reveal`                      | —                        | —                                                                  | true     |
@@ -207,7 +209,7 @@ v0.1 曾有一個 `beat_bopiliao_vague`（`one_time=false`，可重複觸發）�
 INSERT INTO brain.resonance_unlockables (unlock_id, character_id, min_resonance, unlock_type, content) VALUES
 ('unlock_longshan_aming_memory', 'longshan_watcher', 40, 'memory_fragment',
  '在「信任」階段才願意多說的一件事：牠記得阿明離開時腳步很輕，輕到不像活人。語氣是不確定要不要說出口的猶豫。'),
-('unlock_hongluo_aming_memory',  'ximen_red_house_collector',  40, 'memory_fragment',
+('unlock_hongluo_aming_memory',  'red_house_collector',  40, 'memory_fragment',
  '在「信任」階段補的一句：牠曾經考慮過幫阿明找那個女孩，但後來覺得哪裡怪怪的，說不上來。語氣是難得的收斂。'),
 ('unlock_bopiliao_aming_memory', 'bopiliao_keeper', 100, 'secret_story',
  '在「摯友」階段才鬆口：牠其實一直都記得，只是不敢先說，怕說出口就要承認阿明真的不會再回來了。這是三則裡唯一觸及自我認知的一則，語氣要最安靜。');
@@ -392,7 +394,7 @@ ON CONFLICT (player_id, beat_id) DO NOTHING;
 ### 9.2 待決事項
 
 - [ ] `beat_bopiliao_reveal` 是否要額外設計共鳴值加成或視覺提示，待與臉／腦袋討論可行性
-- [ ] `ximen_red_house_collector` / `bopiliao_keeper` 的最終 `character_id` 命名，隨兩張人格卡一併定案
+- [ ] `red_house_collector` / `bopiliao_keeper` 的最終 `character_id` 命名，隨兩張人格卡一併定案
 - [ ] `story_beats` / `resonance_unlockables` 要不要加 `reviewed_by` 欄位——`narrative_directive` 會直接注入 prompt，內容治理風險與人格卡同級，但目前 schema 沒有任何審核欄位（見 SOP §5）
 
 ### 9.3 建表時程

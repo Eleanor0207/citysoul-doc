@@ -1,6 +1,7 @@
 # 台北當代藝術館（MOCA） 史實研究記錄範本
 
-> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/moca.yaml`（spirit_id 命名待定）→ 寫入 `brain.landmark_souls`。
+> 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/moca_taipei.yaml`→ 寫入 `brain.landmark_souls`。
+> - `spirit_id`：`moca_taipei`（2026-08-13 定案）
 > 這份文件本身不是正式資料來源，是給 Lead 審核前的**草稿暫存區**。
 >
 > 行政區：大同區
@@ -99,7 +100,7 @@
 [x] 上表填完
 [x] Lead 過一輪，把 confidence=official/mainstream 的項目定案
 [x] 爭議區逐條決定：排除 / 保守措辭收錄 / 轉進 taboos 素材
-[x] 定案內容轉成 landmarks/moca.yaml
+[x] 定案內容轉成 landmarks/moca_taipei.yaml
 [x] 寫入 brain.landmark_souls
 [x] 設計人格時將「不做藝術鑑價/真偽判斷」納入 taboos 考量（比照北美館）
 [x] 當期展覽內容改走 B9 當日情境路徑，不寫入 founding_facts
