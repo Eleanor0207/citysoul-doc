@@ -3,7 +3,7 @@
 > **基本資訊**：
 > - 地標名稱：艋舺龍山寺
 > - 行政區：萬華區 (對應 `brain.districts` 地理圍欄)
-> - 暫定 spirit_id：`taipei_longshan` (⚠️ 嚴禁使用角色暱稱)
+> - `spirit_id`：`longshan_temple`（已定案，與 `citysoul-backend` 已寫入資料庫的值一致；⚠️ 嚴禁使用角色暱稱）
 > - 敏感類型：`B. 宗教內容治理型` + `D. 歷史創傷型 (1945 大空襲)`
 > 
 > 用途：查資料的過程中直接記錄在這裡，之後整批轉成 `landmarks/longshan.yaml` → 寫入 `brain.landmark_souls`。
