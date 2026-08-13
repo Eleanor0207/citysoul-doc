@@ -18,7 +18,7 @@
 
 ## 檔案
 
-- `主線劇情撰寫SOP.md` — 寫新 arc 之前先讀。前置條件、beat 設計的五條硬規則、交付前檢查表。
+- `story_arc_writing_sop.md` — 主線劇情撰寫 SOP。寫新 arc 之前先讀：前置條件、beat 設計的五條硬規則、交付前檢查表。
 - `wanhua_district_storyline_aming_v0.2.md` — 萬華區「阿明的遺願」，目前唯一一條 arc，狀態為草案。
 
 ## 目前的狀態
