@@ -382,11 +382,11 @@ ON CONFLICT (player_id, beat_id) DO NOTHING;
 
 | # | 項目                                       | 現況                             | 卡住什麼                                                              |
 | - | ------------------------------------------ | -------------------------------- | --------------------------------------------------------------------- |
-| 1 | 萬華區行政區界 GeoJSON                     | ❌ 無                            | `districts.boundary` → 圍欄恆假 → 信件發不出去 → 整條 arc 無入口 |
+| 1 | 萬華區行政區界 GeoJSON | ✅ 已取得（內政部界線圖，`citysoul-backend` 的 `data/districts/wanhua.geojson`），本機已載入 `brain.districts` | 尚未載入 Cloud SQL |
 | 2 | 西門紅樓、剝皮寮的史實研究 | ✅ 已完成並經 Lead 覆核（`landmark/ximen_red_house.md`、`landmark/bopiliao_historic_block.md`） | — |
 | 3 | 兩張新人格卡草稿 + 人工審核 flip`active` | ❌ 無                            | `characters` 不存在 → `story_beats.character_id` 外鍵插不進去    |
 | 4 | 兩個新`spirits` 記錄（含召喚點座標）     | ❌ 目前只有`longshan_temple`   | 玩家召喚不到紅樓／剝皮寮靈魂                                          |
-| 5 | 九張表的 migration                         | ❌ 全部未建                      | 無處可寫                                                              |
+| 5 | 九張表的 migration | ✅ 0013／0014／0015 已建，本機驗證過 | 尚未套用到 Cloud SQL |
 | 6 | 實地勘查（三個地標的拍攝點）               | ❌ 未執行                        | §4 三組`steps` 皆為暫定                                            |
 
 > 龍山寺自己的人格卡目前也是 `active=false` 的未審核草稿（內容為 `PENDING_NARRATIVE_REVIEW` 佔位），連垂直切片都還沒過。
