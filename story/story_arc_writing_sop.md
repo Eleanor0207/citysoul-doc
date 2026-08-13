@@ -2,7 +2,7 @@
 
 > 適用對象：任何要寫一條新主線劇情的人（不限 Lead）
 > 這份流程產出的是**劇情內容規格文件**，不是正式資料。正式資料的終點是 `brain.story_arcs` / `brain.story_beats` / `brain.resonance_unlockables`，中間還要經過 Lead 審核與 YAML 轉檔。
-> 姊妹文件：`landmark/地標史實研究範本_建立流程SOP.md`（地標史實）。兩者的關係見 §1。
+> 姊妹文件：`landmark/landmark_research_sop.md`（地標史實）。兩者的關係見 §1。
 
 ---
 

@@ -381,7 +381,7 @@ ON CONFLICT (player_id, beat_id) DO NOTHING;
 | # | 項目                                       | 現況                             | 卡住什麼                                                              |
 | - | ------------------------------------------ | -------------------------------- | --------------------------------------------------------------------- |
 | 1 | 萬華區行政區界 GeoJSON                     | ❌ 無                            | `districts.boundary` → 圍欄恆假 → 信件發不出去 → 整條 arc 無入口 |
-| 2 | 西門紅樓、剝皮寮的史實研究                 | ❌`landmark/` 兩份範本表格皆空 | `landmark_souls` 無內容 → 人格卡無素材                             |
+| 2 | 西門紅樓、剝皮寮的史實研究 | ✅ 已完成並經 Lead 覆核（`landmark/ximen_red_house.md`、`landmark/bopiliao_historic_block.md`） | — |
 | 3 | 兩張新人格卡草稿 + 人工審核 flip`active` | ❌ 無                            | `characters` 不存在 → `story_beats.character_id` 外鍵插不進去    |
 | 4 | 兩個新`spirits` 記錄（含召喚點座標）     | ❌ 目前只有`longshan_temple`   | 玩家召喚不到紅樓／剝皮寮靈魂                                          |
 | 5 | 九張表的 migration                         | ❌ 全部未建                      | 無處可寫                                                              |

@@ -18,7 +18,7 @@
 | `Phase1_交付清單與驗收標準.md` | Phase 1 各模組的交付項目與驗收指令 |
 | `SDD_v2.1_Phase排程與Issue對應表.md` | §13 七階段排程對到兩個 repo 的 issue。**索引性質，狀態以 GitHub 為準** |
 | `citysoul_data_schema.md` | PostgreSQL 完整 schema 與後端邏輯參考 |
-| `landmark/` | 地標史實研究記錄範本（11 份，多數待填），含建立流程 SOP |
+| `landmark/` | 地標史實研究記錄（11 個地標，內容已填並經 Lead 覆核），含建立流程 SOP 與決策摘要 |
 | `character/` | 角色設定與人格卡內容（待撰寫） |
 | `story/` | 主線劇情（story arc）內容與撰寫 SOP |
 | `event/` | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
