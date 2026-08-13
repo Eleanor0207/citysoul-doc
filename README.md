@@ -17,8 +17,11 @@
 | `SDD-v2.1-Overview.html` | 架構總覽（視覺化版本，用瀏覽器開） |
 | `Phase1_交付清單與驗收標準.md` | Phase 1 各模組的交付項目與驗收指令 |
 | `SDD_v2.1_Phase排程與Issue對應表.md` | §13 七階段排程對到兩個 repo 的 issue。**索引性質，狀態以 GitHub 為準** |
+| `citysoul_data_schema.md` | PostgreSQL 完整 schema 與後端邏輯參考 |
+| `landmark/` | 地標史實研究記錄範本（11 份，多數待填），含建立流程 SOP |
 | `character/` | 角色設定與人格卡內容（待撰寫） |
-| `event/` | 當日情境與事件內容（待撰寫） |
+| `story/` | 主線劇情（story arc）內容與撰寫 SOP |
+| `event/` | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
 
 ## ⚠️ 接手前先讀 SDD §1
 
