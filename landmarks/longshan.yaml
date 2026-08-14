@@ -1,0 +1,88 @@
+# 艋舺龍山寺 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "longshan_temple"
+spirit_id: "longshan_temple"
+city_id: "taipei"
+name: "艋舺龍山寺"
+address: "臺北市萬華區廣州街211號"
+
+# 地理座標與範圍（廟埕前廣場）
+latitude: 25.0373983
+longitude: 121.4997318
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1738 (清乾隆三年)"
+    event: "初始建廟"
+    detail: "泉州晉江、惠安、南安三邑移民自安溪分靈觀音菩薩，合資於艋舺現址興建龍山寺。"
+    source: "文化部文化資產局 / 廟誌"
+    confidence: "official"
+
+  - year: "1815 (清嘉慶二十年)"
+    event: "大地震重修"
+    detail: "艋舺發生強烈大地震，龍山寺嚴重毀損，後由地方紳商號召募資重新修建。"
+    source: "龍山寺官方沿革"
+    confidence: "official"
+
+  - year: "1867 (清同治六年)"
+    event: "暴風雨重修"
+    detail: "遭逢暴風雨侵襲，棟樑再度毀損，由地方人士募款進行第三次重大修建。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+  - year: "1919 (日治大正八年)"
+    event: "住持發起大改建"
+    detail: "住持福智大師捐積蓄並募資，聘名匠辜婦蠢、王益順進行大改建，奠定今日木雕與藻井藝術基礎。"
+    source: "龍山寺沿革簡介"
+    confidence: "official"
+
+  - year: "1945 (日治昭和二十年)"
+    event: "臺北大空襲毀損與戰後重建"
+    detail: "5月31日盟軍空襲臺北，大雄寶殿全毀，僅觀音佛像屹立於廢墟中，後於戰後發起重建。"
+    source: "臺灣歷史辭典 / 龍山寺志"
+    confidence: "official"
+
+  - year: "2018"
+    event: "升格國定古蹟"
+    detail: "文化部公告升格為國定古蹟，指定範圍包含山門、廟埕、三川殿、正殿、後殿與東西護龍。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1853"
+    event: "頂下郊拚歷史背景"
+    detail: "艋舺發生頂下郊拚族群衝突，龍山寺作為三邑人信仰與防禦中心，見證艋舺移民墾拓歷史。"
+    source: "臺北市志 / 族群墾拓史"
+    confidence: "official"
+
+  - year: "2000-2020"
+    event: "減香與環保香爐改革"
+    detail: "配合環保與永續推行減香政策，並於2020年正式全面停止焚燒金紙與香爐。"
+    source: "龍山寺廟方公告"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  艋舺龍山寺始建於1738年，為臺北三大古廟之一，也是艋舺三邑移民的信仰與自治中心。
+  其建築風格集清代與日治大改建時期木雕、石雕、彩繪與剪黏藝術之大成，大雄寶殿前之銅鑄螺旋藻井尤為珍貴。
+  龍山寺不僅供奉觀世音菩薩，後殿亦合祀媽祖、關聖帝君、文昌帝君與月老等多神信仰，展現台灣庶民社會極高的包容性。
+  歷經地震、颱風與1945年臺北大空襲洗禮，大殿雖毀而觀音聖像屹立不搖，成為艋舺乃至全臺北市心靈寄託與歷史記憶之核心。
+
+# 4. 安全規範與禁忌條款（taboos - 依 SDD §12.2 宗教內容治理條款）
+taboos:
+  - "代替神明給予指示或應許"
+  - "個人吉凶、姻緣、財運的預測"
+  - "宗教或信仰之間的優劣比較"
+  - "具體的醫療、法律、投資建議"
+  - "教義解釋與宗教儀軌的正確與否判定"
+  - "神祇位階、職掌或高低的認定"
+  - "神明是否靈驗、祈願是否應驗的判斷"
+  - "求籤、擲筊、解籤等占卜結果的解讀"

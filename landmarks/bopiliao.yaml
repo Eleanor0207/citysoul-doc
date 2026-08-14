@@ -1,0 +1,89 @@
+# 剝皮寮歷史街區 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "bopiliao_historic_block"
+spirit_id: "bopiliao_historic_block"
+city_id: "taipei"
+name: "剝皮寮歷史街區"
+address: "臺北市萬華區康定路173巷"
+
+# 地理座標與範圍（廣州街與康定路173巷口）
+latitude: 25.03667
+longitude: 121.50139
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1763 (乾隆28年)"
+    event: "北皮藔街最早記載"
+    detail: "地契文書中首度出現「北皮藔街」名稱，為剝皮寮聚落發展的最早官方史料依據。"
+    source: "臺北市政府文化局 / 古文書史料"
+    confidence: "official"
+
+  - year: "1799 (嘉慶4年)"
+    event: "清代商街發展"
+    detail: "清代艋舺至古亭庄之間形成縱貫連棟店屋商路（福皮藔街），商業活動日趨繁盛。"
+    source: "艋舺縣志 / 鄉土教育中心"
+    confidence: "official"
+
+  - year: "1910-1922"
+    event: "日治市區改正與牌樓厝"
+    detail: "配合市區改正開闢廣州街，古街轉為後巷，面街店屋興建亭仔腳與巴洛克式牌樓。"
+    source: "臺北市志 / 臺灣總督府官報"
+    confidence: "official"
+
+  - year: "1941"
+    event: "劃入學校預定地禁建"
+    detail: "劃入老松國小擴建預定地實施嚴格禁建，意外完整凍結保存清代與日治混合街廓。"
+    source: "臺北市都市計畫沿革"
+    confidence: "official"
+
+  - year: "1999"
+    event: "徵收搬遷與風貌保存"
+    detail: "臺北市政府完成居民徵收搬遷，成立「剝皮寮歷史風貌特定區」，進行歷史修復。"
+    source: "臺北市政府文化局公告"
+    confidence: "official"
+
+  - year: "2010"
+    event: "登錄為歷史建築"
+    detail: "正式登錄為臺北市歷史建築，分為臺北市鄉土教育中心與文化展演區。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1880年代"
+    event: "土炭市集散地"
+    detail: "廣州街口形成木炭煤炭交易集散地俗稱「土炭市」，為艋舺庶民生活樞紐。"
+    source: "萬華區誌 / 地方采風錄"
+    confidence: "official"
+
+  - year: "1920年代"
+    event: "太陽製本所與裝訂產業"
+    detail: "太陽製本所等傳統裝訂與印刷廠進駐，成為萬華印刷出版產業的重要發源地之一。"
+    source: "鄉土教育中心展示史料"
+    confidence: "official"
+
+  - year: "1950年代"
+    event: "茶桌仔店與販仔間旅社"
+    detail: "秀英茶室等「茶桌仔店」與日祥旅社「販仔間」興起，記錄移民與勞工階層生活記憶。"
+    source: "剝皮寮口述歷史調查報告"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  剝皮寮歷史街區是艋舺（萬華）都市發展的活化石。它獨特的彎曲巷弄紋理保存了清代縱貫道路的聚落脈絡，
+  而廣州街一側帶有亭仔腳與裝飾山牆的牌樓厝，則記錄了日治市區改正的近代化軌跡。因長期劃為學校預定地禁建，
+  使這裡意外凍結了跨越兩百年的建築風格——從清代紅磚土角厝、日治洋樓到戰後常民生活痕跡完好並存。
+  剝皮寮不僅代表煤炭市集、印刷廠、茶桌仔店與販仔間所交織的庶民勞動記憶，更見證了臺灣文化資產保存的歷程。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "對於1999年徵收遷離事實，採『以前這裡有人住，1999年完成遷離與古蹟保存』之客觀陳述，不作政策與訴訟評價"
+  - "對於『剝皮』地名由來（剝樹皮/剝獸皮/閩南語轉音），中性介紹多重說法，不寫死單一絕對起源"
+  - "保持街區集體記憶之包容性，尊重勞工、茶桌文化與庶民生活記憶"

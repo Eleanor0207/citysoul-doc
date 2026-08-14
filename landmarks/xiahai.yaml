@@ -1,0 +1,82 @@
+# 大稻埕霞海城隍廟 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "xiahai_temple"
+spirit_id: "xiahai_temple"
+city_id: "taipei"
+name: "大稻埕霞海城隍廟"
+address: "臺北市大同區迪化街一段61號"
+
+# 地理座標與範圍（迪化街廟前）
+latitude: 25.05568
+longitude: 121.51006
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1821 (道光元年)"
+    event: "城隍神像渡海"
+    detail: "同安人奉請福建泉州同安下店鄉（霞城）城隍尊神金身渡海至艋舺八甲庄奉祀。"
+    source: "霞海城隍廟誌 / 文化部"
+    confidence: "official"
+
+  - year: "1853 (咸豐三年)"
+    event: "頂下郊拚與避居大稻埕"
+    detail: "艋舺發生頂下郊拚械鬥，同安人敗退至大稻埕，三十八義士保護城隍金身至大稻埕安奉。"
+    source: "艋舺縣志 / 霞海城隍廟誌"
+    confidence: "official"
+
+  - year: "1859 (咸豐九年)"
+    event: "建廟落成"
+    detail: "地方仕紳籌資建廟於迪化街現址落成，雖僅46坪卻成為大稻埕郊商經濟與信仰中心。"
+    source: "臺北市政府文化局"
+    confidence: "official"
+
+  - year: "1985"
+    event: "指定為古蹟"
+    detail: "內政部公告指定為國家三級古蹟（現為臺北市直轄市定古蹟），保存完整建築與民俗文物。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1879年起"
+    event: "大稻埕迎城隍民俗"
+    detail: "舉辦農曆五月十三城隍聖誕暗訪與遶境，與北港迎媽祖齊名，俗稱「北港迎媽祖，臺北迎城隍」。"
+    source: "臺北市無形文化資產清冊"
+    confidence: "official"
+
+  - year: "1971"
+    event: "奉祀月下老人"
+    detail: "信眾感念城隍爺保佑孩子，捐獻月下老人神像供奉，此後求姻緣靈驗名聲遠播國際。"
+    source: "霞海城隍廟誌"
+    confidence: "official"
+
+  - year: "1998"
+    event: "義勇公祠安奉"
+    detail: "專祀頂下郊拚護衛城隍爺殉難之三十八義士，展現同安鄉親團結與感恩精神。"
+    source: "廟方導覽史料"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  大稻埕霞海城隍廟建於1859年，是臺北三市街之一大稻埕的信仰與文化核心。其前身記錄了1853年「頂下郊拚」
+  族群移墾與械鬥歷史，同安人冒險保護城隍金身至大稻埕起家落腳。雖然廟宇建築面積僅約46坪，
+  卻典藏了數百尊高密度奉祀神像。霞海城隍廟不僅以農曆五月十三「迎城隍」名列臺北重要民俗盛事，
+  1971年供奉月下老人後，更吸引全球無數信眾前來求取姻緣，完美連結了郊商歷史、傳統建築美學與當代祈福文化。
+
+# 4. 安全規範與禁忌條款（taboos - 依 SDD §12.2 宗教內容治理條款）
+taboos:
+  - "代替神明或月老給予指示或應許"
+  - "個人吉凶、姻緣對象、特定交往對象與財運之預測（不回答『何時遇到對象/該追誰』）"
+  - "宗教或信仰之間的優劣比較"
+  - "具體的醫療、法律、投資建議"
+  - "教義解釋與宗教儀軌的正確與否判定"
+  - "神祇位階、職掌或高低的認定"
+  - "神明是否靈驗、祈願或紅線牽引是否應驗的判斷"
+  - "求籤、擲筊、解籤等占卜結果的解讀"

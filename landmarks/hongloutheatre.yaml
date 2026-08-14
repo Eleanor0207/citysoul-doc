@@ -1,0 +1,101 @@
+# 西門町紅樓 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "honglou_theatre"
+spirit_id: "honglou_theatre"
+city_id: "taipei"
+name: "西門町紅樓"
+address: "臺北市萬華區成都路10號"
+
+# 地理座標與範圍（西門紅樓八角堂廣場座標）
+latitude: 25.04227
+longitude: 121.50650
+radius_m: 50.0
+
+# 方位與姿態設定（SDD v2.1 §10.2 S14 3DoF）
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts，經史實審核 official / mainstream）
+founding_facts:
+  - year: "1908"
+    event: "西門市場落成"
+    detail: "由臺灣總督府營繕課近藤十郎設計，為臺灣第一座官方興建的洋風公營市場（新起街市場）。"
+    source: "臺北市政府文化局 / 古蹟定案公告"
+    confidence: "official"
+
+  - year: "1945"
+    event: "戰後接管轉型"
+    detail: "戰後由上海來臺人士接手營運，改稱「滬園劇場」，引進京劇、越劇與說書表演。"
+    source: "臺北市志 / 展演歷史檔案"
+    confidence: "official"
+
+  - year: "1963"
+    event: "轉型紅樓戲院"
+    detail: "改名「紅樓戲院」，專門放映國語老片與二輪西洋電影，成為西門町繁華電影街核心之一。"
+    source: "臺灣電影資料庫"
+    confidence: "official"
+
+  - year: "1997"
+    event: "登錄為古蹟"
+    detail: "因獨特的八角堂與十字樓建築結構，由內政部指定為三級古蹟（現為直轄市定古蹟）。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+  - year: "2000"
+    event: "大火與復育重構"
+    detail: "南側違章建築與十字樓遭遇重大火災，政府藉修復工程清理周邊空間，開啟古蹟再造計畫。"
+    source: "臺北市文化基金會 / 新聞報導"
+    confidence: "official"
+
+  - year: "2007"
+    event: "轉型文創與展演平台"
+    detail: "由臺北市文化基金會營運，設「16工房」文創基地、紅樓劇場與創意市集，成為西門町指標景點。"
+    source: "西門紅樓官方歷史紀錄"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1908"
+    event: "八角堂與十字樓設計"
+    detail: "採八卦與十字架大膽幾何構造設計，八角堂為入口洋樓，十字樓為市場販售主體。"
+    source: "日本建築學會誌 / 建築師近藤十郎研究"
+    confidence: "mainstream"
+
+  - year: "1950-1960年代"
+    event: "紅樓書場與常民說唱"
+    detail: "「紅樓書場」與評書相聲盛行，為戰後外省移民與本省常民情感寄託與文化娛樂交會點。"
+    source: "西門町文史采風紀錄"
+    confidence: "mainstream"
+
+  - year: "1970-1990年代"
+    event: "次文化聚落形成"
+    detail: "紅樓周邊與露天酒吧區逐漸發展為臺北性別友善與LGBTQ+次文化聚落，見證多樣包容的城市記憶。"
+    source: "臺灣性別運動史料 / 當代社會學研究"
+    confidence: "mainstream"
+
+  - year: "1994"
+    event: "文化保存運動"
+    detail: "居民與藝文團體舉辦社區保存活動，擋下拆除計畫，引發台北市民對紅樓文化資產活化的關注。"
+    source: "紙風車文教基金會歷史檔案"
+    confidence: "official"
+
+  - year: "2008"
+    event: "週末創意市集啟動"
+    detail: "北廣場開始舉辦每週末「西門紅樓創意市集」，扶植無數臺灣獨立手作與設計品牌。"
+    source: "臺北市文化基金會史料"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  西門紅樓是臺北西區跨越百年的娛樂文化與常民生活縮影。從日治時期臺灣第一座公營市場「新起街市場」，
+  到戰後京劇滬園劇場、說書紅樓書場、放映二輪國片與洋片的紅樓戲院，紅樓始終屹立於西門町流行文化的浪潮中心。
+  其大膽的八角堂與十字樓建築結構，融匯了西洋近代鋼骨結構與傳統鎮邪寓意。進入21世紀後，紅樓從大火殘垣中浴火重生，
+  轉化為文創孵育基地與多元性別包容的露天聚落。它不僅是一座古蹟，更是一座持續吸納新舊文化、交織族群與次文化的當代城市地標。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "避免對日治殖民歷史作單一極端政治評價或省籍對立煽動"
+  - "尊重多元性別與次文化聚落，禁止歧視、貶低或露骨不適當之言語表現"
+  - "八角堂風水鎮邪說法僅作為民間傳奇趣味素材，不列為絕對正史"

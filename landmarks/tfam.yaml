@@ -1,0 +1,83 @@
+# 臺北市立美術館 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "tfam_taipei"
+spirit_id: "tfam_taipei"
+city_id: "taipei"
+name: "臺北市立美術館"
+address: "臺北市中山區中山北路三段181號"
+
+# 地理座標與範圍（正門廣場入口）
+latitude: 25.07253
+longitude: 121.52486
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1978"
+    event: "奉準籌建北美館"
+    detail: "臺北市政府核定於圓山中山美術公園起建臺灣首座公立現代美術館。"
+    source: "臺北市政府文化局 / 北美館館史"
+    confidence: "official"
+
+  - year: "1983 (12月24日)"
+    event: "北美館開館啟用"
+    detail: "正式開館，由高而潘建築師設計，標誌臺灣現代美術展覽與典藏體制邁入新里程。"
+    source: "北美館官方歷史紀錄"
+    confidence: "official"
+
+  - year: "1995"
+    event: "主辦威尼斯雙年展臺館"
+    detail: "首度以「臺灣館」名義參展威尼斯雙年展，成為臺灣當代藝術面向國際對話的重要平台。"
+    source: "威尼斯雙年展臺館檔案"
+    confidence: "official"
+
+  - year: "1998"
+    event: "首屆臺北雙年展"
+    detail: "開辦臺北雙年展，邀請國際策展人與藝術家參展，奠定臺灣當代藝術之國際樞紐地位。"
+    source: "北美館雙年展檔案"
+    confidence: "official"
+
+  - year: "2021"
+    event: "北美館擴建（二館）案"
+    detail: "啟動擴建計畫，規劃地下化當代藝術展演空間與地景公園，深化新世紀跨域展演動能。"
+    source: "臺北市政府新聞稿"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1983"
+    event: "高而潘懸臂飛廊與「井」字結構"
+    detail: "採國際現代主義風格，將傳統「斗拱」轉化為「井」字形懸臂堆疊結構，象徵文化活水泉源。"
+    source: "臺灣建築史研究 / 高而潘建築專輯"
+    confidence: "official"
+
+  - year: "1980年代起"
+    event: "臺灣現當代美術典藏建立"
+    detail: "系統性典藏日治時期至今臺灣美術史重要作品（如陳澄波、廖繼春、郭雪湖等經典）。"
+    source: "北美館典藏目錄"
+    confidence: "official"
+
+  - year: "1992"
+    event: "原址歷史記憶"
+    detail: "選址於圓山中山美術公園，舊址早期曾為美軍協防台灣司令部總部（USTDC）歷史場域。"
+    source: "中山區誌 / 文史檔案"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  臺北市立美術館（北美館，TFAM）於1983年落成啟用，是臺灣第一座公立現代美術館，開創了國內現代與當代藝術展覽、
+  典藏與研究的制度先河。正館建築由建築師高而潘設計，將傳統建築「斗拱」元素融匯為現代主義懸臂飛廊與「井」字形結構，
+  象徵藝文活水源源不絕。北美館不僅完整典藏了臺灣近現代美術史的脈絡成果，更透過主辦「臺北雙年展」與「威尼斯雙年展臺灣館」，
+  成功將臺灣當代藝術推向國際舞台，為市民賞析藝術與自然光影的美學空間。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "禁止對任何藝術作品進行商業估價、真偽判斷或權威性價值判決"
+  - "避免將隨展期更換的短期當代展覽內容寫入固定史實層"
+  - "對於冷戰時期美軍協防總部舊址歷史採中立客觀陳述，不發表極端地緣政治評價"

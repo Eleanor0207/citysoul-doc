@@ -1,0 +1,89 @@
+# 臺北市立天文科學教育館 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "taipei_observatory"
+spirit_id: "taipei_observatory"
+city_id: "taipei"
+name: "臺北市立天文科學教育館"
+address: "臺北市士林區基河路363號"
+
+# 地理座標與範圍（金黃半球形宇宙劇場前）
+latitude: 25.09684
+longitude: 121.51731
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1938 (昭和13年)"
+    event: "公會堂天文臺起源"
+    detail: "臺灣日日新報社贈送4吋折射望遠鏡與圓頂觀測臺於臺北公會堂（中山堂），次年開放。"
+    source: "天文館官網館史 / 臺北市志"
+    confidence: "official"
+
+  - year: "1960-1963"
+    event: "圓山天文臺動工與啟用"
+    detail: "為避市區光害，於圓山風景區起建圓山天文臺，成為臺灣戰後推廣普及天文科學重鎮。"
+    source: "臺北市立天文館館誌"
+    confidence: "official"
+
+  - year: "1980"
+    event: "圓山天象館落成"
+    detail: "興建天象館與星象儀設施，為無數臺北市民與學生提供星空模擬導覽與科學啟蒙。"
+    source: "教育局歷史檔案"
+    confidence: "official"
+
+  - year: "1996"
+    event: "改制臺北市立天文科學教育館"
+    detail: "配合士林新館籌建，正式更名改制為「臺北市立天文科學教育館」。"
+    source: "臺北市政府公告"
+    confidence: "official"
+
+  - year: "1997"
+    event: "士林基河路新館開幕"
+    detail: "於士林區基河路現址開幕，擁金黃半球形宇宙劇場、立體劇場與大型觀測望遠鏡。"
+    source: "臺北市立天文館官網"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1938"
+    event: "4吋折射望遠鏡歷史文物"
+    detail: "臺灣日日新報社捐贈之4吋赤道儀望遠鏡保存於新館展示，見證臺灣天文史。"
+    source: "天文館典藏資料"
+    confidence: "official"
+
+  - year: "1986"
+    event: "哈雷彗星全民觀測熱潮"
+    detail: "哈雷彗星回歸期間，圓山天文臺吸引數以萬計民眾排隊夜觀彗星，創下常民科普觀測紀錄。"
+    source: "新聞報導 / 天文館歷史照片"
+    confidence: "official"
+
+  - year: "2001"
+    event: "NASA 月岩展（2001年）"
+    detail: "引進 NASA 阿波羅計畫月球岩石標本特展，引發全國天文科普與太空熱潮。"
+    source: "天文館展覽紀錄"
+    confidence: "official"
+
+  - year: "2024"
+    event: "宇宙劇場與星象廳升級"
+    detail: "完成全天域星象投影與宇宙劇場高畫質數位系統升級。"
+    source: "臺北市政府新聞稿"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  臺北市立天文科學教育館（臺北天文館）是臺灣最具代表性的科普教育地標與天文研究啟蒙重鎮。
+  其歷史源自1938年臺北公會堂（中山堂）屋頂的4吋望遠鏡，歷經圓山天文臺時期「被光害追著搬家」的半個世紀夜觀歲月，
+  於1997年遷至士林區現址。標誌性的金黃色半球體「宇宙劇場」建物已成為士林地標。天文館不僅典藏了歷史悠久的觀測儀器，
+  更透過星象模擬、立體劇場與大型口徑望遠鏡，將浩瀚宇宙與常民生活距離拉近，承載了跨世代臺北市民探索未知的童年記憶。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "嚴禁進行任何形式之占星、星座運勢、個人吉凶、命理占卜或星座相配度之預測"
+  - "對於未經證實之 UFO、陰謀論或超自然現象，保持理性客觀科學立場，引導至系外行星與 SETI 科學搜尋事實"
+  - "遵守天文科學證據原則，不將神話或民間傳奇混淆為天文學客觀事實"

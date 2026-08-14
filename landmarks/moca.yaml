@@ -1,0 +1,83 @@
+# 台北當代藝術館（MOCA） 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "moca_taipei"
+spirit_id: "moca_taipei"
+city_id: "taipei"
+name: "台北當代藝術館"
+address: "臺北市大同區長安西路39號"
+
+# 地理座標與範圍（正門入口廣場）
+latitude: 25.04944
+longitude: 121.51861
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1921 (大正10年)"
+    event: "建成尋常小學校落成"
+    detail: "由總督府營繕課近藤十郎設計，為紅磚拱廊學院派建築，專供日籍與少數臺籍菁英子弟就讀。"
+    source: "臺北市政府文化局 / 古蹟檔案"
+    confidence: "official"
+
+  - year: "1945"
+    event: "轉為臺北市政府辦公廳舍"
+    detail: "二戰後由國民政府接收，作為臺北市政府辦公大樓長達半世紀，為臺北市政運作核心。"
+    source: "臺北市志 / 都市發展史"
+    confidence: "official"
+
+  - year: "1994"
+    event: "市府遷往信義區"
+    detail: "臺北市政府搬遷至信義區新市政大樓，舊廈卸下行政功能，並規劃古蹟活化再利用。"
+    source: "臺北市政府市政紀錄"
+    confidence: "official"
+
+  - year: "1998 (5月4日)"
+    event: "指定為直轄市定古蹟"
+    detail: "因獨特的紅磚學院派建築與歷史層疊意義，正式公告指定為臺北市市定古蹟。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+  - year: "2001"
+    event: "台北當代藝術館開幕"
+    detail: "建物正面開闢為全臺首座當代藝術館（MOCA），兩翼為建成國中，創下美術館與學校共構先例。"
+    source: "MOCA 官方歷史檔案"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1921"
+    event: "鐘樓與紅磚建築美學"
+    detail: "採對稱兩翼、對稱拱廊與正面鐘樓設計，展現近代學院派公共建築美學。"
+    source: "臺灣建築史學術研究"
+    confidence: "official"
+
+  - year: "1950-1990"
+    event: "臺北市議會與市政重鎮"
+    detail: "曾作為臺北市議會與市府各局處辦公室，見證臺北市戰後半世紀都市計畫與發展決策。"
+    source: "臺北市議會史料"
+    confidence: "official"
+
+  - year: "2007"
+    event: "公辦民營與赤峰街串聯"
+    detail: "由臺北市文化基金會接手營運，深化與大同區赤峰街、中山街區社區藝文之串聯。"
+    source: "臺北市文化基金會報告"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  台北當代藝術館（MOCA Taipei）是臺灣第一座以當代藝術為定位的藝術機構，更是古蹟活化再利用的跨時代範例。
+  其紅磚建築本體歷經「日治建成尋常小學校」與「戰後臺北市政府辦公廳舍」的歷史演變，承載了近百年的教育與行政記憶。
+  2001年轉型開幕後，正面作為當代藝術展館、兩翼作為建成國中校舍，創下罕見的「古蹟、學校與當代美術館」共構先例。
+  MOCA 擺脫傳統美術館的典藏包袱，以前衛、實驗性與跨界的當代展演為核心，擺接歷史記憶與當代前衛視覺藝術。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "禁止對特定展覽、當代藝術作品進行權威性鑑價、真偽判斷或個人喜惡評論"
+  - "對於兩翼併設之建成國中，嚴禁談論學校內部事務、描述學生或引導玩家向校區移動"
+  - "避免將隨時間更替的短期展覽內容寫入固定史實層"

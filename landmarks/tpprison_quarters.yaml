@@ -1,0 +1,91 @@
+# 榕錦時光生活園區（原臺北刑務所官舍） 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+# 採用文資登錄名衍生 ID（非營運品牌名）
+landmark_id: "tpprison_quarters"
+spirit_id: "tpprison_quarters"
+city_id: "taipei"
+name: "原臺北刑務所官舍（榕錦時光生活園區）"
+address: "臺北市大安區金華街157號"
+
+# 地理座標與範圍（金華街宿舍群門口）
+latitude: 25.03197
+longitude: 121.52733
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建物沿革與重大史實（founding_facts）
+# ⚠️ 注意：嚴格區分「刑務所官舍（本園區）」與「刑務所本體/牢房（旁邊已拆除）」
+founding_facts:
+  - year: "1896"
+    event: "前身設立"
+    detail: "借清代參府衙門舊址修補為「臺北縣臺北監獄署」。"
+    source: "國家文化記憶庫"
+    confidence: "official"
+
+  - year: "1904"
+    event: "監獄本體新築與城牆石選用"
+    detail: "新監獄於城外落成（現已拆除），圍牆選用拆除清代臺北城牆後之石材砌成。"
+    source: "大安區公所 / 國家文化記憶庫"
+    confidence: "official"
+
+  - year: "1920-1930年代"
+    event: "職員官舍興建"
+    detail: "刑務所南北兩側興建日式木造官舍，供獄政職員與家眷居住（即本園區）。"
+    source: "臺北市文化局"
+    confidence: "official"
+
+  - year: "1963"
+    event: "監獄遷出與轉型司法宿舍"
+    detail: "臺北監獄遷往桃園龜山，監獄本體拆除；官舍區續作司法宿舍（司法新村）。"
+    source: "臺北市文化局 / 國家文化記憶庫"
+    confidence: "official"
+
+  - year: "2013"
+    event: "登錄歷史建築"
+    detail: "金華街宿舍群與副典獄長宿舍登錄為臺北市歷史建築；華光社區完成拆遷。"
+    source: "臺北市文化局公告 / 文資資料"
+    confidence: "official"
+
+  - year: "2022"
+    event: "老房子計畫修復與園區開幕"
+    detail: "歷經修復，以「老房子文化運動計畫」媒合營運，更名為榕錦時光生活園區開放。"
+    source: "臺北市文化局 / 臺北旅遊網"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "清代-日治"
+    event: "三層歷史圍牆石"
+    detail: "南側圍牆石塊長約80公分至1公尺，源自清代臺北城牆，後作監獄圍牆，今為園區邊界。"
+    source: "大安區公所文史考據"
+    confidence: "official"
+
+  - year: "2013"
+    event: "華光社區拆遷歷史"
+    detail: "周邊華光社區於2013年強制拆除，園區內「華光故事巷」紀錄該地聚落變遷事實。"
+    source: "華光社區紀錄 / 園區展覽"
+    confidence: "official"
+
+  - year: "2016-2020"
+    event: "修復重構與老樹保留"
+    detail: "經歷火災後由北市文化局投入上億元修復，保留完整日式木造群與園區老榕樹景觀。"
+    source: "臺北市政府文化局"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  榕錦時光生活園區的日式宿舍，原本是臺北刑務所獄政職員的官舍。1904年監獄在城外落成，
+  圍牆採用了拆除清代臺北城牆後的石塊；旁邊興建宿舍區，即為今日園區前身。監獄於1963年遷出後拆除，
+  僅留南側圍牆遺蹟與官舍群。此處匯聚清代城牆石、日治監獄與官舍、戰後司法宿舍以及當代文創園區等多重時代印記。
+  呈現了「清代城牆石 ➔ 日治監獄邊界 ➔ 當代生活園區」的空間與歷史疊層。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "明確區分園區為『職員官舍』而非『監獄牢房或刑場』，避免給予玩家空間混淆"
+  - "對於華光社區迫遷歷史，陳述『以前有社區聚落，2013年拆遷』之事實，不作政策與訴訟評價"
+  - "不美化殖民司法行政歷史，亦不強加說教，採平實的歷史疊層與空間事實對話"

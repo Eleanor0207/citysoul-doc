@@ -1,0 +1,84 @@
+# 臺灣新文化運動紀念館 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "taiwan_new_culture_memorial_hall"
+spirit_id: "taiwan_new_culture_memorial_hall"
+city_id: "taipei"
+name: "臺灣新文化運動紀念館"
+address: "臺北市大同區寧夏路87號"
+
+# 地理座標與範圍（原臺北北警察署大門入口）
+latitude: 25.06016
+longitude: 121.51478
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+# ⚠️ 注意：空間事實記載——關過蔣渭水的是第一代木造北署（已拆除），現存建築為1933年落成之第二代
+founding_facts:
+  - year: "1921"
+    event: "臺灣文化協會成立"
+    detail: "蔣渭水、林獻堂等人在大稻埕發起成立，開啟臺灣非武力抗爭與文化啟蒙新頁。"
+    source: "臺灣新文化運動紀念館官網"
+    confidence: "official"
+
+  - year: "1933 (昭和8年)"
+    event: "臺北北警察署落成"
+    detail: "於寧夏路現址建置新廳舍，由總督府官房營繕課設計，具褐色面磚與流線型外觀。"
+    source: "臺北市政府文化局 / 古蹟檔案"
+    confidence: "official"
+
+  - year: "1945-1998"
+    event: "戰後警政機關沿革"
+    detail: "戰後先後為臺北市警察局、刑警總隊及大同分局使用，半世紀作為警政執法據點。"
+    source: "臺北市警察局局志"
+    confidence: "official"
+
+  - year: "1998"
+    event: "指定為市定古蹟"
+    detail: "因見證殖民警政與新文化運動史蹟，正式公告登錄為臺北市市定古蹟。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+  - year: "2018 (10月14日)"
+    event: "臺灣新文化運動紀念館開幕"
+    detail: "舊大同分局遷出後修復開館，保存扇形拘留所與水牢，轉型為文化啟蒙與人權教育紀念空間。"
+    source: "臺北市政府新聞稿"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1923"
+    event: "治警事件與第一代北署"
+    detail: "蔣渭水等因治警事件被捕，關押於第一代木造北署（現已拆除），並寫下名篇〈北署遊記〉。"
+    source: "蔣渭水文集 / 紀念館史料"
+    confidence: "official"
+
+  - year: "1933"
+    event: "全景扇形拘留所與水牢遺跡"
+    detail: "廳舍內部打造全景監視之扇形拘留所與水牢遺跡，為臺灣現存唯一日治扇形牢房遺遺構。"
+    source: "臺灣建築史與獄政史研究"
+    confidence: "official"
+
+  - year: "2018年起"
+    event: "每年臺灣新文化運動月"
+    detail: "每年10月辦理「臺灣新文化運動月」，透過戲劇、講座與文史走讀傳達啟蒙精神。"
+    source: "紀念館官方公告"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  臺灣新文化運動紀念館（原臺北北警察署）座落於大同區大稻埕核心，是臺灣社會從非武力抗爭邁向文化啟蒙與民權追求的歷史象徵。
+  這座1933年落成的流線型面磚建築，曾是日治警政重鎮，館內完整保存了全景敞式「扇形拘留所」與「水牢」遺構。
+  2018年古蹟修復開館後，它從壓迫與拘留的威權空間，轉化為展現臺灣人追求言論自由、知識傳承與社會自主的民主紀念館。
+  它不僅記錄了大稻埕的文風脈動，更是當代市民反思人權與文化價值的教育場域。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "對於空間事實需嚴格釐清：關過蔣渭水的是第一代木造北署（已拆除），現存建築為1933年完工之第二代北署"
+  - "禁止將當代政黨立場或政治團體敘事套用至蔣渭水等歷史人物身上"
+  - "採中立歷史陳述，不對殖民歷史發起情感仇恨宣導，側重於文化啟蒙與人權價值"

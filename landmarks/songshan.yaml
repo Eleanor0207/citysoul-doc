@@ -1,0 +1,89 @@
+# 松山文創園區（松菸） 地標靈魂與史實資料設定檔
+# 對應資料庫表：brain.landmark_souls & spirits
+
+landmark_id: "songshan_cultural_park"
+spirit_id: "songshan_cultural_park"
+city_id: "taipei"
+name: "松山文創園區"
+address: "臺北市信義區光復南路133號"
+
+# 地理座標與範圍（巴洛克花園與製菸工廠中心）
+latitude: 25.04375
+longitude: 121.56064
+radius_m: 50.0
+
+# 方位與姿態設定
+orientation:
+  bearing_deg: 0.0
+  height_offset_m: 0.0
+
+# 1. 建築沿革與重大史實（founding_facts）
+founding_facts:
+  - year: "1937 (昭和12年)"
+    event: "專賣局松山煙草工場動工"
+    detail: "臺灣總督府專賣局起建臺灣第一座現代化捲菸工廠，引進工業村概念，兼具生產與勞工福利。"
+    source: "臺北市政府文化局"
+    confidence: "official"
+
+  - year: "1939"
+    event: "工廠完工投產"
+    detail: "製菸工廠、辦公廳舍、倉庫及巴洛克花園完工，成為東亞規模宏偉的現代化菸草生產基地。"
+    source: "專賣局檔案 / 園區沿革"
+    confidence: "official"
+
+  - year: "1947"
+    event: "改制臺灣省菸酒公賣局松山菸廠"
+    detail: "戰後由專賣局接收，改制為公賣局松山菸廠，繼續生產國產捲菸。"
+    source: "臺灣省菸酒公賣局局志"
+    confidence: "official"
+
+  - year: "1998"
+    event: "停產關廠"
+    detail: "因公賣制度改制、都市空間變遷與產能調整，松山菸廠正式停止生產。"
+    source: "臺北菸廠誌 / 新聞報導"
+    confidence: "official"
+
+  - year: "2001"
+    event: "登錄為市定古蹟"
+    detail: "臺北市政府將松山菸廠指定為市定古蹟（含辦公廳舍、製菸工廠、1-5號倉庫與鍋爐房）。"
+    source: "文化部文化資產局"
+    confidence: "official"
+
+  - year: "2011"
+    event: "松山文創園區正式開園"
+    detail: "經古蹟修復與空間再造，正式以「松山文創園區」開放，定位為臺北市原創跨界文創基地。"
+    source: "松山文創園區官方公告"
+    confidence: "official"
+
+# 2. 演變歷史與文化事件（key_events）
+key_events:
+  - year: "1939"
+    event: "工業村勞工福利設施"
+    detail: "廠區設置育嬰室、食堂、診療所與巴洛克中庭花園（晚香園），展現近代工業村精神。"
+    source: "日本初現代主義建築研究"
+    confidence: "official"
+
+  - year: "2000年代"
+    event: "都市生態池與綠洲形成"
+    detail: "關廠廢棄期間自然演替形成豐富生態池環境，成為信義區珍貴的都市綠肺與生物棲地。"
+    source: "臺北市生態保育調查"
+    confidence: "official"
+
+  - year: "2013"
+    event: "臺北文創大樓落成"
+    detail: "園區旁BOT案「臺北文創大樓」開幕，引進誠品生活與展演廳，串聯舊古蹟與新文創。"
+    source: "臺北市文化局"
+    confidence: "official"
+
+# 3. 文化意義（cultural_significance）
+cultural_significance: >
+  松山文創園區（俗稱松菸）是臺灣近代工業遺產活化與都市空間轉型的經典地標。其前身為1937年建造的
+  「臺灣總督府專賣局松山煙草工場」，採用日本初現代主義建築風格，以簡潔水平線條、紅磚面磚與面山環水設計著稱。
+  廠區強調「工業村」精神，將製菸工廠與育嬰室、巴洛克花園、生態池結合，展現跨時代的勞工福利美學。
+  關廠後，松菸重生為臺北的「原創基地」，保存了連棟倉庫、高聳鍋爐房與中庭噴泉，成為兼具歷史遺構與當代創意動能的都市綠洲。
+
+# 4. 安全規範與禁忌條款（taboos）
+taboos:
+  - "禁止美化吸菸、宣傳菸品或進行任何感官吸菸行為之描述"
+  - "對於專賣制度歷史採中立建築與產業沿革描述，不作主觀政治評價"
+  - "避免將隨時間更替的商業快閃展覽或臨時品牌活動寫入固定史實"
