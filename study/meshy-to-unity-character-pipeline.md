@@ -309,33 +309,29 @@ bpy.ops.export_scene.fbx(
 
 ## 8. Unity 匯入
 
-### 8.1 ⚠️ 根節點的 −90° 是必要的，但會被執行期覆寫
+### 8.1 ⚠️ 匯出時沒開 `bake_space_transform` 的話，兩邊只能對一邊
 
-Blender 匯出時會把 Z-up → Y-up 的座標軸轉換留在**根節點的旋轉**上（X = −90）。
+**這一節在 2026-08-16 整個改寫過。先前的處方（把 −90 移到 `Armature`）是錯的**
+——它解決的是編輯模式的顯示，Humanoid 播放時照樣躺平。完整說明見
+`fbx-export-axis-conversion.md`。
 
-而 `SpiritPlacement.LateUpdate` 每幀做：
+Blender 匯出器預設把 Z-up → Y-up 的轉換寫成**根節點的 −90° X 旋轉**，而匯入器把
+骨骼的 local transform 寫成剛好補償它的值。Animator 播 Humanoid 動畫時 retarget
+會重寫那些 local transform，補償消失，角色躺下。
 
-```csharp
-_spirit.rotation = Quaternion.LookRotation(toPlayer);   // 讓角色面向玩家
+所以同一個資產：根節點保留 −90 則編輯模式正確、Play Mode 躺平；根節點改成 0 則
+反過來。**兩邊都對的唯一方法是匯出時就把轉換烘進資料**：
+
+```python
+bpy.ops.export_scene.fbx(..., bake_space_transform=True)
 ```
 
-這一行整個換掉根節點的旋轉，**包含那 −90**。症狀是**編輯模式站得好好的，
-一進 Play Mode 面向玩家時就倒下**，而且 Console 一句話都沒有。
+**不要用 Unity 匯入器的 `Bake Axis Conversion`**——名字像但位置不同，實測會弄壞
+Avatar 的 bind pose，Humanoid 直接扭曲，編輯模式還會變成頭下腳上。
 
-**解法：把 −90 移到 `Armature` 上，根節點留單位旋轉。** 蒙皮網格的頂點由骨骼
-驅動，`Body` / `Hair` / `Eyes` 自己的 Transform 不參與變形，所以只轉 `Armature`
-就夠——實測 `Head` 骨骼的世界座標在搬移前後完全沒變。層級不必多包一層外殼，
-`Animator` 相對路徑也不變。
-
-**兩條試過但不要走的路**：
-
-- **匯入器的 `Bake Axis Conversion`**：會把轉換烘進網格與骨架資料，連帶改掉
-  Avatar 參考的 bind pose，Humanoid **直接扭曲塌陷**
-- **只把根節點旋轉改成單位旋轉**：模型平躺（實測 `Head` 掉到 y = −0.003、
-  z = −1.44）
-
-另有一種角色的根節點本來就沒有旋轉（紅樓那隻），就不需要這個處理。**看實測，
-不要假設。**
+⚠️ 舊參數匯出的角色在遊戲裡看起來正常，是因為 `SpiritPlacement.LateUpdate` 用
+`LookRotation` 每幀覆寫根節點旋轉，那 −90 活不過第一幀。**「在遊戲裡好好的」不
+代表資產是對的。**
 
 ### 8.2 匯入設定
 
