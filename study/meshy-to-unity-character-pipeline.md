@@ -360,11 +360,41 @@ Avatar 的 bind pose，Humanoid 直接扭曲，編輯模式還會變成頭下腳
     - first:
         type: UnityEngine:Material
         assembly: UnityEngine.CoreModule
-        name: Body
+        name: Body_ReferenceConsistency_v1     # ← fbx 裡真正的材質名
       second: {fileID: 2100000, guid: <材質 guid>, type: 2}
 ```
 
 貼圖內嵌在 fbx 裡的話，用 Blender 開檔後 `image.save()` 抽出來即可。
+
+#### ⚠️ `name` 要以 fbx 實際的材質名為準，不能假設是 Body / Hair / Eyes
+
+上面那個 `name` 是**查找鍵**。對不上就是那一條靜默失效——該材質退回匯入器自動
+生成的版本，而那份通常指向一個不存在的貼圖路徑，結果就是「其他部位有顏色、
+某一個部位沒有」，**Console 一個字都不會說**。
+
+實際踩過：故宮的新版把 Body 的材質改名成 `Body_ReferenceConsistency_v1`，
+`Hair` 與 `Eyes` 維持原名。照慣例寫 `name: Body` 的結果是身體無貼圖、頭髮與
+眼睛正常。
+
+先讀出來再寫：
+
+```python
+bpy.ops.import_scene.fbx(filepath=path)
+for obj in bpy.data.objects:
+    if obj.type == "MESH":
+        print(obj.name, [m.name for m in obj.data.materials])
+```
+
+寫完之後**重新匯入再回讀一次 meta**，確認那幾條還在（Unity 會清掉對不上的
+條目），最後用材質資產的 `_BaseMap` 確認它指到的貼圖檔案真的存在。
+
+「缺色」目前遇過三種成因，症狀相似但原因無關：
+
+| 症狀 | 成因 |
+|---|---|
+| 同一個 fbx，有的機器有色有的沒有 | 材質留給匯入器即時生成，結果依機器而異 |
+| 整隻是無貼圖的單色 | fbx 裡的貼圖路徑指向製作者本機，檔案沒隨檔交付 |
+| 只有某一個部位沒色 | `externalObjects` 的 `name` 對不上 fbx 的材質名 |
 
 ### 8.4 prefab 必須跟 fbx 保持連動
 
