@@ -11,17 +11,20 @@
 
 ## 文件
 
-| 檔案 | 用途 |
+| 檔案 / 目錄 | 用途 |
 |---|---|
-| **`SDD_v2.1_Unity_3D.md`** | **系統設計文件，單一權威。** 與任何其他文件衝突時以此為準 |
-| `SDD-v2.1-Overview.html` | 架構總覽（視覺化版本，用瀏覽器開） |
-| `Phase1_交付清單與驗收標準.md` | Phase 1 各模組的交付項目與驗收指令 |
-| `SDD_v2.1_Phase排程與Issue對應表.md` | §13 七階段排程對到兩個 repo 的 issue。**索引性質，狀態以 GitHub 為準** |
-| `citysoul_data_schema.md` | PostgreSQL 完整 schema 與後端邏輯參考 |
-| `landmark/` | 地標史實研究記錄範本（11 份，多數待填），含建立流程 SOP |
-| `character/` | 角色設定與人格卡內容（待撰寫） |
-| `story/` | 主線劇情（story arc）內容與撰寫 SOP |
-| `event/` | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
+| **[`SDD_v2.1_Unity_3D.md`](SDD_v2.1_Unity_3D.md)** | **系統設計文件，單一權威。** 與任何其他文件衝突時以此為準 |
+| [`SDD-v2.1-Overview.html`](SDD-v2.1-Overview.html) | 架構總覽（視覺化版本，用瀏覽器開） |
+| [`citysoul_data_schema.md`](citysoul_data_schema.md) | PostgreSQL 完整 schema 與後端邏輯參考 |
+| [`citysoul_map_dev_spec.md`](citysoul_map_dev_spec.md) | 雙層地圖圖磚系統與 UI 開發規格 |
+| [`landmarks/`](landmarks/) | 11 大地標正式 YAML 定義檔（史實、治理禁忌、常見誤解校正庫） |
+| [`landmark/`](landmark/) | 地標史實研究記錄範本（10 份覆核完畢），含建立流程 SOP 與 Lead 決策 |
+| [`study/`](study/) | 3D 角色產線標準手冊（Meshy to Unity SOP、Blender 整合指南、資產驗收檢驗表） |
+| [`style/`](style/) | 地圖畫面 Wireframe、風格圖磚參考與 UI 動畫展示 |
+| [`dev_status/`](dev_status/) | Phase 1 交付驗收標準、七階段排程與 GitHub Issue 對應表 |
+| [`character/`](character/) | 角色設定與人格卡內容（待撰寫） |
+| [`story/`](story/) | 主線劇情（story arc）內容與撰寫 SOP |
+| [`event/`](event/) | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
 
 ## ⚠️ 接手前先讀 SDD §1
 

@@ -1,7 +1,7 @@
 # Meshy to Unity 3D 角色資產標準化產線規格與實作手冊
 
 > **文檔版本**：v1.0  
-> **適用規格**：[SDD_v2.1_Unity_3D.md §7.3.1](file:///Users/doudou/Desktop/%E5%9C%98%E5%B0%88%E8%B7%AF%E5%BE%91/citysoul-doc/SDD_v2.1_Unity_3D.md)  
+> **適用規格**：[`SDD_v2.1_Unity_3D.md §7.3.1`](../SDD_v2.1_Unity_3D.md)  
 > **目標引擎**：Unity 6 (Humanoid Rig, uLipSync, Addressables)
 
 ---

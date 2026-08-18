@@ -2,7 +2,7 @@
 
 > **日期**：2026-08-11  
 > **分支**：`landmark-research`  
-> **單一真相來源**：[landmark/_研究進度與跨地標待決事項.md](file:///Users/doudou/Desktop/團專路徑/citysoul-doc/landmark/_研究進度與跨地標待決事項.md)
+> **單一真相來源**：`landmark/_研究進度與跨地標待決事項.md`
 
 ---
 
