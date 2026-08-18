@@ -303,7 +303,27 @@ bpy.ops.export_scene.fbx(
 量測階段如果把 `animation_data` 清掉了忘了補回來，匯出會**一組動作都沒有**，
 而且不會有任何錯誤訊息——檔案照樣產出，只是 0.96 MB 而不是 2.44 MB。
 
+### ⚠️ 它也可能少匯出剛好一組——而且通常是 `Idle`
+
+`bake_anim_use_all_actions` 的做法是把每組 action 輪流暫時指定給物件再烘焙。
+實測會漏掉**匯出當下已經指定給 Armature 的那一組**。
+
+2026-08-18 的 `ximen_red_house_0818` 就是這樣：`.blend` 裡四組齊全，`Idle` 是
+`ASSIGNED ACTION`，匯出的 fbx 只有 `Talking` / `Turn` / `Wave`。沒有錯誤訊息，
+檔案大小也看不出少了東西。
+
+**`Idle` 是最容易中招的那一組**，因為它是預設狀態、通常就停在時間軸上。而它偏偏
+是最不能少的——Animator 沒有 `Idle` 就沒有預設狀態，角色召喚出來會定在綁定姿勢
+不動，`Talking` 播完也沒有東西可以回。
+
+判斷方式：`.blend` 有四組、fbx 只有三組，就是這個。用 `verify_delivery.py` 跑
+一次立刻看得出來（`動作組` 那一項會列出缺哪一個）。
+
+修法是重匯出——**不需要重做動作**。匯出前把 `animation_data` 的指定換成別組，
+或乾脆先清掉再重新指定一組，讓輪詢不會跟當前狀態撞在一起。
+
 匯出後務必重新匯入驗一次：動作數量、長度、shape key、面數、骨名、身高。
+`citysoul-client/Tools/character/verify_delivery.py` 就是在做這件事。
 
 ---
 
