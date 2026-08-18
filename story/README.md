@@ -18,21 +18,24 @@
 
 ## 檔案
 
-### v1 基線（下一輪討論與工程交付）
+| 檔案 | 用途 |
+|---|---|
+| `wanhua_district_storyline_aming_landmark_photo_v1.md` | 萬華〈回家的畫〉**完整互動腳本**——劇情、任務、逐句對話、資料規格與治理規則。內容作者與審核的正本 |
+| `wanhua_story_runtime_architecture_v1.md` | 同一條 arc 的**工程交付規格**——資料模型、API 增量、寫入順序、Unity 元件責任、驗收 |
+| `story_arc_writing_sop.md` | 寫新 arc 前先讀：前置條件、beat 設計的五條硬規則、交付前檢查表 |
 
-- `wanhua_district_storyline_aming_no_landmark_photo_v1.md` — 無景觀辨識的完整互動腳本。
-- `wanhua_district_storyline_aming_landmark_photo_v1.md` — 景觀辨識的完整互動腳本。
-- `wanhua_story_runtime_architecture_no_landmark_photo_v1.md` — 無景觀辨識運行架構。
-- `wanhua_story_runtime_architecture_v1.md` — 景觀辨識運行架構。
+### 為什麼只剩一套
 
-- `story_arc_writing_sop.md` — 主線劇情撰寫 SOP。寫新 arc 之前先讀：前置條件、beat 設計的五條硬規則、交付前檢查表。
-- `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` — 萬華區〈萬華年代簿・回家的畫〉無景觀辨識互動腳本，狀態為草案。
-- `wanhua_district_storyline_aming_landmark_photo_v0.1.md` — 互動腳本的景觀拍攝辨識互斥增補版，狀態為方案 A／未定案。
-- `wanhua_story_runtime_architecture.md` — 萬華主線的引擎、API、資料庫、玩家紀錄與三個任務的工程規格提案。
-- `wanhua_story_runtime_architecture_no_landmark_photo.md` — 不使用景觀拍攝辨識的互斥替代架構提案，供產品決策比較。
+曾經有兩套並行：方案 A（含景觀拍攝辨識）與方案 B（無景觀辨識），各一份腳本與一份架構。
+
+**景觀拍攝改為完全可選之後，兩者收斂了**——B 的任務判定條件與 A 逐字相同，整份差異只剩拍照那一節。A 現在等於 B 加上一個可選的景觀印記，所以 B 沒有存在的理由。
+
+留 A，B 已刪除（內容仍在 git 歷史裡）。維護兩份四萬字的完整腳本、差別只在一個可選功能，是劇本漂移最快的路徑——而且劇本漂移比規格漂移更難發現，沒有任何測試會抓到兩份台詞不一樣。
+
+檔名保留 `landmark_photo` 是為了不動既有引用；它現在指的是「含可選景觀印記的版本」，不是「必拍版本」。
 
 ## 目前的狀態
 
 **尚無任何 arc 內容正式匯入或啟用。** 劇情所需資料表已由後端 migrations 0013／0015 建立，但 Beat 狀態機、故事 API、內容匯入與人工啟用流程尚未實作；三個地標的人格內容也仍須人工審核。
 
-完整的前置清單見 `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` §9.1。
+完整的前置清單見 `story_arc_writing_sop.md` 的前置檢查表，與腳本 §10「實作與審核清單」。
