@@ -18,11 +18,21 @@
 
 ## 檔案
 
+### v1 基線（下一輪討論與工程交付）
+
+- `wanhua_district_storyline_aming_no_landmark_photo_v1.md` — 無景觀辨識的完整互動腳本。
+- `wanhua_district_storyline_aming_landmark_photo_v1.md` — 景觀辨識的完整互動腳本。
+- `wanhua_story_runtime_architecture_no_landmark_photo_v1.md` — 無景觀辨識運行架構。
+- `wanhua_story_runtime_architecture_v1.md` — 景觀辨識運行架構。
+
 - `story_arc_writing_sop.md` — 主線劇情撰寫 SOP。寫新 arc 之前先讀：前置條件、beat 設計的五條硬規則、交付前檢查表。
-- `wanhua_district_storyline_aming_v0.2.md` — 萬華區「阿明的遺願」，目前唯一一條 arc，狀態為草案。
+- `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` — 萬華區〈萬華年代簿・回家的畫〉無景觀辨識互動腳本，狀態為草案。
+- `wanhua_district_storyline_aming_landmark_photo_v0.1.md` — 互動腳本的景觀拍攝辨識互斥增補版，狀態為方案 A／未定案。
+- `wanhua_story_runtime_architecture.md` — 萬華主線的引擎、API、資料庫、玩家紀錄與三個任務的工程規格提案。
+- `wanhua_story_runtime_architecture_no_landmark_photo.md` — 不使用景觀拍攝辨識的互斥替代架構提案，供產品決策比較。
 
 ## 目前的狀態
 
-**沒有任何一條 arc 進得了資料庫。** `story_beats` 等九張表在 `citysoul-backend` 都還沒建（`citysoul_data_schema.md` §8/§9 已完成設計，migration 尚未跟上），三個地標裡也只有龍山寺有靈魂記錄，而且人格卡還是未審核的草稿。
+**尚無任何 arc 內容正式匯入或啟用。** 劇情所需資料表已由後端 migrations 0013／0015 建立，但 Beat 狀態機、故事 API、內容匯入與人工啟用流程尚未實作；三個地標的人格內容也仍須人工審核。
 
-完整的前置清單見 `wanhua_district_storyline_aming_v0.2.md` §9.1。
+完整的前置清單見 `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` §9.1。
