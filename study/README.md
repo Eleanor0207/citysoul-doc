@@ -35,8 +35,17 @@
   - Unity FBX：[`Spirit_NewCulture_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_SDD_Compliant.fbx)（1.82 MB，11 項規格全數通過）
   - ORM 貼圖：[`Spirit_NewCulture_ORM.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_ORM.png)
 - **`Meshy_AI_The_Archivist_s_Appre_biped`**（檔案員靈魂角色）
-  - 專案檔：[`Archivist_SDD_Final.blend`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Archivist_SDD_Final.blend)
-  - Unity FBX：[`Spirit_Archivist_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_SDD_Compliant.fbx)
+  - **狀態**：❌ **退回重做（8 項不符合 SDD §7.3.1 規範）**
+  - **審查判定**：此版本僅為 Meshy 原始輸出並僅做材質分槽，未執行產線後續標準化步驟。
+  - **待修項目**：
+    1. 網格拆分：需使用 `separate(type='MATERIAL')` 拆分為 `Body` / `Hair` / `Eyes` 三個獨立物件（供 F5/F8 節點字串綁定）。
+    2. 材質配置：三個獨立物件各掛載單一材質，不得為單一網格多 Slot。
+    3. 階層結構：建立 `spirit_root` Empty 根節點掛載 Armature 與 Mesh。
+    4. Blend Shapes：於 Body 建立 `JawOpen`、`Blink_L`、`Blink_R`。
+    5. 動畫清理：移除 UUID 命名與 `Idle_12`，重構為 `Idle` / `Talking` / `Wave` / `Turn`，並剔除 Location 位移通道。
+    6. 尺度校正：依 1.60m 標準身高等比縮放（原為 7.71m），腳底歸零 (0,0,0)。
+    7. 貼圖合流：補齊 Albedo，並由 Roughness/Metallic 合成標準 ORM 貼圖（2048×2048）。
+  - **處置依據**：退回資產製作端，強制依據 [`meshy-to-unity-character-pipeline.md`](meshy-to-unity-character-pipeline.md) 自 §2 起全流程重新處理。
 
 ---
 
