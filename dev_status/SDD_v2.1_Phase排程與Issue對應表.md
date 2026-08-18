@@ -1,4 +1,4 @@
-# SDD v2.1 Phase 排程 × Issue 對應表
+# SDD v2.2 Phase 排程 × Issue 對應表
 
 把 SDD §13 的七階段排程，對到兩個 repo 的 GitHub issue。**依交付時間線排列。**
 
@@ -6,7 +6,7 @@
 - **`CL#n`** = [`citysoul-client`](https://github.com/city-soul-taipei/citysoul-client)
 - ✅ 已關 ／ ⬜ 開放中 ／ ❌ 尚無票
 
-> ⚠️ **這份是索引，不是真相來源。** issue 的狀態、標籤、阻擋關係以 GitHub 為準；工作包定義與排程以 `SDD_v2.1_Unity_3D.md` §6、§13 為準。兩邊不一致時改這份，不是改那兩邊。
+> ⚠️ **這份是索引，不是真相來源。** issue 的狀態、標籤、阻擋關係以 GitHub 為準；工作包定義與排程以 `SDD_v2.2_Unity_3D.md` §6、§13 為準。兩邊不一致時改這份，不是改那兩邊。
 >
 > 快照時間：**2026-08-07**
 
