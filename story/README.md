@@ -23,6 +23,7 @@
 | `wanhua_district_storyline_aming_landmark_photo_v1.md` | 萬華〈回家的畫〉**完整互動腳本**——劇情、任務、逐句對話、資料規格與治理規則。內容作者與審核的正本 |
 | `wanhua_story_runtime_architecture_v1.md` | 同一條 arc 的**工程交付規格**——資料模型、API 增量、寫入順序、Unity 元件責任、驗收 |
 | `story_arc_writing_sop.md` | 寫新 arc 前先讀：前置條件、beat 設計的五條硬規則、交付前檢查表 |
+| `wanhua_field_survey_checklist.md` | **帶去現場的勘查表**。腳本裡所有點位在填完它之前都是暫定值，不得匯入 |
 
 ### 為什麼只剩一套
 
