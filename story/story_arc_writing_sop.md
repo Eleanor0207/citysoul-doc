@@ -37,16 +37,21 @@
 | 1 | 這條 arc 涉及的每個地標，`brain.landmark_souls` 都有內容 | 對應的 `landmark/*.md` 範本表格不是空的 | 人格卡沒有史實素材，靈魂講不出這個地方的事 |
 | 2 | 每個地標都有 `active=true` 的人格卡 | 查 `brain.character_personas` | 對話會走 fallback，劇情指令進不了 prompt |
 | 3 | 每個地標都有 `spirits` 記錄 | 查 `public.spirits` | 玩家召喚不到這個靈魂 |
-| 4 | arc 入口地標的 `sense_radius_m` 已設定且經實地確認 | 查 `public.spirits` | 入口感應範圍不合現場，信發不出去或太早發 |
+| 4 | 該區的行政區界 GeoJSON 已載入 `brain.districts.boundary` | 查該欄是否為 NULL；`scripts/load_districts.py` 會跑 `ST_IsValid` | 圍欄判斷恆為 false，入口道具永遠發不出去 |
 | 5 | 實地勘查已完成（若含拍照任務） | — | 任務點位全是暫定值，之後要整批重寫 |
 
-第 4 項的做法在萬華 arc 定案後改過：**arc 入口改用「入口地標的 150m 感應驗證」，不用行政區多邊形圍欄。**
+第 4 項的做法在萬華 arc 定案後確認：**arc 入口用行政區圍欄**，玩家踏進該區就發入口文件，不必先走到入口地標。入口文件的敘事定位屬於整個區，不屬於某一個地標。
 
-原因是圍欄換到的只是「早幾百公尺拿到入口道具」，代價卻是一整套新機制：`brain.districts.boundary` 的 GeoJSON、`check_player_in_district()`（目前刻意未實作）、客戶端第三種前景判定，以及一支新的區界驗證端點。`/sense` 這條路上的到場驗證、token 與去重全部現成。
+前置多半已經齊備，不是從零開始：萬華的 `data/districts/wanhua.geojson`、PostGIS、`app/modules/body/districts.py` 的 `is_point_in_polygon()`、`scripts/load_districts.py` 都在；待做的只有 `check_player_in_district()` 與對外端點。
 
-`district_id` 仍然有用，但只在**伺服器端**：限制 `next_target` 只能是同區地標。那是資料範圍檢查，不需要玩家端圍欄。
+耗電也不是問題：判定掛在既有的前景輪詢上（SDD §5.5，近距 5 秒／遠距 15 秒），是同一個 GPS fix 上的另一個判定。
 
-> 若未來某條 arc 真的需要「進入某區就觸發」（例如沒有單一入口地標的區域），再回頭補 `boundary` 與 `check_player_in_district()`。屆時第 4 項換回圍欄版本。
+寫新 arc 時要注意兩件事：
+
+- **判定在伺服器端**，不下發多邊形給客戶端——資料要下載，而且客戶端判定可偽造
+- **行政區界通常比直覺大**。萬華約 8.85 km²，西門町也在裡面，捷運穿越。萬華 arc 定案採用完整官方區界，接受「去西門逛街就拿到入口文件」——入口文件屬於整個區。新 arc 若要更收斂，`districts.boundary` 存什麼多邊形就用什麼，不必然使用官方區界
+
+⚠️ `ST_Contains` 對剛好落在區界線上的點回傳 `False`（OGC 定義，boundary 不屬於 interior）。萬華 arc **定案不處理**這個情況：玩家不會停在數學線上，下一次輪詢就會判進來。需要含邊界時換 `ST_Covers`，**不是加 buffer**。
 
 ---
 
