@@ -53,17 +53,27 @@
     | 10 | 動畫位移通道 | 0 條 Location FCurves | 剔除 Location 位移 | ✅ 合格 |
     | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | R:AO, G:Rough, B:Metal | ✅ 合格 |
 - **`Meshy_AI_The_Archivist_s_Appre_biped`**（檔案員靈魂角色）
-  - **狀態**：❌ **退回重做（8 項不符合 SDD §7.3.1 規範）**
-  - **審查判定**：此版本僅為 Meshy 原始輸出並僅做材質分槽，未執行產線後續標準化步驟。
-  - **待修項目**：
-    1. 網格拆分：需使用 `separate(type='MATERIAL')` 拆分為 `Body` / `Hair` / `Eyes` 三個獨立物件（供 F5/F8 節點字串綁定）。
-    2. 材質配置：三個獨立物件各掛載單一材質，不得為單一網格多 Slot。
-    3. 階層結構：建立 `spirit_root` Empty 根節點掛載 Armature 與 Mesh。
-    4. Blend Shapes：於 Body 建立 `JawOpen`、`Blink_L`、`Blink_R`。
-    5. 動畫清理：移除 UUID 命名與 `Idle_12`，重構為 `Idle` / `Talking` / `Wave` / `Turn`，並剔除 Location 位移通道。
-    6. 尺度校正：依 1.60m 標準身高等比縮放（原為 7.71m），腳底歸零 (0,0,0)。
-    7. 貼圖合流：補齊 Albedo，並由 Roughness/Metallic 合成標準 ORM 貼圖（2048×2048）。
-  - **處置依據**：退回資產製作端，強制依據 [`meshy-to-unity-character-pipeline.md`](meshy-to-unity-character-pipeline.md) 自 §2 起全流程重新處理。
+  - **狀態**：✅ **產線重跑完成（11 項 SDD §7.3.1 硬性標準全數驗收合格）**
+  - **交付資產**：
+    - 專案檔：[`Archivist_SDD_Final.blend`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Archivist_SDD_Final.blend) (18.78 MB)
+    - Unity FBX：[`Spirit_Archivist_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_SDD_Compliant.fbx) (1.76 MB)
+    - ORM 貼圖：[`Spirit_Archivist_ORM.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_ORM.png) (2048×2048)
+    - Albedo 貼圖：[`Meshy_AI_The_Archivist_s_Appre_biped_texture_0.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Meshy_AI_The_Archivist_s_Appre_biped_texture_0.png) (2048×2048)
+    - Normal 貼圖：[`Meshy_AI_The_Archivist_s_Appre_biped_texture_0_normal.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Meshy_AI_The_Archivist_s_Appre_biped_texture_0_normal.png) (2048×2048)
+  - **11 項實測合規檢驗表**：
+    | # | 檢查項目 | 實測值 | 規格標準 | 判定 |
+    |---|---|---|---|---|
+    | 1 | 面數 (Tris) | 15,282 tris | 15,000 – 20,000 tris | ✅ 合格 |
+    | 2 | 身高尺度 | 1.60 m | 1.60 m (Z-up) | ✅ 合格 |
+    | 3 | 腳底位置 | (0.0, 0.0, 0.0) | 腳底貼齊原點 | ✅ 合格 |
+    | 4 | Transform Scale | (1.0, 1.0, 1.0) | (1.0, 1.0, 1.0) | ✅ 合格 |
+    | 5 | Prefab 根節點 | `spirit_root` (Empty) | 必須存在根節點 | ✅ 合格 |
+    | 6 | 網格獨立性 | `Body` / `Hair` / `Eyes` | 3 個獨立 Mesh 物件 | ✅ 合格 |
+    | 7 | 材質配置 | 各物件單一材質槽 | 獨立材質槽掛載 | ✅ 合格 |
+    | 8 | Blend Shapes | `JawOpen`, `Blink_L`, `Blink_R` | 位於 Body 物件上 | ✅ 合格 |
+    | 9 | 動畫命名與內容 | `Idle`(6s), `Talking`(10s), `Wave`(3s), `Turn`(3s) | 標準 4 組，Talking ≥ 10s | ✅ 合格 |
+    | 10 | 動畫位移通道 | 0 條 Location FCurves | 剔除 Location 位移 | ✅ 合格 |
+    | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | R:AO, G:Rough, B:Metal | ✅ 合格 |
 
 ---
 
