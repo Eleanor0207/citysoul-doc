@@ -33,11 +33,11 @@
 - **`meshyai_新文化運動`**（臺灣新文化運動紀念館靈魂角色）
   - **狀態**：✅ **驗收通過（11 項 SDD §7.3.1 硬性標準全數合格）**
   - **交付資產**：
-    - 專案檔：[`NewCulture_SDD_Final.blend`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/NewCulture_SDD_Final.blend) (15.36 MB)
-    - Unity FBX：[`Spirit_NewCulture_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_SDD_Compliant.fbx) (1.82 MB)
+    - 專案檔：[`NewCulture_SDD_Final.blend`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/NewCulture_SDD_Final.blend) (3.98 MB)
+    - Unity FBX：[`Spirit_NewCulture_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_SDD_Compliant.fbx) (1.75 MB)
+    - Base Color 貼圖：[`Spirit_NewCulture_Albedo.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_Albedo.png) (2048×2048)
+    - Normal 貼圖：[`Spirit_NewCulture_Normal.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_Normal.png) (2048×2048)
     - ORM 貼圖：[`Spirit_NewCulture_ORM.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_ORM.png) (2048×2048)
-    - Albedo 貼圖：[`Meshy_AI_Clockwork_Academy_Sch_biped_texture_0.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Meshy_AI_Clockwork_Academy_Sch_biped_texture_0.png) (2048×2048)
-    - Normal 貼圖：[`Meshy_AI_Clockwork_Academy_Sch_biped_texture_0_normal.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Meshy_AI_Clockwork_Academy_Sch_biped_texture_0_normal.png) (2048×2048)
   - **11 項實測合規檢驗表**：
     | # | 檢查項目 | 實測值 | 規格標準 | 判定 |
     |---|---|---|---|---|
@@ -50,16 +50,16 @@
     | 7 | 材質配置 | 各物件單一材質槽 | 獨立材質槽掛載 | ✅ 合格 |
     | 8 | Blend Shapes | `JawOpen`, `Blink_L`, `Blink_R` | 位於 Body 物件上 | ✅ 合格 |
     | 9 | 動畫命名與內容 | `Idle`(6s), `Talking`(10s), `Wave`(3s), `Turn`(3s) | 標準 4 組，Talking ≥ 10s | ✅ 合格 |
-    | 10 | 動畫位移通道 | 0 條 Location FCurves | 剔除 Location 位移 | ✅ 合格 |
-    | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | R:AO, G:Rough, B:Metal | ✅ 合格 |
+    | 10 | 動畫位移通道 | 0 條 Location 軌道；**4 組動作最大漂移 ≤ 0.0005m** | 原地動作無漂移 | ✅ 合格 |
+    | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | 三張齊備，ORM 通道融合 | ✅ 合格 |
 - **`Meshy_AI_The_Archivist_s_Appre_biped`**（檔案員靈魂角色）
   - **狀態**：✅ **產線重跑完成（11 項 SDD §7.3.1 硬性標準全數驗收合格）**
   - **交付資產**：
-    - 專案檔：[`Archivist_SDD_Final.blend`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Archivist_SDD_Final.blend) (18.78 MB)
-    - Unity FBX：[`Spirit_Archivist_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_SDD_Compliant.fbx) (1.76 MB)
+    - 專案檔：[`Archivist_SDD_Final.blend`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Archivist_SDD_Final.blend) (12.83 MB)
+    - Unity FBX：[`Spirit_Archivist_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_SDD_Compliant.fbx) (1.69 MB)
+    - Base Color 貼圖：[`Spirit_Archivist_Albedo.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_Albedo.png) (2048×2048)
+    - Normal 貼圖：[`Spirit_Archivist_Normal.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_Normal.png) (2048×2048)
     - ORM 貼圖：[`Spirit_Archivist_ORM.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Spirit_Archivist_ORM.png) (2048×2048)
-    - Albedo 貼圖：[`Meshy_AI_The_Archivist_s_Appre_biped_texture_0.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Meshy_AI_The_Archivist_s_Appre_biped_texture_0.png) (2048×2048)
-    - Normal 貼圖：[`Meshy_AI_The_Archivist_s_Appre_biped_texture_0_normal.png`](file:///Users/doudou/Downloads/Meshy_AI_The_Archivist_s_Appre_biped/Meshy_AI_The_Archivist_s_Appre_biped_texture_0_normal.png) (2048×2048)
   - **11 項實測合規檢驗表**：
     | # | 檢查項目 | 實測值 | 規格標準 | 判定 |
     |---|---|---|---|---|
@@ -72,8 +72,8 @@
     | 7 | 材質配置 | 各物件單一材質槽 | 獨立材質槽掛載 | ✅ 合格 |
     | 8 | Blend Shapes | `JawOpen`, `Blink_L`, `Blink_R` | 位於 Body 物件上 | ✅ 合格 |
     | 9 | 動畫命名與內容 | `Idle`(6s), `Talking`(10s), `Wave`(3s), `Turn`(3s) | 標準 4 組，Talking ≥ 10s | ✅ 合格 |
-    | 10 | 動畫位移通道 | 0 條 Location FCurves | 剔除 Location 位移 | ✅ 合格 |
-    | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | R:AO, G:Rough, B:Metal | ✅ 合格 |
+    | 10 | 動畫位移通道 | 0 條 Location 軌道；**4 組動作最大漂移 ≤ 0.0007m** | 原地動作無漂移 | ✅ 合格 |
+    | 11 | 貼圖合流 | Albedo / Normal / ORM (2048×2048) | 三張齊備，ORM 通道融合 | ✅ 合格 |
 
 ---
 
