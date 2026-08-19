@@ -225,7 +225,7 @@
 
 ### 5.1 初次對話
 
-**觸發條件**：完成 `beat_longshan_clue`，首次與 `red_house_collector` 對話。
+**觸發條件**：完成 `beat_longshan_clue`，首次與 `red_house_collector` 對話（一次性；不追蹤獨立 beat，見附錄 B）。
 
 **紅樓**：
 
@@ -248,7 +248,7 @@
 | 欄位     | 規格                                                                                                                           |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Quest ID | `q_redhouse_two_forms`                                                                                                       |
-| 前置     | `beat_redhouse_gate`                                                                                                         |
+| 前置     | `beat_longshan_clue`（透過 §5.1 初次對話門檻已確保，不需要獨立的 gate beat；見附錄 B）                                       |
 | 玩家行動 | 以核可導覽覆疊，找出八角堂與十字樓相接的位置，完成兩個公共空間觀察點。                                                         |
 | 判定     | 到場＋兩個導覽點完成。**景觀拍攝（`rh_public_facade_photo`）為可選**（§13）。不可依賴週末市集、店家、活動或現場人潮。 |
 | 回饋     | 「一棟樓不用選一種樣子；接得起來，就能繼續用。」                                                                               |
@@ -289,7 +289,7 @@
 
 ### 6.1 初次對話
 
-**觸發條件**：完成 `beat_redhouse_clue`，首次與 `bopiliao_keeper` 對話。
+**觸發條件**：完成 `beat_redhouse_clue`，首次與 `bopiliao_keeper` 對話（一次性；不追蹤獨立 beat，見附錄 B）。
 
 **剝皮寮**：
 
@@ -312,7 +312,7 @@
 | 欄位     | 規格                                                                                                                         |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Quest ID | `q_bopiliao_street_lines`                                                                                                  |
-| 前置     | `beat_bopiliao_gate` 且持有 `item_homeward_painting`                                                                     |
+| 前置     | `beat_redhouse_clue`（透過 §6.1 初次對話門檻已確保）且持有 `item_homeward_painting`                                        |
 | 玩家行動 | 在核可的公共視角，將畫中門洞、屋簷、騎樓線條與導覽覆疊對照，完成三個觀察點。                                                 |
 | 判定     | 到場＋三個觀察點完成。**景觀拍攝（`bp_street_facade_photo`）為可選**（§13）。不可要求拍攝塗鴉、特定住戶、招牌或人。 |
 | 回饋     | 「街不是畫在地圖上的線。有人走，才算一條街。」                                                                               |
@@ -546,7 +546,7 @@ MVP 結局只產生**一頁**個人化年代簿短札；它依玩家在主線的
 
 ### 11.3 第二章：西門紅樓〈後來的保管者〉
 
-**初次觸發**：完成 `beat_longshan_clue`，未完成 `beat_redhouse_gate`。
+**初次觸發**：完成 `beat_longshan_clue`，首次與紅樓對話（一次性；見附錄 B）。
 
 ```text
 [紅樓]
@@ -588,7 +588,7 @@ MVP 結局只產生**一頁**個人化年代簿短札；它依玩家在主線的
 
 ### 11.4 第三章：剝皮寮〈畫裡的街〉
 
-**初次觸發**：完成 `beat_redhouse_clue`，未完成 `beat_bopiliao_gate`。
+**初次觸發**：完成 `beat_redhouse_clue`，首次與剝皮寮對話（一次性；見附錄 B）。
 
 ```text
 [剝皮寮]
@@ -755,6 +755,8 @@ beats:
     character_id: bopiliao_keeper
     trigger:
       all:
+        - beat_completed: beat_redhouse_clue   # 修正（見文末附錄 B）：原本漏了這條，
+                                                # 玩家理論上能跳過紅樓直達剝皮寮反轉
         - quest_completed: q_bopiliao_street_lines
         - has_item: item_homeward_painting
         - beat_not_completed: beat_bopiliao_reveal
@@ -847,3 +849,19 @@ photo_evidence:
 ```
 
 每個拍攝點公開啟用前須完成公共視角、安全／無障礙、場域同意、替代示意圖、配額與辨識誤判測試。MVP 仍不做每日重訪或輪播；景觀印記不得成為路線鎖。
+
+---
+
+## 附錄 B：BE#59 匯入審閱發現的前置缺口（2026-08-19 修正）
+
+**發現方式**：`scripts/import_story_arcs.py`（issue #59）匯入本文件 §12 的 `beats:` 區塊時如實轉錄，結果被拿去對照 §5.1／§5.2／§6.1／§6.2 的敘事文字才發現落差——兩處寫的順序關卡不一致。
+
+**落差是什麼**：§5.2、§6.2 的任務前置欄位曾寫 `beat_redhouse_gate`、`beat_bopiliao_gate`，但 §12 的 `beats:` 資料區塊從未定義過這兩個 ID。`beat_bopiliao_reveal` 的 `trigger` 因此只檢查「持有 `item_homeward_painting`」（龍山寺那站發的）與「完成剝皮寮任務」，**沒有**卡「必須先完成紅樓那一站」——資料上玩家理論上能跳過紅樓直達剝皮寮的反轉。
+
+**判定**：這不是匯入器的錯，是本文件自己的草稿內部沒對齊——§12 開頭本來就標了 `review_status: PENDING_HUMAN_REVIEW`，是「資料形狀草案，不是既有 schema」。§5.1／§6.1 的「初次對話」描述的其實是有台詞內容的一次性場景，但那兩場對話從未被建成正式 beat（沒有 `nodes:`、沒有進 `beats:` 清單）——`beat_redhouse_gate`／`beat_bopiliao_gate` 比較像是敘事者想像中「這場對話算不算發生過」的旗標，不是真的資料模型。
+
+**採用方案 B（Lead 決定）**：不把兩個 gate 升格成正式 `StoryBeat`——它們除了「擋一下」之外沒有自己的 `commands`／`nodes`，多兩張表列沒有換到任何敘事內容。改為直接在 `beat_bopiliao_reveal.trigger` 補一條 `beat_completed: beat_redhouse_clue`，堵住那個跳關的資料缺口。
+
+**同步修正**：§5.2、§6.2 的前置欄位改指向真正存在的 beat_id（`beat_longshan_clue`、`beat_redhouse_clue`）；§5.1／§6.1／§11.3／§11.4 拿掉「未完成 `beat_*_gate`」那半句，因為那個 ID 從來不是可查詢的資料狀態。
+
+**未處理、留給未來的內容設計**：§5.1／§6.1（含 §11.3／§11.4 的逐句版本）描述的「初次對話」場景——紅樓「你為什麼留下它？」三選項、剝皮寮「畫裡的人是不是你？」三選項——目前完全沒有對應的 `beat_id`，`beats:` 清單裡不存在它們。這些台詞現在只活在文件裡，沒有進資料庫，也不會被任何執行期邏輯播放。要不要把它們建成正式 beat（各自帶 `nodes:`），是下一次修訂 arc 內容時才要做的決定，不在這次修正範圍內。
