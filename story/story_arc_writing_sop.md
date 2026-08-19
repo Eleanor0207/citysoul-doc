@@ -2,7 +2,7 @@
 
 > 適用對象：任何要寫一條新主線劇情的人（不限 Lead）
 > 這份流程產出的是**劇情內容規格文件**，不是正式資料。正式資料的終點是 `brain.story_arcs` / `brain.story_beats` / `brain.resonance_unlockables`，中間還要經過 Lead 審核與 YAML 轉檔。
-> 姊妹文件：`landmark/地標史實研究範本_建立流程SOP.md`（地標史實）。兩者的關係見 §1。
+> 姊妹文件：`landmark/landmark_research_sop.md`（地標史實）。兩者的關係見 §1。
 
 ---
 
@@ -37,10 +37,21 @@
 | 1 | 這條 arc 涉及的每個地標，`brain.landmark_souls` 都有內容 | 對應的 `landmark/*.md` 範本表格不是空的 | 人格卡沒有史實素材，靈魂講不出這個地方的事 |
 | 2 | 每個地標都有 `active=true` 的人格卡 | 查 `brain.character_personas` | 對話會走 fallback，劇情指令進不了 prompt |
 | 3 | 每個地標都有 `spirits` 記錄 | 查 `public.spirits` | 玩家召喚不到這個靈魂 |
-| 4 | 若用到地理圍欄，該區的行政區界 GeoJSON 已取得 | 查 `brain.districts.boundary` 是否為 NULL | 圍欄判斷恆為 false，入口道具永遠發不出去 |
+| 4 | 該區的行政區界 GeoJSON 已載入 `brain.districts.boundary` | 查該欄是否為 NULL；`scripts/load_districts.py` 會跑 `ST_IsValid` | 圍欄判斷恆為 false，入口道具永遠發不出去 |
 | 5 | 實地勘查已完成（若含拍照任務） | — | 任務點位全是暫定值，之後要整批重寫 |
 
-第 4 項特別容易被當成「之後補」——它不是。`check_player_in_district()` 只認 `boundary` 多邊形，`center_lat/lng/radius_meters` 是給地圖 UI 畫概略圓形用的，補不了這個洞。行政區界 GeoJSON 在政府開放資料平台拿得到，不需要手動描點。
+第 4 項的做法在萬華 arc 定案後確認：**arc 入口用行政區圍欄**，玩家踏進該區就發入口文件，不必先走到入口地標。入口文件的敘事定位屬於整個區，不屬於某一個地標。
+
+前置多半已經齊備，不是從零開始：萬華的 `data/districts/wanhua.geojson`、PostGIS、`app/modules/body/districts.py` 的 `is_point_in_polygon()`、`scripts/load_districts.py` 都在；待做的只有 `check_player_in_district()` 與對外端點。
+
+耗電也不是問題：判定掛在既有的前景輪詢上（SDD §5.5，近距 5 秒／遠距 15 秒），是同一個 GPS fix 上的另一個判定。
+
+寫新 arc 時要注意兩件事：
+
+- **判定在伺服器端**，不下發多邊形給客戶端——資料要下載，而且客戶端判定可偽造
+- **行政區界通常比直覺大**。萬華約 8.85 km²，西門町也在裡面，捷運穿越。萬華 arc 定案採用完整官方區界，接受「去西門逛街就拿到入口文件」——入口文件屬於整個區。新 arc 若要更收斂，`districts.boundary` 存什麼多邊形就用什麼，不必然使用官方區界
+
+⚠️ `ST_Contains` 對剛好落在區界線上的點回傳 `False`（OGC 定義，boundary 不屬於 interior）。萬華 arc **定案不處理**這個情況：玩家不會停在數學線上，下一次輪詢就會判進來。需要含邊界時換 `ST_Covers`，**不是加 buffer**。
 
 ---
 
@@ -90,7 +101,7 @@
 
 ### Step 6｜內容安全對照 + 前置相依表
 
-- §12.2 逐條檢查（宗教場域必做），格式見 `wanhua_district_storyline_aming_v0.2.md` §6
+- §12.2 逐條檢查（宗教場域必做），格式見 `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` §6
 - 硬前置清單（§1 的表格填實際狀態），放文件末尾
 
 ### Step 7｜命名與存放
@@ -164,7 +175,7 @@ MVP 採單一角色內線性排序（`citysoul_data_schema.md` §8）。所以�
 
 必須對到 `brain.characters` 的實際值。寫佔位字串（`char_longshan` 這種）的成本是：之後有人照著文件寫 YAML，匯入時才發現外鍵插不進去。
 
-慣例是 `{landmark_id}_{英文角色定位詞}`，例如已存在的 `longshan_watcher`。
+慣例是 `{地名}_{英文角色定位詞}`——**地名取短的那一段，不重複整個 `spirit_id`**。既有值是 `longshan_watcher`，不是 `longshan_temple_watcher`。
 
 定位詞用**角色在敘事裡的功能**，不用角色暱稱或人名——SDD §7.3.1：角色名可能變更，不得進入技術命名。
 
@@ -176,11 +187,41 @@ MVP 採單一角色內線性排序（`citysoul_data_schema.md` §8）。所以�
 
 ### 5.1 §12.2 逐條檢查（宗教場域必做）
 
-用一張表逐條對照，格式見 `wanhua_district_storyline_aming_v0.2.md` §6。五類禁忌：教義解釋、神祇位階、靈驗與否、占卜結果、宗教比較。
+用一張表逐條對照，格式見 `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` §6。五類禁忌：教義解釋、神祇位階、靈驗與否、占卜結果、宗教比較。
 
 **「敘事背景引用」與「玩家真的在問」是兩回事。** 劇情裡提到「拜月老還願」是背景，不是靈驗判定；但玩家看完劇情後問「那我拜了會不會靈」就是禁忌範圍。劇本本身不需要為此調整，但要在文件裡標出來，讓腦袋 B4/B5 的攔截邏輯知道要分辨這兩種情境。
 
-### 5.2 兩個最常滑進去的地方
+### 5.2 稱謂：城市靈魂用「祂」
+
+指稱城市靈魂一律用**祂**，不用「牠」，也不用「它」。
+
+「牠」是動物用字，「它」是無生命物件。城市靈魂是地標的擬人化集體意識——寫成
+「牠」會把一個有記憶、會思念的存在降級成生物，而那跟整個世界觀的前提相反。
+
+這條規則涵蓋所有文件：劇情敘事指令、人格卡、研究記錄、以及程式碼註解。玩家看
+不到 `narrative_directive` 的原文，但**模型看得到**，用錯字會影響它對角色的定位。
+
+### 5.3 不寫括號裡的舞台指示
+
+角色講的每一句話都是**直接說出口的話**，不是劇本。不要寫這種東西：
+
+```text
+❌ （城市靈魂安靜地看著你）……這件事我還沒想清楚。
+✅ 這件事我還沒想清楚。
+```
+
+兩個理由。**技術上**：這些文字會原樣送進 TTS 被唸出來，玩家會聽到有人念「左括號
+城市靈魂安靜地看著你右括號」。**敘事上**：括號是把鏡頭拉遠去描述角色，而這個
+遊戲的前提是玩家正站在祂面前跟祂說話——描述破壞了在場感。
+
+這條規則涵蓋所有玩家看得到的文字：`canned_greetings`、安全婉拒台詞、各種
+fallback、解鎖敘事的預寫版本。
+
+**也要寫進 `narrative_directive`。** 模型會把人格卡的 `speech_style`（「溫和、
+不疾不徐」）當成要演出來的東西，於是每則回應都以「（微風輕拂，聲音溫和而
+悠長……）」開頭。那是實際發生過的事，修法是在 prompt 裡明講不要。
+
+### 5.4 兩個最常滑進去的地方
 
 | 風險 | 為什麼會發生 | 怎麼改 |
 |---|---|---|
@@ -189,13 +230,13 @@ MVP 採單一角色內線性排序（`citysoul_data_schema.md` §8）。所以�
 
 兩者都是 SDD §3 Avoid 清單的直接違反，敘事審查一定會擋。**在草案階段就改，不要等審核退件**——它們通常只影響「怎麼講這句話」，不影響劇情骨架，早改成本極低。
 
-### 5.3 目前沒有審核欄位
+### 5.5 目前沒有審核欄位
 
 `character_personas` 有 `active` / `reviewed_by` / `reviewed_at`，改人格要 append 新版本並重新審核。
 
 **`story_beats` 與 `resonance_unlockables` 沒有這三個欄位**（`citysoul_data_schema.md` §8/§9 的設計如此）——匯入就直接生效。但 `narrative_directive` 同樣會注入 prompt，內容治理風險與人格卡同級。
 
-在 schema 補上之前，審核只能靠流程：**Lead 過目 → 才產 YAML → 才跑匯入器**。要不要補欄位是待決事項，見 `wanhua_district_storyline_aming_v0.2.md` §9.2。
+在 schema 補上之前，審核只能靠流程：**Lead 過目 → 才產 YAML → 才跑匯入器**。要不要補欄位是待決事項，見 `wanhua_district_storyline_aming_no_landmark_photo_v0.2.md` §9.2。
 
 ---
 

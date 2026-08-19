@@ -1,6 +1,6 @@
 # 城市靈魂 — Phase 1 交付清單與驗收標準
 
-> **對應文件**：`SDD_v2.1_Unity_3D.md` §13.3
+> **對應文件**：`SDD_v2.2_Unity_3D.md` §13.3
 > **階段**：Phase 1「骨架（上）」
 > **期程**：3 個 Sprint × 3 天 = **9 個工作天**
 > **驗收人**：🧭 Lead
@@ -191,10 +191,11 @@ Phase 1 的 EncounterScene **不需要 3DoF 定向、不需要對嘴、不需要
 □ 四組 clip 皆可 loop：Idle / Talking / Wave / Turn
 □ Talking clip 長度 ≥ 10 秒
 □ 面數 15,000–20,000 tris（★不得偷懶做低面數）
-□ 身高量測 1.60m，腳底貼齊 y=0，面向 +Z
+□ 匯入後 Scale Factor = 1，模型高度 = 該角色設定身高（±5 cm）
+□ 腳底貼齊 y=0，面向 +Z
 □ 材質 slot 為 Body / Hair / Eyes 三個
 □ prefab 節點路徑符合 §7.3.1 結構
-□ Addressables key = spirit_longshan
+□ Addressables key = spirit_{spirit_id}（例：spirit_longshan_temple）
 ```
 
 ### 3.2 F1 概念設計交付
@@ -267,7 +268,7 @@ Phase 1 的 EncounterScene **不需要 3DoF 定向、不需要對嘴、不需要
 | LD-3 | 龍山寺召喚點座標、`bearing_deg` 初值 | Sprint 1.2（實地勘查後） |
 | LD-4 | 龍山寺人格卡 v0 內容                   | Sprint 1.2               |
 | LD-5 | 中階 Android 基準機型定義              | Sprint 1.1               |
-| LD-6 | 角色身高基準確認（暫定 1.60m）         | Sprint 1.1               |
+| LD-6 | 角色尺度規格（1 unit = 1 m；身高逐角色定，見 SDD §7.3.2） | Sprint 1.1 |
 | LD-7 | 契約凍結宣告                           | Sprint 1.2               |
 
 ### 4.4 龍山寺實地勘查（全員同行，Sprint 1.2）

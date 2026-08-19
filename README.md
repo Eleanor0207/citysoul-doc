@@ -11,27 +11,33 @@
 
 ## 文件
 
-| 檔案 / 目錄 | 用途 |
+| 檔案 | 用途 |
 |---|---|
-| **[`SDD_v2.1_Unity_3D.md`](SDD_v2.1_Unity_3D.md)** | **系統設計文件，單一權威。** 與任何其他文件衝突時以此為準 |
-| [`SDD-v2.1-Overview.html`](SDD-v2.1-Overview.html) | 架構總覽（視覺化版本，用瀏覽器開） |
-| [`citysoul_data_schema.md`](citysoul_data_schema.md) | PostgreSQL 完整 schema 與後端邏輯參考 |
-| [`citysoul_map_dev_spec.md`](citysoul_map_dev_spec.md) | 雙層地圖圖磚系統與 UI 開發規格 |
-| [`landmarks/`](landmarks/) | 11 大地標正式 YAML 定義檔（史實、治理禁忌、常見誤解校正庫） |
-| [`landmark/`](landmark/) | 地標史實研究記錄範本（10 份覆核完畢），含建立流程 SOP 與 Lead 決策 |
-| [`study/`](study/) | 3D 角色產線標準手冊（Meshy to Unity SOP、Blender 整合指南、資產驗收檢驗表） |
-| [`style/`](style/) | 地圖畫面 Wireframe、風格圖磚參考與 UI 動畫展示 |
-| [`dev_status/`](dev_status/) | Phase 1 交付驗收標準、七階段排程與 GitHub Issue 對應表 |
-| [`character/`](character/) | 角色設定與人格卡內容（待撰寫） |
-| [`story/`](story/) | 主線劇情（story arc）內容與撰寫 SOP |
-| [`event/`](event/) | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
-| [`meshyai_新文化運動/`](meshyai_新文化運動/) | 臺灣新文化運動紀念館靈魂角色 SDD 合規交付資產（FBX + Albedo/Normal/ORM 貼圖） |
-| [`exports/`](exports/) | 匯出資產統一收錄（newculture / archivist） |
+| **`SDD_v2.2_Unity_3D.md`** | **系統設計文件，單一權威。** 與任何其他文件衝突時以此為準 |
+| ~~`SDD_v2.1_Unity_3D.md`~~ | **已廢止**，由 v2.2 取代。章節編號未變，僅供追溯 |
+| `SDD-v2.1-Overview.html` | 架構總覽（視覺化版本，用瀏覽器開）。⚠️ 內容仍為 v2.1，未含 §18–§20 |
+| `citysoul_data_schema.md` | PostgreSQL 完整 schema 與後端邏輯參考（schema 專用權威） |
+| `city_soul_AR_landmark_recognition.md` | B13 地標視覺辨識技術方案（SDD 未涵蓋其細節，現行權威） |
+| `dev_status/` | Phase 交付清單、排程對應表、進度快照 |
+| `landmark/` | 地標史實研究記錄（11 個地標，內容已填並經 Lead 覆核），含建立流程 SOP 與決策摘要 |
+| `character/` | 角色設定與人格卡內容 |
+| `story/` | 主線劇情（story arc）內容與撰寫 SOP |
+| `event/` | B9 當日情境素材（見 SDD §20.1，待撰寫）。主線劇情不放這裡，見 `story/` |
+| `study/` | 3D 角色產線標準手冊（Meshy to Unity SOP、Blender 整合指南、資產驗收檢驗表） |
+| `meshyai_新文化運動/` | 臺灣新文化運動紀念館靈魂角色 SDD 合規交付資產（FBX + Albedo/Normal/ORM 貼圖） |
+| `exports/` | 匯出資產統一收錄（newculture / archivist） |
+| `archive/` | **已封存的 v1 文件。** 內容已吸收進 SDD §18／§19，僅供追溯，**不得作為實作依據** |
+
+## v2.2 有什麼不一樣
+
+**業務規則與驗收標準搬進 SDD 了。** 在此之前它們住在 `citysoul-backend/docs/`，而那個目錄被 `.gitignore` 排除——等於一半的權威只存在單一台機器上。現在在 SDD §18（業務規則）與 §19（驗收標準）。
+
+其餘變更見 SDD §0.1 與 §1.1。四項會影響實作：任務失敗語意（憑證過期不再算失敗）、人格卡注入硬規則（安全）、引導提問 B14、內容生產管線 §20。
 
 ## ⚠️ 接手前先讀 SDD §1
 
 專案已經換過**三次**技術棧：Unity → Flutter 2.5D → **Unity 3D**。舊文件仍散落在
-`citysoul-backend/docs/`，照著它們實作是這個專案最容易浪費一整個 Sprint 的方式。
+`citysoul-backend/docs/` 與本 repo 的 `archive/`，照著它們實作是這個專案最容易浪費一整個 Sprint 的方式。
 
 SDD §1 是決策推翻對照表，先讀它。幾個已經害過人的地方：
 
@@ -41,6 +47,7 @@ SDD §1 是決策推翻對照表，先讀它。幾個已經害過人的地方：
 | F3「Rive/Lottie 動畫實作」 | **作廢**，改為 Mixamo 綁骨 ＋ Blender shape key |
 | F5「播放後端給的 viseme 時間軸」 | **職責反轉**，改為客戶端 uLipSync 即時分析（Google Cloud TTS 不提供 viseme 時間軸，原設計不可實作） |
 | B10「TTS ＋ viseme 時間軸」 | **縮減**，只回 `audio_url` |
+| `archive/` 裡的「當天最多失敗重試 3 次」 | **v2.2 移除**，見 SDD §18.4.2 |
 
 ## 為什麼文件獨立成一個 repo
 

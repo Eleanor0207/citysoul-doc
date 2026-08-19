@@ -461,6 +461,8 @@ CREATE TABLE brain.landmark_souls (
     founding_facts    JSONB NOT NULL,   -- [{year, event, detail}, ...]
     key_events        JSONB,
     cultural_significance TEXT,
+    -- 常見誤解與更正。見下方「為什麼獨立成欄」
+    common_misconceptions JSONB,        -- [{misconception, correction, say_instead, source}, ...]
     updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -509,6 +511,18 @@ CREATE TABLE brain.canned_greetings (
 
 CREATE INDEX ix_canned_greetings_persona ON brain.canned_greetings(character_id, version);
 ```
+
+### `common_misconceptions` 為什麼獨立成欄,不併進 `key_events`
+
+`key_events` 講「發生過什麼」。三層設定是**整段注入 prompt**(不走 RAG),所以列在裡面的每一條,模型都會當成可以直接講的事實。
+
+誤解是**負面內容**。把「蔣渭水曾被關在現存這棟建築裡」寫進事實列表,即使旁邊註明它是錯的,模型也沒有可靠的訊號知道要否定它——很可能就直接講出來了。分開存放,`prompt_builder` 才能用不同模板渲染:正面事實列成「你知道這些」,誤解列成「這些是常見誤解,被問到時這樣講」。
+
+**`say_instead` 不是 `correction` 的重複。** `correction` 說明事實為什麼錯,`say_instead` 給角色一句站得住的說法。「這裡不是刑場」講得不好會變成在糾正玩家,而怎麼開口正是這類條目真正的難處。
+
+**跟 `character_personas.taboos` 是兩件事**:taboos 說「不談什麼」,這裡說「談的時候不能講錯」。也因此它屬於**史實層而不是人格層**——同一條事實更正在人格改版時不會變,放進有版本的人格表等於每改一版就要複製一次,遲早有一版漏掉。
+
+目前已知一條(來源:`landmark/lead_decisions_v3.md`):蔣渭水沒有被關在臺灣新文化運動紀念館現存的建築裡——他 1931 年逝世,現存建築 1933 年完工。
 
 **為什麼多一張 `brain.characters`**:人格有版本,主鍵是 `(character_id, version)`。`spirits`、`resonance_unlockables`、`story_beats` 要指的是「這個角色」而不是「這個角色的第 3 版」,需要一個穩定的單欄位主鍵可以引用。沒有這張表的話,那些外鍵無法成立。
 
