@@ -25,6 +25,8 @@
 | [`character/`](character/) | 角色設定與人格卡內容（待撰寫） |
 | [`story/`](story/) | 主線劇情（story arc）內容與撰寫 SOP |
 | [`event/`](event/) | B9 當日情境素材（待撰寫）。主線劇情不放這裡，見 `story/` |
+| [`meshyai_新文化運動/`](meshyai_新文化運動/) | 臺灣新文化運動紀念館靈魂角色 SDD 合規交付資產（FBX + Albedo/Normal/ORM 貼圖） |
+| [`exports/`](exports/) | 匯出資產統一收錄（newculture / archivist） |
 
 ## ⚠️ 接手前先讀 SDD §1
 

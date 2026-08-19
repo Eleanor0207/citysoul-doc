@@ -79,8 +79,10 @@ spirit_root                 (Empty 根節點，掛載 Animator + uLipSync)
 ## 5. 驗收完成資產紀錄
 
 ### 臺灣新文化運動紀念館靈魂角色
-- **目錄**：`/Users/doudou/Downloads/meshyai_新文化運動`
-- **FBX**：[`Spirit_NewCulture_SDD_Compliant.fbx`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_SDD_Compliant.fbx) (1.82 MB)
-- **Blend 檔**：[`NewCulture_SDD_Final.blend`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/NewCulture_SDD_Final.blend)
-- **ORM 貼圖**：[`Spirit_NewCulture_ORM.png`](file:///Users/doudou/Downloads/meshyai_%E6%96%B0%E6%96%87%E5%8C%96%E9%81%8B%E5%8B%95/Spirit_NewCulture_ORM.png) (2048×2048)
+- **資產目錄**：[`meshyai_新文化運動/`](../meshyai_新文化運動/)
+- **FBX**：[`Spirit_NewCulture_SDD_Compliant.fbx`](../meshyai_新文化運動/Spirit_NewCulture_SDD_Compliant.fbx) (1.75 MB)
+- **Base Color 貼圖**：[`Spirit_NewCulture_Albedo.png`](../meshyai_新文化運動/Spirit_NewCulture_Albedo.png) (2048×2048)
+- **Normal 貼圖**：[`Spirit_NewCulture_Normal.png`](../meshyai_新文化運動/Spirit_NewCulture_Normal.png) (2048×2048)
+- **ORM 貼圖**：[`Spirit_NewCulture_ORM.png`](../meshyai_新文化運動/Spirit_NewCulture_ORM.png) (2048×2048)
 - **交付檢驗結果**：11 項規格全數通過 ✅
+
